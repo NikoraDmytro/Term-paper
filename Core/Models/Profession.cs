@@ -9,5 +9,5 @@ public class Profession
     public string Name { get; set; } = String.Empty;
     
     [Required(ErrorMessage = "Profession must be related to a hospital unit")]
-    public HospitalUnit RelatedHospitalUnit { get; set; } = new HospitalUnit();
+    public HospitalUnit HospitalUnit { get; set; } = new HospitalUnit();
 }
