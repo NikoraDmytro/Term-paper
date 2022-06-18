@@ -14,7 +14,7 @@ public class Medicine
     [Required(ErrorMessage = "Medicine quantity is a required field!")]
     [Range(0, Int16.MaxValue, ErrorMessage = "Quantity of medicines in stock must be a logically justified number!")]
     public short QuantityInStock { get; set; }
-    
+
     [AllowNull]
-    public Guid InterchangeabilityGroup { get; set; }
+    public short? InterchangeabilityGroup { get; set; } = null;
 }

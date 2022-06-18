@@ -18,6 +18,9 @@ public class HospitalWard
     [Range(0, short.MaxValue, ErrorMessage = "The quantity of beds in the hospital ward must be a logically justified number!")]
     public short BedsQuantity { get; set; }
     
+    [NotMapped]
+    public int Occupancy => Patients.Count;
+    
     public List<Patient> Patients
     {
         get => _patients;
@@ -32,6 +35,9 @@ public class HospitalWard
         }
     }
 
-    [NotMapped]
-    public int Occupancy => Patients.Count;
+    [ForeignKey(nameof(HospitalUnit))]
+    [Required(ErrorMessage = "Unit where hospital ward is located is a required field!")]
+    public string HospitalUnitName { get; set; } = String.Empty;
+    
+    public HospitalUnit HospitalUnit { get; set; } = new HospitalUnit();
 }
