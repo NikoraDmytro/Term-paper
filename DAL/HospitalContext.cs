@@ -17,21 +17,19 @@ public class HospitalContext: DbContext
 
         modelBuilder.ApplyConfiguration(new HospitalUnitsConfiguration());
         modelBuilder.ApplyConfiguration(new ProfessionsConfiguration());
-        modelBuilder.ApplyConfiguration(new HospitalUnitsHeadsConfiguration());
         modelBuilder.ApplyConfiguration(new DoctorsConfiguration());
         modelBuilder.ApplyConfiguration(new HospitalWardsConfiguration());
         modelBuilder.ApplyConfiguration(new MedicinesConfiguration());
         modelBuilder.ApplyConfiguration(new IllnessesConfiguration());
         modelBuilder.ApplyConfiguration(new TreatmentsConfiguration());
     }
-    
-    public DbSet<Doctor> Doctors { get; set; }
-    public DbSet<Patient> Patients { get; set; }
-    public DbSet<Illness> Illnesses { get; set; }
-    public DbSet<Medicine> Medicines { get; set; }
-    public DbSet<Treatment> Treatments { get; set; }
-    public DbSet<Profession> Professions { get; set; }
-    public DbSet<HospitalWard> HospitalWards { get; set; }
-    public DbSet<HospitalUnit> HospitalUnits { get; set; }
-    public DbSet<HospitalUnitHead> HospitalUnitHeads { get; set; }
+
+    public DbSet<Doctor>? Doctors { get; set; }
+    public DbSet<Patient>? Patients { get; set; }
+    public DbSet<Illness>? Illnesses { get; set; }
+    public DbSet<Medicine>? Medicines { get; set; }
+    public DbSet<Treatment>? Treatments { get; set; }
+    public DbSet<Profession>? Professions { get; set; }
+    public DbSet<HospitalWard>? HospitalWards { get; set; }
+    public DbSet<HospitalUnit>? HospitalUnits { get; set; }
 }

@@ -1,4 +1,5 @@
 using DAL;
+using DALAbstractions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,7 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader());
 });
 
-string connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
+string connectionString = builder.Configuration.GetConnectionString("PCConnection");
 
 builder.Services.AddDbContext<HospitalContext>(options =>
 {
@@ -20,6 +21,9 @@ builder.Services.AddDbContext<HospitalContext>(options =>
             new Version(8, 0, 29)));
 });
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -27,8 +31,9 @@ var app = builder.Build();
 app.UseCors("CorsPolicy");
 app.UseDeveloperExceptionPage();
 
+app.UseStaticFiles();
+
 app.UseRouting();
-app.UseHttpsRedirection();
 
 app.UseEndpoints(endpoints =>
 {
