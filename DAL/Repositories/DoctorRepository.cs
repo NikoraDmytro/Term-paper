@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 using CORE.Models;
 using DALAbstractions.IRepositories;
 
@@ -11,9 +9,18 @@ namespace DAL.Repositories
         {
         }
 
-        public IEnumerable<Doctor> GetAllDoctors()
+        public IEnumerable<Doctor> GetDoctors(string unitName)
         {
-            return FindAll().OrderBy(doctor => doctor.Name).ToList();
+            return FindByCondition(d => d.HospitalUnitName == unitName).OrderBy(d => d.Name).ToList();
+        }
+
+        public Doctor? GetDoctor(string unitName, string name, string surname)
+        {
+            return FindByCondition(d => 
+                       d.Name.Equals(name) &&
+                       d.Surname.Equals(surname) &&
+                       d.HospitalUnitName.Equals(unitName))
+                .SingleOrDefault();
         }
     }
 }

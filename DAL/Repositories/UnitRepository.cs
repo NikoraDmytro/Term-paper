@@ -13,5 +13,9 @@ namespace DAL.Repositories
         {
             return FindAll().OrderBy(unit => unit.Name).ToList();
         }
+
+        public HospitalUnit? GetUnit(string name) => 
+            FindByCondition(unit => unit.Name == name)
+            .SingleOrDefault();
     }
 }

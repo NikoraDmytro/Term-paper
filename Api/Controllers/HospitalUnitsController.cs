@@ -7,15 +7,10 @@ namespace Api.Controllers
 {
     [Route("api/units")]
     [ApiController]
-    public class HospitalUnitsController : ControllerBase
+    public class HospitalUnitsController: Base
     {
-        private readonly IUnitOfWork _repository;
-        private readonly IMapper _mapper;
-
-        public HospitalUnitsController(IUnitOfWork repository, IMapper mapper)
+        public HospitalUnitsController(IUnitOfWork repository, IMapper mapper): base(repository, mapper)
         {
-            _mapper = mapper;
-            _repository = repository;
         }
 
         [HttpGet]
@@ -26,6 +21,21 @@ namespace Api.Controllers
             var hospitalUnitsDto = _mapper.Map<IEnumerable<HospitalUnitDto>>(hospitalUnits);
 
             return Ok(hospitalUnitsDto);
+        }
+
+        [HttpGet("{name}")]
+        public IActionResult GetUnit(string name)
+        {
+            var hospitalUnit = _repository.HospitalUnit.GetUnit(name);
+
+            if (hospitalUnit == null)
+            {
+                return NotFound($"Hospital unit with name {name} doesn't exist!");
+            }
+
+            var hospitalUnitDto = _mapper.Map<HospitalUnitDto>(hospitalUnit);
+
+            return Ok(hospitalUnitDto);
         }
     }
 }
