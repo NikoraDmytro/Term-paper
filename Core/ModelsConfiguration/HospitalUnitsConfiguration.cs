@@ -2,21 +2,22 @@ using CORE.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CORE.ModelsConfiguration;
-
-public class HospitalUnitsConfiguration: IEntityTypeConfiguration<HospitalUnit>
+namespace CORE.ModelsConfiguration
 {
-    public void Configure(EntityTypeBuilder<HospitalUnit> builder)
+    public class HospitalUnitsConfiguration : IEntityTypeConfiguration<HospitalUnit>
     {
-        builder.HasData(
-            new 
-            {
-                Name = "Хірургічне відділення",
-            }, 
-            new 
-            {
-                Name = "Пульмонологічне відділення",
-            }
-        );
+        public void Configure(EntityTypeBuilder<HospitalUnit> builder)
+        {
+            builder.HasData(
+                new
+                {
+                    Name = "Хірургічне відділення",
+                },
+                new
+                {
+                    Name = "Пульмонологічне відділення",
+                }
+            );
+        }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System.Linq.Expressions;
 
-namespace DALAbstractions.IRepositories;
-
-public interface IGenericRepository<T>
+namespace DALAbstractions.IRepositories
 {
-    IQueryable<T> FindAll();
-    IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
-    void Create(T entity);
-    void Update(T entity);
-    void Delete(T entity);
+    public interface IGenericRepository<T>
+    {
+        IQueryable<T> FindAll();
+        IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
+        void Create(T entity);
+        void Update(T entity);
+        void Delete(T entity);
+    }
 }

@@ -1,8 +1,9 @@
 using CORE.Models;
 
-namespace DALAbstractions.IRepositories;
-
-public interface IDoctorRepository
+namespace DALAbstractions.IRepositories
 {
-    public IEnumerable<Doctor> GetAllDoctors();
+    public interface IDoctorRepository
+    {
+        public IEnumerable<Doctor> GetAllDoctors();
+    }
 }

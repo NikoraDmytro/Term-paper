@@ -1,5 +1,8 @@
+using System.Net;
+using Api;
 using DAL;
 using DALAbstractions;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,10 +31,28 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseCors("CorsPolicy");
 app.UseDeveloperExceptionPage();
 
+app.UseExceptionHandler(appError =>
+{
+    appError.Run(async context =>
+    {
+        var errorStatusCode = (int)HttpStatusCode.InternalServerError;
+
+        context.Response.StatusCode = errorStatusCode;
+        context.Response.ContentType = "application/json";
+
+        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+        if (contextFeature != null)
+        {
+            await context.Response.WriteAsync(
+                new ErrorDetails("Internal Server Error.", errorStatusCode).ToString());
+        }
+    });
+});
 app.UseStaticFiles();
+
+app.UseCors("CorsPolicy");
 
 app.UseRouting();
 

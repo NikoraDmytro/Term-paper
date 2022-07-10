@@ -1,17 +1,18 @@
 using AutoMapper;
 using CORE.Models;
-using DAL.DataTransferObjects;
+using Api.DataTransferObjects;
 
-namespace Api;
-
-public class MappingProfile: Profile
+namespace Api
 {
-    public MappingProfile()
+    public class MappingProfile : Profile
     {
-        CreateMap<HospitalUnit, HospitalUnitDto>()
-            .ForMember(unit => unit.WorkforceSize,
-                option => option.MapFrom(x => x.Doctors.Count))
-            .ForMember(unit => unit.WardsNumber,
-                option => option.MapFrom(x => x.HospitalWards.Count));
+        public MappingProfile()
+        {
+            CreateMap<HospitalUnit, HospitalUnitDto>()
+                .ForMember(unit => unit.WorkforceSize,
+                    option => option.MapFrom(x => x.Doctors.Count))
+                .ForMember(unit => unit.WardsNumber,
+                    option => option.MapFrom(x => x.HospitalWards.Count));
+        }
     }
 }
