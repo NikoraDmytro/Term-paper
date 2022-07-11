@@ -15,14 +15,16 @@ namespace Api
                 .ForMember(unit => unit.WardsNumber,
                     option => 
                         option.MapFrom(x => x.HospitalWards.Count));
+            
+            CreateMap<HospitalUnitForCreationDto, HospitalUnit>();
 
             CreateMap<Doctor, DoctorDto>()
                 .ForMember(d => d.Profession,
-                    option => 
+                    option =>
                         option.MapFrom(x => x.ProfessionName))
-                .ForMember(d => d.FullName, 
-                    option => 
-                        option.MapFrom(x => 
+                .ForMember(d => d.FullName,
+                    option =>
+                        option.MapFrom(x =>
                             string.Join(' ', x.Surname, x.Name, x.Patronymic)));
         }
     }

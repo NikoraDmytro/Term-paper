@@ -17,5 +17,7 @@ namespace DAL.Repositories
         public HospitalUnit? GetUnit(string name) => 
             FindByCondition(unit => unit.Name == name)
             .SingleOrDefault();
+
+        public void CreateUnit(HospitalUnit hospitalUnit) => Create(hospitalUnit);
     }
 }

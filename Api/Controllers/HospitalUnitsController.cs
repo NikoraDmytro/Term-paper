@@ -1,6 +1,7 @@
 using AutoMapper;
 using DALAbstractions;
 using Api.DataTransferObjects;
+using CORE.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -23,7 +24,7 @@ namespace Api.Controllers
             return Ok(hospitalUnitsDto);
         }
 
-        [HttpGet("{name}")]
+        [HttpGet("{name}", Name = "HospitalUnitByName")]
         public IActionResult GetUnit(string name)
         {
             var hospitalUnit = _repository.HospitalUnit.GetUnit(name);
@@ -36,6 +37,19 @@ namespace Api.Controllers
             var hospitalUnitDto = _mapper.Map<HospitalUnitDto>(hospitalUnit);
 
             return Ok(hospitalUnitDto);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUnit([FromBody]HospitalUnitForCreationDto hospitalUnitForCreation)
+        {
+            var hospitalUnit = _mapper.Map<HospitalUnit>(hospitalUnitForCreation);
+            
+            _repository.HospitalUnit.CreateUnit(hospitalUnit);
+            _repository.Save();
+
+            var createdHospitalUnit = _mapper.Map<HospitalUnitDto>(hospitalUnit);
+
+            return CreatedAtRoute("HospitalUnitByName", new { Name = createdHospitalUnit.Name }, createdHospitalUnit);
         }
     }
 }
