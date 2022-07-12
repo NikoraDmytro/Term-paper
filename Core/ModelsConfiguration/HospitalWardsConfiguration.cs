@@ -13,37 +13,37 @@ public class HospitalWardsConfiguration: IEntityTypeConfiguration<HospitalWard>
                 {
                     BedsQuantity = (short)15,
                     Number = 101,
-                    HospitalUnitName = "Хірургічне відділення"
+                    HospitalUnitId = 1
                 },
                 new
                 {
                     BedsQuantity = (short)15,
                     Number = 102,
-                    HospitalUnitName = "Хірургічне відділення"
+                    HospitalUnitId = 1
                 },
                 new
                 {
                     BedsQuantity = (short)10,
                     Number = 103,
-                    HospitalUnitName = "Хірургічне відділення"
+                    HospitalUnitId = 1
                 },
                 new
                 {
                     BedsQuantity = (short)10,
                     Number = 104,
-                    HospitalUnitName = "Хірургічне відділення"
+                    HospitalUnitId = 1
                 },
                 new
                 {
                     BedsQuantity = (short)10,
                     Number = 201,
-                    HospitalUnitName = "Пульмонологічне відділення"
+                    HospitalUnitId = 2
                 },
                 new
                 {
                     BedsQuantity = (short)8,
                     Number = 202,
-                    HospitalUnitName = "Пульмонологічне відділення"
+                    HospitalUnitId = 2
                 }
             );
         }

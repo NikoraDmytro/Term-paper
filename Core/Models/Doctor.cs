@@ -12,12 +12,7 @@ namespace CORE.Models
         [ForeignKey(nameof(Profession))]
         [Required(ErrorMessage = "Doctor's profession is a required field!")]
         public string ProfessionName { get; set; } = String.Empty;
-
-        [ForeignKey("HospitalUnit")]
-        [Required(ErrorMessage = "Hospital unit name is a required field!")]
-        public string HospitalUnitName { get; set; } = String.Empty;
-
-        public Profession Profession { get; set; } = new Profession();
-        public HospitalUnit HospitalUnit { get; set; } = new HospitalUnit();
+        
+        public Profession? Profession { get; set; } = new Profession();
     }
 }

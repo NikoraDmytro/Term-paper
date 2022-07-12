@@ -13,12 +13,12 @@ namespace CORE.ModelsConfiguration
                 new
                 {
                     Name = "Хірург",
-                    HospitalUnitName = "Хірургічне відділення"
+                    HospitalUnitId = 1
                 },
                 new
                 {
                     Name = "Пульмонолог",
-                    HospitalUnitName = "Пульмонологічне відділення"
+                    HospitalUnitId = 2
                 }
             );
         }

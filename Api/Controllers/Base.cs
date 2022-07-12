@@ -7,13 +7,13 @@ namespace Api.Controllers
     [ApiController]
     public abstract class Base : ControllerBase
     {
-        protected readonly IUnitOfWork _repository;
-        protected readonly IMapper _mapper;
+        protected readonly IMapper Mapper;
+        protected readonly IUnitOfWork Repository;
 
         protected Base(IUnitOfWork repository, IMapper mapper)
         {
-            _mapper = mapper;
-            _repository = repository;
+            Mapper = mapper;
+            Repository = repository;
         }
     }
 }

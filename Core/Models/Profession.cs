@@ -11,7 +11,7 @@ namespace CORE.Models
 
         [ForeignKey(nameof(HospitalUnit))]
         [Required(ErrorMessage = "Profession must be related to a hospital unit!")]
-        public string HospitalUnitName { get; set; } = String.Empty;
+        public int HospitalUnitId { get; set; }
 
         public HospitalUnit HospitalUnit { get; set; } = new HospitalUnit();
     }

@@ -17,7 +17,7 @@ namespace CORE.ModelsConfiguration
                     Experience = (byte)29,
                     BirthDate = new DateTime(1970, 08, 18),
                     ProfessionName = "Хірург",
-                    HospitalUnitName = "Хірургічне відділення",
+                    HospitalUnitId = 1,
                 },
                 new
                 {
@@ -27,7 +27,7 @@ namespace CORE.ModelsConfiguration
                     Experience = (byte)28,
                     BirthDate = new DateTime(1971, 08, 18),
                     ProfessionName = "Хірург",
-                    HospitalUnitName = "Хірургічне відділення",
+                    HospitalUnitId = 1,
                 },
                 new
                 {
@@ -37,7 +37,7 @@ namespace CORE.ModelsConfiguration
                     Experience = (byte)44,
                     BirthDate = new DateTime(1955, 08, 18),
                     ProfessionName = "Хірург",
-                    HospitalUnitName = "Хірургічне відділення",
+                    HospitalUnitId = 1,
                 },
                 new
                 {
@@ -47,7 +47,7 @@ namespace CORE.ModelsConfiguration
                     Experience = (byte)24,
                     BirthDate = new DateTime(1976, 08, 18),
                     ProfessionName = "Пульмонолог",
-                    HospitalUnitName = "Пульмонологічне відділення"
+                    HospitalUnitId = 2
                 },
                 new
                 {
@@ -57,7 +57,7 @@ namespace CORE.ModelsConfiguration
                     Experience = (byte)17,
                     BirthDate = new DateTime(1978, 08, 18),
                     ProfessionName = "Пульмонолог",
-                    HospitalUnitName = "Пульмонологічне відділення"
+                    HospitalUnitId = 2
                 }
             );
         }

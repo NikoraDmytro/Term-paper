@@ -1,24 +1,50 @@
-using DAL.Repositories;
+using CORE.Models;
 using DALAbstractions;
-using DALAbstractions.IRepositories;
+using DAL.Repositories;
 
 namespace DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private HospitalContext _context;
-        private IUnitRepository? _unitRepository;
-        private IDoctorRepository? _doctorRepository;
+        private readonly HospitalContext _context;
+        
+        private GenericRepository<Doctor>? _doctorRepository;
+        private GenericRepository<HospitalUnit>? _unitRepository;
 
         public UnitOfWork(HospitalContext context)
         {
             _context = context;
         }
 
-        public IUnitRepository HospitalUnit => _unitRepository ??= new UnitRepository(_context);
+        public GenericRepository<HospitalUnit> HospitalUnit => 
+            _unitRepository ??= new GenericRepository<HospitalUnit>(_context);
+        public GenericRepository<Doctor> Doctor => 
+            _doctorRepository ??= new GenericRepository<Doctor>(_context);
 
-        public IDoctorRepository Doctor => _doctorRepository ??= new DoctorRepository(_context);
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+        
+        private bool _disposed = false;
 
-        public void Save() => _context.SaveChanges();
+        private void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

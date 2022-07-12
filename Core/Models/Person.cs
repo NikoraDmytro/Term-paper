@@ -20,6 +20,11 @@ namespace CORE.Models
         public DateTime BirthDate { get; set; }
 
         [NotMapped]
+        public string FullName => Patronymic == String.Empty ?
+            $"{Surname} {Name}" : 
+            $"{Surname} {Name} {Patronymic}";
+        
+        [NotMapped]
         public int Age => DateTime.Today.Year - BirthDate.Year;
     }
 }

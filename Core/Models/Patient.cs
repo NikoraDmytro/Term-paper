@@ -6,9 +6,7 @@ namespace CORE.Models
     {
         [Timestamp]
         public DateTime DateOfAdmission { get; set; }
-
-        public DateTime DateOfDischarge { get; set; }
-
+        
         [Required(ErrorMessage = "Diagnosis is required!")]
         public Illness Diagnosis { get; set; } = new Illness();
 

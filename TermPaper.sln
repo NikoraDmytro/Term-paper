@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALAbstractions", "DALAbstractions\DALAbstractions.csproj", "{A209517F-4FA9-4C45-811D-B4C520A56EBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{F2C0120B-9265-44E4-B37D-872D61034674}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLLAbstractions", "BLLAbstractions\BLLAbstractions.csproj", "{B941D8B1-095D-4034-A831-9CC20D6A5692}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{A209517F-4FA9-4C45-811D-B4C520A56EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A209517F-4FA9-4C45-811D-B4C520A56EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A209517F-4FA9-4C45-811D-B4C520A56EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C0120B-9265-44E4-B37D-872D61034674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C0120B-9265-44E4-B37D-872D61034674}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C0120B-9265-44E4-B37D-872D61034674}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C0120B-9265-44E4-B37D-872D61034674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B941D8B1-095D-4034-A831-9CC20D6A5692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B941D8B1-095D-4034-A831-9CC20D6A5692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B941D8B1-095D-4034-A831-9CC20D6A5692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B941D8B1-095D-4034-A831-9CC20D6A5692}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

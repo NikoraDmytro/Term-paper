@@ -5,6 +5,8 @@ namespace CORE.Models
     public class HospitalUnit
     {
         [Key]
+        public int Id { get; set; }
+        
         [Required(ErrorMessage = "Hospital unit name is a required field!")]
         public string Name { get; set; } = String.Empty;
 

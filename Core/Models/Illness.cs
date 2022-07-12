@@ -20,10 +20,10 @@ namespace CORE.Models
 
 
         [ForeignKey(nameof(HospitalUnit))]
-        public string HospitalUnitName { get; set; } = String.Empty;
+        [Required(ErrorMessage = "Hospital unit where disease is treated is a required field!")]
+        public int HospitalUnitId { get; set; }
 
         public HospitalUnit HospitalUnit { get; set; } = new HospitalUnit();
-
         public List<Treatment> Treatments { get; set; } = new List<Treatment>();
     }
 }

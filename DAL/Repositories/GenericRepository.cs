@@ -1,40 +1,76 @@
 using System.Linq.Expressions;
-using DALAbstractions.IRepositories;
+using DALAbstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<TEntity> 
+        : IGenericRepository<TEntity> where TEntity: class 
     {
-        protected readonly HospitalContext _context;
+        private readonly HospitalContext _context;
+        private readonly DbSet<TEntity> _dbSet;
 
-        protected GenericRepository(HospitalContext context)
+        public GenericRepository(HospitalContext context)
         {
             _context = context;
+            _dbSet = context.Set<TEntity>();
+        }
+        
+        public async Task<IEnumerable<TEntity>> GetAsync(
+            Expression<Func<TEntity, bool>>? filter,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy,
+            string includeProperties = "")
+        {
+            IQueryable<TEntity> query = _dbSet;
+            
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var property in includeProperties.Split
+                         (',', StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(property);
+            }
+
+            var entities = await (orderBy != null ? orderBy(query) : query)
+                .ToListAsync();
+            
+            return entities;
         }
 
-        public IQueryable<T> FindAll()
+        public async Task<TEntity?> GetByIdAsync(object id)
         {
-            return _context.Set<T>();
+            var entity = await _dbSet.FindAsync(id);
+
+            return entity;
         }
 
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        public async Task InsertAsync(TEntity entity)
         {
-            return _context.Set<T>().Where(expression);
+            await _dbSet.AddAsync(entity);
         }
 
-        public void Create(T entity)
+        public async Task DeleteByIdAsync(object id)
         {
-            _context.Set<T>().Add(entity);
+            var entityToDelete = await _dbSet.FindAsync(id);
+
+            if (entityToDelete != null)
+            {
+                Delete(entityToDelete);
+            }
         }
 
-        public void Update(T entity)
+        public void Delete(TEntity entityToDelete)
         {
-            _context.Set<T>().Update(entity);
+            _dbSet.Remove(entityToDelete);
         }
 
-        public void Delete(T entity)
+        public void Update(TEntity entityToUpdate)
         {
-            _context.Set<T>().Remove(entity);
+            _dbSet.Attach(entityToUpdate);
+            _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }
