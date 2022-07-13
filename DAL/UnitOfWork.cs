@@ -1,4 +1,3 @@
-using CORE.Models;
 using DALAbstractions;
 using DAL.Repositories;
 
@@ -7,20 +6,16 @@ namespace DAL
     public class UnitOfWork : IUnitOfWork
     {
         private readonly HospitalContext _context;
-        
-        private GenericRepository<Doctor>? _doctorRepository;
-        private GenericRepository<HospitalUnit>? _unitRepository;
+        private DoctorRepository? _doctorRepository;
 
         public UnitOfWork(HospitalContext context)
         {
             _context = context;
         }
 
-        public GenericRepository<HospitalUnit> HospitalUnit => 
-            _unitRepository ??= new GenericRepository<HospitalUnit>(_context);
-        public GenericRepository<Doctor> Doctor => 
-            _doctorRepository ??= new GenericRepository<Doctor>(_context);
-
+        public IDoctorRepository DoctorRepository =>
+            _doctorRepository ??= new DoctorRepository(_context);
+        
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();

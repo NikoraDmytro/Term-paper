@@ -4,24 +4,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public class GenericRepository<TEntity> 
+    public abstract class GenericRepository<TEntity> 
         : IGenericRepository<TEntity> where TEntity: class 
     {
-        private readonly HospitalContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly HospitalContext Context;
+        protected readonly DbSet<TEntity> DbSet;
 
-        public GenericRepository(HospitalContext context)
+        protected GenericRepository(HospitalContext context)
         {
-            _context = context;
-            _dbSet = context.Set<TEntity>();
+            Context = context;
+            DbSet = context.Set<TEntity>();
         }
         
-        public async Task<IEnumerable<TEntity>> GetAsync(
-            Expression<Func<TEntity, bool>>? filter,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy,
+        public virtual async Task<IEnumerable<TEntity>> GetAsync(
+            Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = _dbSet;
+            IQueryable<TEntity> query = DbSet;
             
             if (filter != null)
             {
@@ -40,21 +40,21 @@ namespace DAL.Repositories
             return entities;
         }
 
-        public async Task<TEntity?> GetByIdAsync(object id)
+        public virtual async Task<TEntity?> GetByKeyAsync(params object?[] key)
         {
-            var entity = await _dbSet.FindAsync(id);
+            var entity = await DbSet.FindAsync(key);
 
             return entity;
         }
 
-        public async Task InsertAsync(TEntity entity)
+        public virtual async Task InsertAsync(TEntity entity)
         {
-            await _dbSet.AddAsync(entity);
+            await DbSet.AddAsync(entity);
         }
 
-        public async Task DeleteByIdAsync(object id)
+        public virtual async Task DeleteByKeyAsync(params object?[] key)
         {
-            var entityToDelete = await _dbSet.FindAsync(id);
+            var entityToDelete = await DbSet.FindAsync(key);
 
             if (entityToDelete != null)
             {
@@ -62,15 +62,15 @@ namespace DAL.Repositories
             }
         }
 
-        public void Delete(TEntity entityToDelete)
+        public virtual void Delete(TEntity entityToDelete)
         {
-            _dbSet.Remove(entityToDelete);
+            DbSet.Remove(entityToDelete);
         }
 
-        public void Update(TEntity entityToUpdate)
+        public virtual void Update(TEntity entityToUpdate)
         {
-            _dbSet.Attach(entityToUpdate);
-            _context.Entry(entityToUpdate).State = EntityState.Modified;
+            DbSet.Attach(entityToUpdate);
+            Context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

@@ -16,7 +16,6 @@ namespace DAL
             modelBuilder.Entity<Patient>().HasKey(p => new { p.Surname, p.Name, p.Patronymic });
 
             modelBuilder.ApplyConfiguration(new HospitalUnitsConfiguration());
-            modelBuilder.ApplyConfiguration(new ProfessionsConfiguration());
             modelBuilder.ApplyConfiguration(new DoctorsConfiguration());
             modelBuilder.ApplyConfiguration(new HospitalWardsConfiguration());
             modelBuilder.ApplyConfiguration(new MedicinesConfiguration());
@@ -29,7 +28,6 @@ namespace DAL
         public DbSet<Illness>? Illnesses { get; set; }
         public DbSet<Medicine>? Medicines { get; set; }
         public DbSet<Treatment>? Treatments { get; set; }
-        public DbSet<Profession>? Professions { get; set; }
         public DbSet<HospitalWard>? HospitalWards { get; set; }
         public DbSet<HospitalUnit>? HospitalUnits { get; set; }
     }

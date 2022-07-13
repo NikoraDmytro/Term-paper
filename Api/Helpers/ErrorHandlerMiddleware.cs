@@ -21,6 +21,7 @@ namespace Api.Helpers
             }
             catch (Exception error)
             {
+                var message = error.Message;
                 var response = context.Response;
                 response.ContentType = "application/json";
                 
@@ -33,6 +34,8 @@ namespace Api.Helpers
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
                     default:
+                        Console.WriteLine(error);
+                        message = "Internal Server Error";
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         break;
                 }
@@ -40,8 +43,9 @@ namespace Api.Helpers
                 var result = JsonSerializer.Serialize(new
                 {
                     statusCode = response.StatusCode,
-                    message = error.Message
+                    message
                 });
+                
                 await response.WriteAsync(result);
             }
         }

@@ -1,6 +1,8 @@
 using System.Net;
 using Api;
 using Api.Helpers;
+using BLL.Services;
+using BLLAbstractions;
 using DAL;
 using DALAbstractions;
 using Microsoft.AspNetCore.Diagnostics;
@@ -26,6 +28,7 @@ builder.Services.AddDbContext<HospitalContext>(options =>
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();

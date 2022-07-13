@@ -6,12 +6,12 @@ namespace DALAbstractions
     public interface IGenericRepository<TEntity>
     {
         Task<IEnumerable<TEntity>> GetAsync(
-            Expression<Func<TEntity, bool>>? filter,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy,
+            Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "");
-        Task<TEntity?> GetByIdAsync(object id);
+        Task<TEntity?> GetByKeyAsync(params object?[] key);
         Task InsertAsync(TEntity entity);
-        Task DeleteByIdAsync(object id);
+        Task DeleteByKeyAsync(params object?[] key);
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
     }

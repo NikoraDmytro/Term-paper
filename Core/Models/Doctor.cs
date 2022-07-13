@@ -9,10 +9,10 @@ namespace CORE.Models
         [Range(0, 70, ErrorMessage = "Doctor experience is a number from 0 to 70")]
         public byte Experience { get; set; }
 
-        [ForeignKey(nameof(Profession))]
-        [Required(ErrorMessage = "Doctor's profession is a required field!")]
-        public string ProfessionName { get; set; } = String.Empty;
-        
-        public Profession? Profession { get; set; } = new Profession();
+        [ForeignKey(nameof(HospitalUnit))]
+        [Required(ErrorMessage = "Hospital unit where doctor works is a required field!")]
+        public int HospitalUnitId { get; set; }
+
+        public HospitalUnit HospitalUnit { get; set; } = new HospitalUnit();
     }
 }
