@@ -1,21 +1,18 @@
-﻿using AutoMapper;
-using Core.DataTransferObjects;
+using AutoMapper;
 using CORE.Models;
+using Core.DataTransferObjects.Doctor;
 
-namespace Api
+namespace BLL.Profiles
 {
-    public class MappingProfile : Profile
+    public class DoctorProfile: Profile
     {
-        public MappingProfile()
+        public DoctorProfile()
         {
             CreateMap<Doctor, DoctorDto>()
-                .ForMember(d => d.FullName,
-                    option => option.MapFrom(
-                            x => x.FullName))
                 .ForMember(d => d.Profession,
                     option => option.MapFrom(
                         x => x.HospitalUnit.Profession));
-            
+
             CreateMap<CreateDoctorDto, Doctor>();
         }
     }

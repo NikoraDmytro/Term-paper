@@ -36,12 +36,13 @@ namespace DAL.Migrations
                     b.Property<byte>("Experience")
                         .HasColumnType("tinyint unsigned");
 
-                    b.Property<int>("HospitalUnitId")
-                        .HasColumnType("int");
+                    b.Property<string>("HospitalUnitName")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Surname", "Name", "Patronymic");
 
-                    b.HasIndex("HospitalUnitId");
+                    b.HasIndex("HospitalUnitName");
 
                     b.ToTable("Doctors");
 
@@ -53,7 +54,7 @@ namespace DAL.Migrations
                             Patronymic = "Миколайович",
                             BirthDate = new DateTime(1970, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Experience = (byte)29,
-                            HospitalUnitId = 1
+                            HospitalUnitName = "Хірургічне відділення"
                         },
                         new
                         {
@@ -62,7 +63,7 @@ namespace DAL.Migrations
                             Patronymic = "Валерійович",
                             BirthDate = new DateTime(1971, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Experience = (byte)28,
-                            HospitalUnitId = 1
+                            HospitalUnitName = "Хірургічне відділення"
                         },
                         new
                         {
@@ -71,7 +72,7 @@ namespace DAL.Migrations
                             Patronymic = "Володимирович",
                             BirthDate = new DateTime(1955, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Experience = (byte)44,
-                            HospitalUnitId = 1
+                            HospitalUnitName = "Хірургічне відділення"
                         },
                         new
                         {
@@ -80,7 +81,7 @@ namespace DAL.Migrations
                             Patronymic = "Георгіївна",
                             BirthDate = new DateTime(1976, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Experience = (byte)24,
-                            HospitalUnitId = 2
+                            HospitalUnitName = "Пульмонологічне відділення"
                         },
                         new
                         {
@@ -89,38 +90,31 @@ namespace DAL.Migrations
                             Patronymic = "Сергіївна",
                             BirthDate = new DateTime(1978, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Experience = (byte)17,
-                            HospitalUnitId = 2
+                            HospitalUnitName = "Пульмонологічне відділення"
                         });
                 });
 
             modelBuilder.Entity("CORE.Models.HospitalUnit", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Profession")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
                     b.ToTable("HospitalUnits");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
                             Name = "Хірургічне відділення",
                             Profession = "Хірург"
                         },
                         new
                         {
-                            Id = 2,
                             Name = "Пульмонологічне відділення",
                             Profession = "Пульмонолог"
                         });
@@ -134,12 +128,13 @@ namespace DAL.Migrations
                     b.Property<short>("BedsQuantity")
                         .HasColumnType("smallint");
 
-                    b.Property<int>("HospitalUnitId")
-                        .HasColumnType("int");
+                    b.Property<string>("HospitalUnitName")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Number");
 
-                    b.HasIndex("HospitalUnitId");
+                    b.HasIndex("HospitalUnitName");
 
                     b.ToTable("HospitalWards");
 
@@ -148,37 +143,37 @@ namespace DAL.Migrations
                         {
                             Number = 101,
                             BedsQuantity = (short)15,
-                            HospitalUnitId = 1
+                            HospitalUnitName = "Хірургічне відділення"
                         },
                         new
                         {
                             Number = 102,
                             BedsQuantity = (short)15,
-                            HospitalUnitId = 1
+                            HospitalUnitName = "Хірургічне відділення"
                         },
                         new
                         {
                             Number = 103,
                             BedsQuantity = (short)10,
-                            HospitalUnitId = 1
+                            HospitalUnitName = "Хірургічне відділення"
                         },
                         new
                         {
                             Number = 104,
                             BedsQuantity = (short)10,
-                            HospitalUnitId = 1
+                            HospitalUnitName = "Хірургічне відділення"
                         },
                         new
                         {
                             Number = 201,
                             BedsQuantity = (short)10,
-                            HospitalUnitId = 2
+                            HospitalUnitName = "Пульмонологічне відділення"
                         },
                         new
                         {
                             Number = 202,
                             BedsQuantity = (short)8,
-                            HospitalUnitId = 2
+                            HospitalUnitName = "Пульмонологічне відділення"
                         });
                 });
 
@@ -187,8 +182,9 @@ namespace DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("HospitalUnitId")
-                        .HasColumnType("int");
+                    b.Property<string>("HospitalUnitName")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Procedures")
                         .IsRequired()
@@ -200,7 +196,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Name");
 
-                    b.HasIndex("HospitalUnitId");
+                    b.HasIndex("HospitalUnitName");
 
                     b.ToTable("Illnesses");
 
@@ -208,35 +204,35 @@ namespace DAL.Migrations
                         new
                         {
                             Name = "Хвороба №1",
-                            HospitalUnitId = 1,
+                            HospitalUnitName = "Хірургічне відділення",
                             Procedures = "Розумний текст №1...",
                             Symptoms = "Симптоми №1"
                         },
                         new
                         {
                             Name = "Хвороба №2",
-                            HospitalUnitId = 1,
+                            HospitalUnitName = "Хірургічне відділення",
                             Procedures = "Розумний текст №2...",
                             Symptoms = "Симптоми №2"
                         },
                         new
                         {
                             Name = "Хвороба №3",
-                            HospitalUnitId = 1,
+                            HospitalUnitName = "Хірургічне відділення",
                             Procedures = "Розумний текст №3...",
                             Symptoms = "Симптоми №3"
                         },
                         new
                         {
                             Name = "Хвороба №4",
-                            HospitalUnitId = 2,
+                            HospitalUnitName = "Пульмонологічне відділення",
                             Procedures = "Розумний текст №4...",
                             Symptoms = "Симптоми №4"
                         },
                         new
                         {
                             Name = "Хвороба №5",
-                            HospitalUnitId = 2,
+                            HospitalUnitName = "Пульмонологічне відділення",
                             Procedures = "Розумний текст №5...",
                             Symptoms = "Симптоми №5"
                         });
@@ -352,9 +348,14 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int?>("HospitalWardNumber")
+                        .HasColumnType("int");
+
                     b.HasKey("Surname", "Name", "Patronymic");
 
                     b.HasIndex("DiagnosisName");
+
+                    b.HasIndex("HospitalWardNumber");
 
                     b.HasIndex("AttendingDoctorSurname", "AttendingDoctorName", "AttendingDoctorPatronymic");
 
@@ -456,7 +457,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("CORE.Models.HospitalUnit", "HospitalUnit")
                         .WithMany("Doctors")
-                        .HasForeignKey("HospitalUnitId")
+                        .HasForeignKey("HospitalUnitName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -467,7 +468,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("CORE.Models.HospitalUnit", "HospitalUnit")
                         .WithMany("HospitalWards")
-                        .HasForeignKey("HospitalUnitId")
+                        .HasForeignKey("HospitalUnitName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -478,7 +479,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("CORE.Models.HospitalUnit", "HospitalUnit")
                         .WithMany("Illnesses")
-                        .HasForeignKey("HospitalUnitId")
+                        .HasForeignKey("HospitalUnitName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -492,6 +493,10 @@ namespace DAL.Migrations
                         .HasForeignKey("DiagnosisName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("CORE.Models.HospitalWard", null)
+                        .WithMany("Patients")
+                        .HasForeignKey("HospitalWardNumber");
 
                     b.HasOne("CORE.Models.Doctor", "AttendingDoctor")
                         .WithMany()
@@ -530,6 +535,11 @@ namespace DAL.Migrations
                     b.Navigation("HospitalWards");
 
                     b.Navigation("Illnesses");
+                });
+
+            modelBuilder.Entity("CORE.Models.HospitalWard", b =>
+                {
+                    b.Navigation("Patients");
                 });
 
             modelBuilder.Entity("CORE.Models.Illness", b =>

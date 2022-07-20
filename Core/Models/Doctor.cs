@@ -11,8 +11,11 @@ namespace CORE.Models
 
         [ForeignKey(nameof(HospitalUnit))]
         [Required(ErrorMessage = "Hospital unit where doctor works is a required field!")]
-        public int HospitalUnitId { get; set; }
+        public string? HospitalUnitName { get; set; }
 
-        public HospitalUnit HospitalUnit { get; set; } = new HospitalUnit();
+        public HospitalUnit? HospitalUnit { get; set; }
+        
+        [NotMapped]
+        public string? Profession { get; set; }
     }
 }

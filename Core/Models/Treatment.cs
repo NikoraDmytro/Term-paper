@@ -14,13 +14,13 @@ namespace CORE.Models
 
         [ForeignKey(nameof(Medicine))]
         [Required(ErrorMessage = "Medicine name is a required field!")]
-        public string MedicineName { get; set; } = String.Empty;
+        public string? MedicineName { get; set; }
 
         [ForeignKey(nameof(Illness))]
         [Required(ErrorMessage = "Illness name is a required field!")]
-        public string IllnessName { get; set; } = String.Empty;
+        public string? IllnessName { get; set; }
 
-        public Medicine Medicine { get; set; } = new Medicine();
-        public Illness Illness { get; set; } = new Illness();
+        public Medicine? Medicine { get; set; }
+        public Illness? Illness { get; set; }
     }
 }

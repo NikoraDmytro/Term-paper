@@ -1,8 +1,9 @@
 using AutoMapper;
 using BLLAbstractions;
-using Core.DataTransferObjects;
+using Core.DataTransferObjects.Doctor;
 using Core.Exceptions;
 using CORE.Models;
+using Core.RequestFeatures;
 using DALAbstractions;
 
 namespace BLL.Services
@@ -13,49 +14,102 @@ namespace BLL.Services
             : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<IEnumerable<DoctorDto>> GetAllDoctorsAsync()
+        
+        public async Task<IEnumerable<DoctorDto>> GetAllDoctorsAsync(
+            DoctorParameters parameters)
         {
-            var doctors = await UnitOfWork.DoctorRepository.GetAsync(includeProperties: "HospitalUnit");
-            
-            var doctorsDto = Mapper.Map<IEnumerable<DoctorDto>>(doctors);
+            var doctors = await UnitOfWork.DoctorRepository
+                .GetDoctorsAsync(
+                    parameters.PageNumber,
+                    parameters.PageSize,
+                    parameters.HospitalUnit
+                    );
 
+            var doctorsDto = Mapper.Map<IEnumerable<DoctorDto>>(doctors);
+            
             return doctorsDto;
         }
 
-        public async Task<DoctorDto> GetDoctorAsync(string name, string surname, string patronymic)
+        public async Task<DoctorDto> GetDoctorAsync(string fullName)
         {
             var doctor = await UnitOfWork.DoctorRepository
-                .GetByKeyAsync(surname, name, patronymic);
+                .GetDoctorAsync(fullName);
 
             if (doctor == null)
             {
                 throw new KeyNotFoundException(
-                    $"Доктор {surname} {name} {patronymic} не працює у цій лікарні!"
+                    $"Лікаря з ФІО {fullName} не знайдено!"
                     );
             }
-
+            
             var doctorDto = Mapper.Map<DoctorDto>(doctor);
-
+            
             return doctorDto;
         }
 
         public async Task<DoctorDto> HireDoctorAsync(CreateDoctorDto doctorToHireDto)
         {
+            string unitName = doctorToHireDto.HospitalUnitName;
+            var unit = await UnitOfWork.HospitalUnitRepository
+                .GetByIdAsync(unitName);
+            
+            if (unit == null)
+            {
+                throw new AppException(
+                    $"У лікарні немає відділення з назвою {unitName}");
+            }
+            
             var doctorToHire = Mapper.Map<Doctor>(doctorToHireDto);
+            doctorToHire.Profession = unit.Profession;
+            
+            string doctorFullName = doctorToHire.FullName;
+            
+            var doctor = await UnitOfWork.DoctorRepository
+                .GetDoctorAsync(doctorFullName);
+
+            if (doctor != null)
+            {
+                throw new AppException(
+                    $"{doctorFullName} вже працює у лікарні!"
+                );
+            }
             
             await UnitOfWork.DoctorRepository.InsertAsync(doctorToHire);
             await UnitOfWork.SaveAsync();
 
             var hiredDoctor = Mapper.Map<DoctorDto>(doctorToHire);
-
+            
             return hiredDoctor;
         }
 
-        public async Task FireDoctorAsync(string name, string surname, string patronymic)
+        public async Task FireDoctorAsync(string fullName)
         {
+            //will throw error if doctor not exist
+            await GetDoctorAsync(fullName);
+            
             await UnitOfWork.DoctorRepository
-                .DeleteByKeyAsync(surname, name, patronymic);
+                .DeleteDoctorAsync(fullName);
+            
+            await UnitOfWork.SaveAsync();
+        }
+
+        public async Task UpdateDoctorExperience(
+            string doctorFullName,
+            UpdateDoctorExperienceDto experienceDto)
+        {
+            var doctor = await UnitOfWork.DoctorRepository
+                .GetDoctorAsync(doctorFullName);
+
+            if (doctor == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Лікаря з ФІО {doctorFullName} не знайдено!"
+                );
+            }
+            
+            doctor.Experience = experienceDto.Experience ?? 0;
+
+            UnitOfWork.DoctorRepository.Update(doctor);
             await UnitOfWork.SaveAsync();
         }
     }

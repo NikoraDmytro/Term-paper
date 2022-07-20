@@ -17,8 +17,9 @@ namespace CORE.Models
         
         [ForeignKey(nameof(HospitalUnit))]
         [Required(ErrorMessage = "Unit where hospital ward is located is a required field!")]
-        public int HospitalUnitId { get; set; }
+        public string? HospitalUnitName { get; set; }
 
-        public HospitalUnit HospitalUnit { get; set; } = new HospitalUnit();
+        public HospitalUnit? HospitalUnit { get; set; }
+        public List<Patient> Patients { get; set; } = new List<Patient>();
     }
 }

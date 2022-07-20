@@ -1,7 +1,7 @@
-using AutoMapper;
+using Api.ActionFilters;
 using BLLAbstractions;
-using Core.DataTransferObjects;
-using DALAbstractions;
+using Core.DataTransferObjects.Doctor;
+using Core.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -18,73 +18,52 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetDoctors()
+        public async Task<IActionResult> GetDoctors(
+            [FromQuery] DoctorParameters parameters)
         {
-            var doctors = await _doctorService.GetAllDoctorsAsync();
+            var doctors = await _doctorService
+                .GetAllDoctorsAsync(parameters);
 
             return Ok(doctors);
         }
         
-        [HttpGet("{fullName}", Name = "GetByName")]
+        [HttpGet("{fullName}", Name = "GetDoctorByName")]
         public async Task<IActionResult> GetDoctorByName(string fullName)
         {
-            string[] splitFullName = fullName.Split(' ');
-
-            if (splitFullName.Length < 2)
-            {
-                return BadRequest("Не вказано ім'я або/та прізвище доктора!");
-            }
-            if (splitFullName.Length > 3)
-            {
-                return BadRequest("Вказано зайві параметри!");
-            }
-
-            string name = splitFullName[1];
-            string surname = splitFullName[0];
-            string patronymic = splitFullName.Length == 3
-                ? splitFullName[2] 
-                : "";
+            var doctor = await _doctorService.GetDoctorAsync(fullName);
             
-            var doctor = await _doctorService.GetDoctorAsync(name, surname, patronymic);
-
             return Ok(doctor);
         }
 
         [HttpPost]
-        public async Task<IActionResult> HireDoctor([FromBody]CreateDoctorDto doctorDto)
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> HireDoctor([FromBody] CreateDoctorDto doctorDto)
         {
             var hiredDoctor = await _doctorService.HireDoctorAsync(doctorDto);
 
             return CreatedAtRoute(
-                "GetByName", 
-                new { fullName = hiredDoctor.FullName },
+                "GetDoctorByName",
+                 new { fullName = hiredDoctor.FullName },
                 hiredDoctor);
         }
 
         [HttpDelete("{fullName}")]
         public async Task<IActionResult> FireDoctor(string fullName)
         {
-            string[] splitFullName = fullName.Split(' ');
+            await _doctorService.FireDoctorAsync(fullName);
 
-            if (splitFullName.Length < 2)
-            {
-                return BadRequest("Не вказано ім'я або/та прізвище доктора!");
-            }
-            if (splitFullName.Length > 3)
-            {
-                return BadRequest("Вказано зайві параметри!");
-            }
+            return Ok($"Звільнено лікаря {fullName}");
+        }
 
-            string name = splitFullName[1];
-            string surname = splitFullName[0];
-            string patronymic = splitFullName.Length == 3
-                ? splitFullName[2] 
-                : "";
-
+        [HttpPut("{fullName}")]
+        public async Task<IActionResult> UpdateDoctorData(
+            string fullName, 
+            [FromBody] UpdateDoctorExperienceDto experienceDto)
+        {
+            await _doctorService
+                .UpdateDoctorExperience(fullName, experienceDto);
             
-            await _doctorService.FireDoctorAsync(name, surname, patronymic);
-
-            return NoContent();
+            return Ok($"Оновлено дані доктора {fullName}!");
         }
     }
 }

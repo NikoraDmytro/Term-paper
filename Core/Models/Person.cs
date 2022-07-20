@@ -7,14 +7,14 @@ namespace CORE.Models
     {
         [Required(ErrorMessage = "Name is a required field!")]
         [Column(TypeName = "varchar(50)")]
-        public string Name { get; set; } = String.Empty;
+        public string? Name { get; set; }
 
         [Required(ErrorMessage = "Surname is a required field!")]
         [Column(TypeName = "varchar(50)")]
-        public string Surname { get; set; } = String.Empty;
+        public string? Surname { get; set; }
 
         [Column(TypeName = "varchar(50)")]
-        public string Patronymic { get; set; } = String.Empty;
+        public string? Patronymic { get; set; }
 
         [Required(ErrorMessage = "Birth date is a required field!")]
         public DateTime BirthDate { get; set; }

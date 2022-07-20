@@ -1,17 +1,23 @@
 ﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
 
 namespace DALAbstractions
 {
-    public interface IGenericRepository<TEntity>
+    public interface IGenericRepository<TEntity> where TEntity: class
     {
         Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "");
-        Task<TEntity?> GetByKeyAsync(params object?[] key);
+        Task<IEnumerable<TEntity>> GetPagedAsync(
+            int pageNumber,
+            int pageSize,
+            Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+            string includeProperties = ""
+        );
+        Task<TEntity?> GetByIdAsync(object id);
         Task InsertAsync(TEntity entity);
-        Task DeleteByKeyAsync(params object?[] key);
+        Task DeleteByIdAsync(object id);
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
     }

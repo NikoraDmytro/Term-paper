@@ -16,7 +16,7 @@ namespace CORE.ModelsConfiguration
                     Patronymic = "Миколайович",
                     Experience = (byte)29,
                     BirthDate = new DateTime(1970, 08, 18),
-                    HospitalUnitId = 1,
+                    HospitalUnitName = "Хірургічне відділення",
                 },
                 new
                 {
@@ -25,7 +25,7 @@ namespace CORE.ModelsConfiguration
                     Patronymic = "Валерійович",
                     Experience = (byte)28,
                     BirthDate = new DateTime(1971, 08, 18),
-                    HospitalUnitId = 1,
+                    HospitalUnitName = "Хірургічне відділення",
                 },
                 new
                 {
@@ -34,7 +34,7 @@ namespace CORE.ModelsConfiguration
                     Patronymic = "Володимирович",
                     Experience = (byte)44,
                     BirthDate = new DateTime(1955, 08, 18),
-                    HospitalUnitId = 1,
+                    HospitalUnitName = "Хірургічне відділення",
                 },
                 new
                 {
@@ -43,7 +43,7 @@ namespace CORE.ModelsConfiguration
                     Patronymic = "Георгіївна",
                     Experience = (byte)24,
                     BirthDate = new DateTime(1976, 08, 18),
-                    HospitalUnitId = 2
+                    HospitalUnitName = "Пульмонологічне відділення",
                 },
                 new
                 {
@@ -52,7 +52,7 @@ namespace CORE.ModelsConfiguration
                     Patronymic = "Сергіївна",
                     Experience = (byte)17,
                     BirthDate = new DateTime(1978, 08, 18),
-                    HospitalUnitId = 2
+                    HospitalUnitName = "Пульмонологічне відділення",
                 }
             );
         }

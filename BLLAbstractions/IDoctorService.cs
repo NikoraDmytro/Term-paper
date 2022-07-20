@@ -1,12 +1,17 @@
-using Core.DataTransferObjects;
-using CORE.Models;
+using Core.DataTransferObjects.Doctor;
+using Core.RequestFeatures;
 
-namespace BLLAbstractions;
-
-public interface IDoctorService
+namespace BLLAbstractions
 {
-    Task<IEnumerable<DoctorDto>> GetAllDoctorsAsync();
-    Task<DoctorDto> GetDoctorAsync(string name, string surname, string patronymic);
-    Task<DoctorDto> HireDoctorAsync(CreateDoctorDto doctorToHire);
-    Task FireDoctorAsync(string name, string surname, string patronymic);
+    public interface IDoctorService
+    {
+        Task<IEnumerable<DoctorDto>> GetAllDoctorsAsync(
+            DoctorParameters parameters);
+        Task<DoctorDto> GetDoctorAsync(string fullName);
+        Task<DoctorDto> HireDoctorAsync(CreateDoctorDto doctorToHireDto);
+        Task FireDoctorAsync(string fullName);
+        Task UpdateDoctorExperience(
+            string doctorFullName,
+            UpdateDoctorExperienceDto experienceDto);
+    }
 }

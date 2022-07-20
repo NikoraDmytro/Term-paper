@@ -11,13 +11,11 @@ namespace CORE.ModelsConfiguration
             builder.HasData(
                 new
                 {
-                    Id = 1,
                     Name = "Хірургічне відділення",
                     Profession = "Хірург",
                 },
                 new
                 {
-                    Id = 2,
                     Name = "Пульмонологічне відділення",
                     Profession = "Пульмонолог",
                 }
