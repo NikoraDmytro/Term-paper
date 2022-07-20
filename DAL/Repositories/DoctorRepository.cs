@@ -1,5 +1,5 @@
-using System.Linq.Expressions;
 using CORE.Models;
+using Core.RequestFeatures;
 using DALAbstractions;
 
 namespace DAL.Repositories
@@ -13,36 +13,31 @@ namespace DAL.Repositories
 
         public async Task<Doctor?> GetDoctorAsync(string fullName)
         {
-            var doctor = await FindByFullNameAsync(fullName, "HospitalUnit");
+            var doctor = await GetByNameAsync(
+                fullName,
+                "HospitalUnit");
 
             return doctor;
         }
 
-        public async Task<IEnumerable<Doctor>> GetDoctorsAsync(
-            int pageNumber = 1,
-            int pageSize = 5,
-            string hospitalUnit = "")
+        public async Task<IEnumerable<Doctor>> GetDoctorsAsync(DoctorParameters parameters)
         {
-            Expression<Func<Doctor, bool>>? filter = null;
-            
-            if (hospitalUnit != String.Empty)
-            {
-                filter = (doctor) => doctor.HospitalUnitName == hospitalUnit;
-            }
-
             var doctors = await GetPagedAsync(
-                pageNumber,
-                pageSize,
-                filter,
+                parameters.PageNumber,
+                parameters.PageSize,
+                DbSet.Where(NameFilter(parameters.SearchTerm)),
+                parameters.HospitalUnit != "" ? 
+                    doctor => 
+                        doctor.HospitalUnitName == parameters.HospitalUnit 
+                    : null,
                 includeProperties: "HospitalUnit");
-
+            
             return doctors;
         }
 
         public async Task DeleteDoctorAsync(string fullName)
         {
-            await DeleteByFullNameAsync(fullName);
+            await DeleteByNameAsync(fullName);
         }
-
     }
 }

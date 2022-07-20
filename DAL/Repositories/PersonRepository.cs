@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using CORE.Models;
 using DALAbstractions;
 using Microsoft.EntityFrameworkCore;
@@ -11,44 +12,29 @@ public abstract class PersonRepository<TPerson>:
     protected PersonRepository(HospitalContext context) : base(context)
     {
     }
-
-    private string[] SplitName(string fullName)
+    
+    public Expression<Func<TPerson, bool>> NameFilter(string fullName) =>
+        person => 
+            (person.Surname + " " + person.Name + " " + person.Patronymic)
+            .Trim()
+            .ToLower()
+            .Contains(fullName.Trim().ToLower());
+    
+    public async Task<TPerson?> GetByNameAsync(
+        string fullName,
+        string includeProperties = "")
     {
-        string[] splitName = new string[3];
-        string[] keys = fullName.Split(" ");
-
-        if (keys.Length > 3)
-        {
-            return splitName;
-        }
-        keys.CopyTo(splitName, 0);
-
-        return splitName;
-    }
-
-    public async Task<TPerson?> FindByFullNameAsync(string fullName, string includeProperties = "")
-    {
-        IQueryable<TPerson> query = DbSet;
-        string[] splitName = SplitName(fullName);
-        
-        foreach (var property in includeProperties.Split
-                     (',', StringSplitOptions.RemoveEmptyEntries))
-        {
-            query = query.Include(property);
-        }
-        
-        var person = await query
-            .SingleOrDefaultAsync(p => 
-                p.Name == splitName[1] &&
-                p.Surname == splitName[0] &&
-                p.Patronymic == splitName[2]);
+        var person = await DbSet
+            .Include(includeProperties)
+            .SingleOrDefaultAsync(NameFilter(fullName));
 
         return person;
     }
 
-    public async Task DeleteByFullNameAsync(string fullName)
+    public async Task DeleteByNameAsync(string fullName)
     {
-        var person = await FindByFullNameAsync(fullName);
+        var person = await DbSet
+            .SingleOrDefaultAsync(NameFilter(fullName));
 
         if (person != null)
         {

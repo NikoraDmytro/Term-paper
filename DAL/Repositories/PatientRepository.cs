@@ -12,12 +12,12 @@ namespace DAL.Repositories
 
         public async Task DeletePatientAsync(string fullName)
         {
-            await DeleteByFullNameAsync(fullName);
+            await DeleteByNameAsync(fullName);
         }
 
         public async Task<Patient?> GetPatientAsync(string fullName)
         {
-            var patient = await FindByFullNameAsync(fullName);
+            var patient = await GetByNameAsync(fullName);
 
             return patient;
         }

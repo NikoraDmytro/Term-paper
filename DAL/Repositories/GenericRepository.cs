@@ -43,11 +43,12 @@ namespace DAL.Repositories
         public async Task<IEnumerable<TEntity>> GetPagedAsync(
             int pageNumber = 1,
             int pageSize = 5,
+            IQueryable<TEntity>? startingQuery = null,
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = DbSet;
+            IQueryable<TEntity> query = startingQuery ?? DbSet;
             
             if (filter != null)
             {

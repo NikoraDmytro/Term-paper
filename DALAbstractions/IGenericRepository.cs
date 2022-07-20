@@ -11,6 +11,7 @@ namespace DALAbstractions
         Task<IEnumerable<TEntity>> GetPagedAsync(
             int pageNumber,
             int pageSize,
+            IQueryable<TEntity>? query = null,
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = ""

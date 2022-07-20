@@ -1,6 +1,6 @@
 namespace Core.RequestFeatures;
 
-public class DoctorParameters: PagingParameters
+public class DoctorParameters: PersonParameters
 {
    public string HospitalUnit { get; set; } = String.Empty;
 }

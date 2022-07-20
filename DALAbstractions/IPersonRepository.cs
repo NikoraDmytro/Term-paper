@@ -1,10 +1,13 @@
 using System.Linq.Expressions;
-using CORE.Models;
 
-namespace DALAbstractions;
-
-public interface IPersonRepository<TPerson>: IGenericRepository<TPerson> where TPerson: class
+namespace DALAbstractions
 {
-    public Task<TPerson?> FindByFullNameAsync(string fullName, string includeProperties = "");
-    public Task DeleteByFullNameAsync(string fullName);
+    public interface IPersonRepository<TPerson> : IGenericRepository<TPerson> where TPerson : class
+    {
+        Expression<Func<TPerson, bool>> NameFilter(string fullName);
+        Task<TPerson?> GetByNameAsync(
+            string fullName, 
+            string includeProperties = "");
+        Task DeleteByNameAsync(string fullName);
+    }
 }

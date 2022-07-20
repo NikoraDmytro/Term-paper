@@ -19,12 +19,8 @@ namespace BLL.Services
             DoctorParameters parameters)
         {
             var doctors = await UnitOfWork.DoctorRepository
-                .GetDoctorsAsync(
-                    parameters.PageNumber,
-                    parameters.PageSize,
-                    parameters.HospitalUnit
-                    );
-
+                .GetDoctorsAsync(parameters);
+            
             var doctorsDto = Mapper.Map<IEnumerable<DoctorDto>>(doctors);
             
             return doctorsDto;
