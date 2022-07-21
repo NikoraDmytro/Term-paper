@@ -43,18 +43,21 @@ namespace DAL.Repositories
         public async Task<IEnumerable<TEntity>> GetPagedAsync(
             int pageNumber = 1,
             int pageSize = 5,
-            IQueryable<TEntity>? startingQuery = null,
-            Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = startingQuery ?? DbSet;
+            IQueryable<TEntity> query = DbSet;
             
             if (filter != null)
             {
-                query = query.Where(filter);
+                query = filter(query);
             }
-
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+            
             query = query
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize);
@@ -65,8 +68,7 @@ namespace DAL.Repositories
                 query = query.Include(property);
             }
 
-            var entities = await (orderBy != null ? orderBy(query) : query)
-                .ToListAsync();
+            var entities = await query.ToListAsync();
             
             return entities;
         }
