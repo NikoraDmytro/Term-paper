@@ -14,13 +14,11 @@ namespace BLL.Services
         {
         }
         
-        public async Task<IEnumerable<MedicineDto>> GetAllAsync(PagingParameters parameters)
+        public async Task<IEnumerable<MedicineDto>> GetAllAsync(MedicineParameters parameters)
         {
             var medicines = await UnitOfWork
                 .MedicineRepository
-                .GetMedicinesAsync(
-                    parameters.PageNumber,
-                    parameters.PageSize);
+                .GetMedicinesAsync(parameters);
 
             var medicinesDto = Mapper.Map<IEnumerable<MedicineDto>>(medicines);
             
@@ -90,6 +88,15 @@ namespace BLL.Services
                 {
                     medicines[i].QuantityInStock -=
                         medicinesDto[i].Quantity ?? 0;
+
+                    if (medicines[i].QuantityInStock <= 0)
+                    {
+                        throw new AppException(
+                            $"На складі немає потрібної кількості" +
+                            medicines[i].Name +
+                            $"\n\tЗалишилось: {medicines[i].QuantityInStock}" +
+                            $"\n\tПотрібно: {medicinesDto[i].Quantity}");
+                    }
                 }
             }
 

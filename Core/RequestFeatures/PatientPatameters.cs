@@ -1,6 +1,5 @@
 namespace Core.RequestFeatures;
 
-public class PatientPatameters
+public class PatientParameters
 {
-    
 }

@@ -16,12 +16,12 @@ namespace DAL.Repositories
         private Func<IQueryable<Doctor>, IQueryable<Doctor>>
             Filter(string search, string unit) => (query) =>
             {
-                if (search != "")
+                if (!string.IsNullOrEmpty(search))
                 {
                     query = query.Where(NameFilter(search));
                 }
 
-                if (unit != "")
+                if (!string.IsNullOrEmpty(unit))
                 {
                     query = query.Where(d =>
                         d.HospitalUnitName == unit);

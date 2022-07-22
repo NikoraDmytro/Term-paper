@@ -19,7 +19,7 @@ namespace Api.Controllers
         
         [HttpGet]
         public async Task<IActionResult> GetMedicines(
-            [FromQuery] PagingParameters parameters)
+            [FromQuery] MedicineParameters parameters)
         {
             var medicines = await _medicineService
                 .GetAllAsync(parameters);

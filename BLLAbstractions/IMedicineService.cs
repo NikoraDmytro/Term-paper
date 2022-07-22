@@ -6,7 +6,7 @@ namespace BLLAbstractions
     public interface IMedicineService
     {
         Task<IEnumerable<MedicineDto>> GetAllAsync(
-            PagingParameters parameters);
+            MedicineParameters parameters);
         Task DeleteMedicineAsync(string name);
         Task<MedicineDto> AddNewMedicineAsync(MedicineDto medicine);
         Task ResupplyMedicinesAsync(IEnumerable<MedicineDto> medicines);

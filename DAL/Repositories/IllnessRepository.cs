@@ -17,7 +17,7 @@ namespace DAL.Repositories
             IQueryable<string> query;
             var unitFilter = parameters.HospitalUnit;
 
-            if (unitFilter != "")
+            if (!string.IsNullOrEmpty(unitFilter))
             {
                 query = DbSet
                     .Where(illness => illness.HospitalUnitName == unitFilter)
