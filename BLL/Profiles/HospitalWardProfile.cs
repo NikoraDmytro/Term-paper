@@ -8,10 +8,7 @@ namespace BLL.Profiles
     {
         public HospitalWardProfile()
         {
-            CreateMap<HospitalWard, HospitalWardDto>()
-                .ForMember(hwd => hwd.Occupancy, 
-                    option => option.MapFrom(
-                        x => x.Patients.Count()));
+            CreateMap<HospitalWard, HospitalWardDto>();
 
             CreateMap<CreateHospitalWardDto, HospitalWard>();
         }

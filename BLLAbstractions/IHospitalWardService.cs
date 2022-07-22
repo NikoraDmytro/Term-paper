@@ -6,9 +6,12 @@ namespace BLLAbstractions
     public interface IHospitalWardService
     {
         Task<IEnumerable<HospitalWardDto>> GetAllWardsAsync(
-            PagingParameters parameters);
+            string unitName,
+            HospitalWardParameters parameters);
         Task<HospitalWardDto> GetWardAsync(int wardNumber);
-        Task<HospitalWardDto> OpenNewWardAsync(CreateHospitalWardDto hospitalWardDto);
+        Task<HospitalWardDto> OpenWardInHospitalUnit(
+            string unitName,
+            CreateHospitalWardDto hospitalWardDto);
         Task CloseWardAsync(int wardNumber);
     }
 }

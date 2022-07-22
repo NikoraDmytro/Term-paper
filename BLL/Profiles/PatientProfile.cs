@@ -11,7 +11,7 @@ public class PatientProfile: Profile
         CreateMap<Patient, PatientDto>()
             .ForMember(p => p.HospitalWardNumber,
                 option => option.MapFrom(
-                    x => x.HospitalWard.Number));
+                    x => x.HospitalWard != null ? x.HospitalWard.Number: 0));
 
         CreateMap<CreatePatientDto, Patient>();
     }

@@ -1,14 +1,13 @@
 using Api.ActionFilters;
 using BLLAbstractions;
 using Core.DataTransferObjects.HospitalWard;
-using Core.DataTransferObjects.Patient;
 using Core.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/hospitalWards")]
+    [Route("api/hospitalUnits/{unitName}/wards")]
     public class HospitalWardsController : ControllerBase
     {
         private readonly IHospitalWardService _hospitalWardService;
@@ -20,16 +19,17 @@ namespace Api.Controllers
         
         [HttpGet]
         public async Task<IActionResult> GetHospitalWards(
-            [FromQuery] PagingParameters parameters)
+            string unitName,
+            [FromQuery] HospitalWardParameters parameters)
         {
             var hospitalWards = await _hospitalWardService
-                .GetAllWardsAsync(parameters);
+                .GetAllWardsAsync(unitName, parameters);
 
             return Ok(hospitalWards);
         }
         
         [HttpGet("{wardNumber}", Name = "GetHospitalWard")]
-        public async Task<IActionResult> GetHospitalWard(int wardNumber)
+        public async Task<IActionResult> GetHospitalWard(short wardNumber)
         {
             var hospitalWard = await _hospitalWardService
                 .GetWardAsync(wardNumber);
@@ -39,15 +39,16 @@ namespace Api.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> OpenNewHospitalWard(
+        public async Task<IActionResult> OpenWardInHospitalUnit(
+            string unitName,
             [FromBody]CreateHospitalWardDto hospitalWardDto)
         {
             var openedHospitalWard = await _hospitalWardService
-                .OpenNewWardAsync(hospitalWardDto);
+                .OpenWardInHospitalUnit(unitName, hospitalWardDto);
 
             return CreatedAtRoute(
                 "GetHospitalWard",
-                new { wardNumber = openedHospitalWard.Number },
+                new {unitName, wardNumber = openedHospitalWard.Number },
                 openedHospitalWard);
         }
 

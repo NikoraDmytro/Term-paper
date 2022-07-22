@@ -11,7 +11,7 @@ namespace BLL.Profiles
             CreateMap<Doctor, DoctorDto>()
                 .ForMember(d => d.Profession,
                     option => option.MapFrom(
-                        x => x.HospitalUnit.Profession));
+                        x => x.HospitalUnit != null ? x.HospitalUnit.Profession: null));
 
             CreateMap<CreateDoctorDto, Doctor>();
         }

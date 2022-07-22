@@ -18,7 +18,8 @@ namespace BLL.Services
         public async Task<IEnumerable<DoctorDto>> GetAllDoctorsAsync(
             DoctorParameters parameters)
         {
-            var doctors = await UnitOfWork.DoctorRepository
+            var doctors = await UnitOfWork
+                .DoctorRepository
                 .GetDoctorsAsync(parameters);
             
             var doctorsDto = Mapper.Map<IEnumerable<DoctorDto>>(doctors);
@@ -28,7 +29,8 @@ namespace BLL.Services
 
         public async Task<DoctorDto> GetDoctorAsync(string fullName)
         {
-            var doctor = await UnitOfWork.DoctorRepository
+            var doctor = await UnitOfWork
+                .DoctorRepository
                 .GetDoctorAsync(fullName);
 
             if (doctor == null)
@@ -46,7 +48,9 @@ namespace BLL.Services
         public async Task<DoctorDto> HireDoctorAsync(CreateDoctorDto doctorToHireDto)
         {
             string unitName = doctorToHireDto.HospitalUnitName;
-            var unit = await UnitOfWork.HospitalUnitRepository
+            
+            var unit = await UnitOfWork
+                .HospitalUnitRepository
                 .GetByIdAsync(unitName);
             
             if (unit == null)
@@ -60,7 +64,8 @@ namespace BLL.Services
             
             string doctorFullName = doctorToHire.FullName;
             
-            var doctor = await UnitOfWork.DoctorRepository
+            var doctor = await UnitOfWork
+                .DoctorRepository
                 .GetDoctorAsync(doctorFullName);
 
             if (doctor != null)
@@ -70,7 +75,9 @@ namespace BLL.Services
                 );
             }
             
-            await UnitOfWork.DoctorRepository.InsertAsync(doctorToHire);
+            await UnitOfWork
+                .DoctorRepository
+                .InsertAsync(doctorToHire);
             await UnitOfWork.SaveAsync();
 
             var hiredDoctor = Mapper.Map<DoctorDto>(doctorToHire);
@@ -83,7 +90,8 @@ namespace BLL.Services
             //will throw error if doctor not exist
             await GetDoctorAsync(fullName);
             
-            await UnitOfWork.DoctorRepository
+            await UnitOfWork
+                .DoctorRepository
                 .DeleteDoctorAsync(fullName);
             
             await UnitOfWork.SaveAsync();
@@ -93,7 +101,8 @@ namespace BLL.Services
             string doctorFullName,
             UpdateDoctorExperienceDto experienceDto)
         {
-            var doctor = await UnitOfWork.DoctorRepository
+            var doctor = await UnitOfWork
+                .DoctorRepository
                 .GetDoctorAsync(doctorFullName);
 
             if (doctor == null)

@@ -1,6 +1,7 @@
 using AutoMapper;
 using BLLAbstractions;
 using Core.DataTransferObjects.HospitalUnit;
+using Core.Exceptions;
 using DALAbstractions;
 
 namespace BLL.Services;
@@ -13,9 +14,15 @@ public class HospitalUnitService: BaseService, IHospitalUnitService
 
     public async Task<HospitalUnitDto> GetUnitAsync(string name)
     {
-        var unit = await UnitOfWork.HospitalUnitRepository
+        var unit = await UnitOfWork
+            .HospitalUnitRepository
             .GetByIdAsync(name);
 
+        if (unit == null)
+        {
+            throw new AppException($"У лікарні немає відділення з назвою {name}");
+        }
+        
         var unitDto = Mapper.Map<HospitalUnitDto>(unit);
 
         return unitDto;
@@ -23,7 +30,8 @@ public class HospitalUnitService: BaseService, IHospitalUnitService
 
     public async Task<IEnumerable<HospitalUnitDto>> GetAllUnitsAsync()
     {
-        var units = await UnitOfWork.HospitalUnitRepository
+        var units = await UnitOfWork
+            .HospitalUnitRepository
             .GetAsync();
 
         var unitsDto = Mapper.Map<IEnumerable<HospitalUnitDto>>(units);
