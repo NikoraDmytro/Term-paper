@@ -16,7 +16,7 @@ namespace DAL.Repositories
             DbSet = _context.Set<TEntity>();
         }
         
-        public virtual async Task<IEnumerable<TEntity>> GetAsync(
+        public virtual async Task<List<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "")
@@ -40,7 +40,7 @@ namespace DAL.Repositories
             return entities;
         }
 
-        public async Task<IEnumerable<TEntity>> GetPagedAsync(
+        public async Task<List<TEntity>> GetPagedAsync(
             int pageNumber = 1,
             int pageSize = 5,
             Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null,

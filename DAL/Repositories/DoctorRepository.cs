@@ -72,7 +72,7 @@ namespace DAL.Repositories
             return doctor;
         }
 
-        public async Task<IEnumerable<Doctor>> GetDoctorsAsync(DoctorParameters parameters)
+        public async Task<List<Doctor>> GetDoctorsAsync(DoctorParameters parameters)
         {
             var doctors = await GetPagedAsync(
                 parameters.PageNumber,

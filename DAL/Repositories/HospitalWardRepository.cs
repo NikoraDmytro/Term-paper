@@ -68,7 +68,7 @@ namespace DAL.Repositories
             return orderedQuery;
         };
 
-        public async Task<IEnumerable<HospitalWard>> GetHospitalWardsAsync(
+        public async Task<List<HospitalWard>> GetHospitalWardsAsync(
             string unitName, 
             HospitalWardParameters parameters)
         {

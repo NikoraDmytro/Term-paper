@@ -5,7 +5,7 @@ namespace DALAbstractions
 {
     public interface IHospitalWardRepository : IGenericRepository<HospitalWard>
     {
-        Task<IEnumerable<HospitalWard>> GetHospitalWardsAsync(
+        Task<List<HospitalWard>> GetHospitalWardsAsync(
             string unitName,
             HospitalWardParameters parameters);
         Task<HospitalWard?> GetHospitalWardAsync(int wardNumber);

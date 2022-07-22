@@ -22,7 +22,7 @@ namespace DAL.Repositories
             return patient;
         }
 
-        public async Task<IEnumerable<Patient>> GetPatientsAsync(
+        public async Task<List<Patient>> GetPatientsAsync(
             int pageNumber = 1,
             int pageSize = 5)
         {

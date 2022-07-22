@@ -3,6 +3,7 @@ using BLLAbstractions;
 using Core.DataTransferObjects.Illnesses;
 using Core.Exceptions;
 using CORE.Models;
+using Core.RequestFeatures;
 using DALAbstractions;
 
 namespace BLL.Services
@@ -13,17 +14,20 @@ namespace BLL.Services
         {
         }
 
-        public async Task<IEnumerable<string>> GetAllIllnessesAsync()
+        public async Task<IEnumerable<string>> 
+            GetAllIllnessesAsync(IllnessParameters parameters)
         {
-            string[] names = await UnitOfWork.IllnessRepository
-                .GetIllnessesNamesAsync();
+            string[] names = await UnitOfWork
+                .IllnessRepository
+                .GetIllnessesNamesAsync(parameters);
             
             return names;
         }
 
         public async Task<IllnessDto> GetIllnessAsync(string name)
         {
-            var illness = await UnitOfWork.IllnessRepository
+            var illness = await UnitOfWork
+                .IllnessRepository
                 .GetIllnessAsync(name);
 
             if (illness == null)
@@ -39,7 +43,8 @@ namespace BLL.Services
         public async Task<IllnessDto> AddIllnessAsync(IllnessDto illnessDto)
         {
             string unitName = illnessDto.HospitalUnitName;
-            var unit = await UnitOfWork.HospitalUnitRepository
+            var unit = await UnitOfWork
+                .HospitalUnitRepository
                 .GetByIdAsync(unitName);
             
             if (unit == null)
@@ -49,15 +54,28 @@ namespace BLL.Services
             
             var illnessToAdd = Mapper.Map<Illness>(illnessDto);
             
-            var illness = await UnitOfWork.IllnessRepository
+            var illness = await UnitOfWork
+                .IllnessRepository
                 .GetIllnessAsync(illnessDto.Name);
 
             if (illness != null)
             {
                 throw new AppException($"{illness.Name} вже у базі даних!");
             }
+
+            var treatmentsNames = illnessToAdd
+                .Treatments
+                .Select(t => t.MedicineName ?? "")
+                .ToArray();
+
+            //Throws an error if the medicines provided are not in DB 
+            await UnitOfWork
+                .MedicineRepository
+                .GetByNamesAsync(treatmentsNames);
             
-            await UnitOfWork.IllnessRepository.InsertAsync(illnessToAdd);
+            await UnitOfWork
+                .IllnessRepository
+                .InsertAsync(illnessToAdd);
             await UnitOfWork.SaveAsync();
             
             return illnessDto;
@@ -68,7 +86,8 @@ namespace BLL.Services
             //will throw error if doctor not exist
             await GetIllnessAsync(name);
 
-            await UnitOfWork.IllnessRepository
+            await UnitOfWork
+                .IllnessRepository
                 .DeleteByIdAsync(name);
 
             await UnitOfWork.SaveAsync();

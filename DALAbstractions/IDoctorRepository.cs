@@ -7,7 +7,7 @@ namespace DALAbstractions
     {
         public Task DeleteDoctorAsync(string fullName);
         public Task<Doctor?> GetDoctorAsync(string fullName);
-        public Task<IEnumerable<Doctor>> GetDoctorsAsync(
+        public Task<List<Doctor>> GetDoctorsAsync(
             DoctorParameters parameters);
     }
 }

@@ -1,3 +1,4 @@
+using Core.Exceptions;
 using CORE.Models;
 using DALAbstractions;
 
@@ -9,7 +10,7 @@ public class MedicineRepository: GenericRepository<Medicine>, IMedicineRepositor
     {
     }
 
-    public async Task<IEnumerable<Medicine>> GetMedicinesAsync(
+    public async Task<List<Medicine>> GetMedicinesAsync(
         int pageNumber = 1,
         int pageSize = 5)
     {
@@ -26,12 +27,22 @@ public class MedicineRepository: GenericRepository<Medicine>, IMedicineRepositor
         DbSet.UpdateRange(medicines);
     }
 
-    public async Task<Medicine[]> GetByNamesAsync(string[] names)
+    public async Task<List<Medicine>> GetByNamesAsync(string[] names)
     {
         var medicines = await GetAsync(
-            medicine => names.Contains(medicine.Name),
-            query => query.OrderBy(m => m.Name));
+            medicine => names.Contains(medicine.Name));
 
-        return medicines.ToArray();
+        var matchedNames = medicines.Select(m => m.Name);
+        var mismatchedNames = names.Except(matchedNames).ToArray();
+
+        if (mismatchedNames.Length != 0)
+        {
+            string allMismatched = string.Join(",", mismatchedNames);
+            
+            throw new AppException(
+                $"{allMismatched} не знайдено у базі даних");
+        }
+
+        return medicines;
     }
 }

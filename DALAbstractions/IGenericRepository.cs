@@ -4,11 +4,11 @@ namespace DALAbstractions
 {
     public interface IGenericRepository<TEntity> where TEntity: class
     {
-        Task<IEnumerable<TEntity>> GetAsync(
+        Task<List<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "");
-        Task<IEnumerable<TEntity>> GetPagedAsync(
+        Task<List<TEntity>> GetPagedAsync(
             int pageNumber,
             int pageSize,
             Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null,

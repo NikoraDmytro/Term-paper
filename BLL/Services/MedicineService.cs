@@ -16,7 +16,8 @@ namespace BLL.Services
         
         public async Task<IEnumerable<MedicineDto>> GetAllAsync(PagingParameters parameters)
         {
-            var medicines = await UnitOfWork.MedicineRepository
+            var medicines = await UnitOfWork
+                .MedicineRepository
                 .GetMedicinesAsync(
                     parameters.PageNumber,
                     parameters.PageSize);
@@ -40,7 +41,9 @@ namespace BLL.Services
                 throw new AppException($"Ліки з назвою {medicineName} вже числяться на складі");
             }
 
-            await UnitOfWork.MedicineRepository.InsertAsync(medicine);
+            await UnitOfWork
+                .MedicineRepository
+                .InsertAsync(medicine);
             await UnitOfWork.SaveAsync();
 
             return medicineDto;
@@ -48,7 +51,8 @@ namespace BLL.Services
 
         public async Task DeleteMedicineAsync(string medicineName)
         {
-            var medicine = await UnitOfWork.MedicineRepository
+            var medicine = await UnitOfWork
+                .MedicineRepository
                 .GetByIdAsync(medicineName);
 
             if (medicine == null)
@@ -56,7 +60,8 @@ namespace BLL.Services
                 throw new AppException($"Ліки з назвою {medicineName} не числяться на складі");
             }
 
-            await UnitOfWork.MedicineRepository
+            await UnitOfWork
+                .MedicineRepository
                 .DeleteByIdAsync(medicineName);
 
             await UnitOfWork.SaveAsync();
@@ -67,26 +72,30 @@ namespace BLL.Services
             bool toResupply = true)
         {
             var medicinesNames = medicinesDto
-                .Select(m => m.Name ?? String.Empty)
+                .Select(m => m.Name ?? "")
                 .ToArray();
             
-            var medicines = await UnitOfWork.MedicineRepository
+            var medicines = await UnitOfWork
+                .MedicineRepository
                 .GetByNamesAsync(medicinesNames);
 
-            for (int i = 0; i < medicines.Length; i++)
+            for (int i = 0; i < medicines.Count; i++)
             {
-                if (medicines[i].Name != medicinesDto[i].Name)
+                if (toResupply)
                 {
-                    throw new AppException(
-                        $"Ліки з назвою {medicinesDto[i].Name} не числяться на складі!"
-                        );
+                    medicines[i].QuantityInStock +=
+                        medicinesDto[i].Quantity ?? 0;
                 }
-
-                medicines[i].QuantityInStock += (short)
-                    ((toResupply ? +1: -1) * medicinesDto[i].Quantity ?? 0);
+                else
+                {
+                    medicines[i].QuantityInStock -=
+                        medicinesDto[i].Quantity ?? 0;
+                }
             }
 
-            UnitOfWork.MedicineRepository.UpdateStock(medicines);
+            UnitOfWork
+                .MedicineRepository
+                .UpdateStock(medicines);
         }
 
         public async Task ResupplyMedicinesAsync(

@@ -1,4 +1,5 @@
 using CORE.Models;
+using Core.RequestFeatures;
 using DALAbstractions;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,14 +11,33 @@ namespace DAL.Repositories
         {
         }
 
-
-        public async Task<string[]> GetIllnessesNamesAsync()
+        public async Task<string[]> 
+            GetIllnessesNamesAsync(IllnessParameters parameters)
         {
-            string[] names = await DbSet
-                .Select(illness => illness.Name ?? "")
-                .OrderBy(name => name)
-                .ToArrayAsync();
+            IQueryable<string> query;
+            var unitFilter = parameters.HospitalUnit;
 
+            if (unitFilter != "")
+            {
+                query = DbSet
+                    .Where(illness => illness.HospitalUnitName == unitFilter)
+                    .Select(illness => illness.Name ?? "");
+            }
+            else
+            {
+                query = DbSet.Select(illness => illness.Name ?? "");
+            }
+
+            query = (parameters.OrderBy.EndsWith("desc")
+                    ? query.OrderByDescending(name => name)
+                    : query.OrderBy(name => name))
+                .Where(name => name.Contains(parameters.SearchTerm));
+
+            string[] names = await query
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
+                .ToArrayAsync();
+            
             return names;
         }
 

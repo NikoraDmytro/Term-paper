@@ -4,9 +4,9 @@ namespace DALAbstractions;
 
 public interface IMedicineRepository: IGenericRepository<Medicine>
 {
-    Task<IEnumerable<Medicine>> GetMedicinesAsync(
+    Task<List<Medicine>> GetMedicinesAsync(
         int pageNumber, 
         int pageSize);
     void UpdateStock(IEnumerable<Medicine> medicines);
-    Task<Medicine[]> GetByNamesAsync(string[] names);
+    Task<List<Medicine>> GetByNamesAsync(string[] names);
 }

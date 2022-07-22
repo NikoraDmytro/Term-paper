@@ -1,6 +1,7 @@
 using Api.ActionFilters;
 using BLLAbstractions;
 using Core.DataTransferObjects.Illnesses;
+using Core.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -16,10 +17,12 @@ namespace Api.Controllers
             _illnessService = illnessService;
         }
 
-        [HttpGet(Name = "")]
-        public async Task<IActionResult> GetIllnesses()
+        [HttpGet]
+        public async Task<IActionResult> 
+            GetIllnesses([FromQuery] IllnessParameters parameters)
         {
-            var illnesses = await _illnessService.GetAllIllnessesAsync();
+            var illnesses = await _illnessService
+                .GetAllIllnessesAsync(parameters);
 
             return Ok(illnesses);
         }
