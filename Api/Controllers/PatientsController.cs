@@ -19,7 +19,7 @@ namespace Api.Controllers
         
         [HttpGet]
         public async Task<IActionResult> GetPatients(
-            [FromQuery] PagingParameters parameters)
+            [FromQuery] PatientParameters parameters)
         {
             var patients = await _patientService
                 .GetAllPatientsAsync(parameters);
@@ -30,7 +30,8 @@ namespace Api.Controllers
         [HttpGet("{fullName}", Name = "GetPatientByName")]
         public async Task<IActionResult> GetPatient(string fullName)
         {
-            var patient = await _patientService.GetPatientAsync(fullName);
+            var patient = await _patientService
+                .GetPatientAsync(fullName);
             
             return Ok(patient);
         }

@@ -24,8 +24,14 @@ public abstract class PersonRepository<TPerson>:
         string fullName,
         string includeProperties = "")
     {
-        var person = await DbSet
-            .Include(includeProperties)
+        IQueryable<TPerson> query = DbSet;
+        
+        if (includeProperties != "")
+        {
+            query.Include(includeProperties);
+        }
+        
+        var person = await query
             .SingleOrDefaultAsync(NameFilter(fullName));
 
         return person;

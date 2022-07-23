@@ -1,3 +1,4 @@
+using System.Data;
 using AutoMapper;
 using BLLAbstractions;
 using Core.DataTransferObjects.Patient;
@@ -15,12 +16,11 @@ namespace BLL.Services
         }
 
         public async Task<IEnumerable<PatientDto>> 
-            GetAllPatientsAsync(PagingParameters parameters)
+            GetAllPatientsAsync(PatientParameters parameters)
         {
-            var patients = await UnitOfWork.PatientRepository
-                .GetPatientsAsync(
-                    parameters.PageNumber,
-                    parameters.PageSize);
+            var patients = await UnitOfWork
+                .PatientRepository
+                .GetPatientsAsync(parameters);
 
             var patientsDto = Mapper.Map<IEnumerable<PatientDto>>(patients);
 
@@ -29,12 +29,13 @@ namespace BLL.Services
 
         public async Task<PatientDto> GetPatientAsync(string fullName)
         {
-            var patient = await UnitOfWork.PatientRepository
+            var patient = await UnitOfWork
+                .PatientRepository
                 .GetPatientAsync(fullName);
 
             if (patient == null)
             {
-                throw new AppException(
+                throw new KeyNotFoundException(
                     $"Пацієнта з ФІО {fullName} не знайдено!");
             }
             
@@ -46,30 +47,42 @@ namespace BLL.Services
         public async Task<PatientDto> 
             RegisterPatientAsync(CreatePatientDto patientToRegisterDto)
         {
-            int wardNumber = patientToRegisterDto.HospitalWardNumber ?? 0;
-            string illnessName = patientToRegisterDto.IllnessName ?? "";
-            string doctorFullName = patientToRegisterDto.AttendingDoctorFullName 
-                                 ?? "";
+            int wardNumber = 
+                patientToRegisterDto.HospitalWardNumber ?? 0;
+            string illnessName = 
+                patientToRegisterDto.Diagnosis ?? "";
+            string doctorFullName = 
+                patientToRegisterDto.AttendingDoctor ?? "";
             
-            var ward = await UnitOfWork.HospitalWardRepository
+            var ward = await UnitOfWork
+                .HospitalWardRepository
                 .GetByIdAsync(wardNumber);
 
             if (ward == null)
             {
-                throw new AppException(
+                throw new KeyNotFoundException(
                     $"Палату {wardNumber} з номером не знайдено!");
             }
 
-            var diagnosis = await UnitOfWork.IllnessRepository
+            var diagnosis = await UnitOfWork
+                .IllnessRepository
                 .GetIllnessAsync(illnessName);
 
             if (diagnosis == null)
             {
-                throw new AppException(
+                throw new KeyNotFoundException(
                     $"Хворобу з назвою {diagnosis} не знайдено в базі даних!");
             }
+            if (diagnosis.HospitalUnitName != ward.HospitalUnitName)
+            {
+                throw new AppException(
+                    $"{diagnosis.Name} не лікується у відділенні" +
+                    $", де знаходиться палата №{wardNumber}!"
+                );
+            }
 
-            var doctor = await UnitOfWork.DoctorRepository
+            var doctor = await UnitOfWork
+                .DoctorRepository
                 .GetDoctorAsync(doctorFullName);
 
             if (doctor == null)
@@ -78,25 +91,63 @@ namespace BLL.Services
                     $"Лікаря з ФІО {doctorFullName} не знайдено!"
                 );
             }
+            if (diagnosis.HospitalUnitName != doctor.HospitalUnitName)
+            {
+                throw new AppException(
+                    $"{diagnosis.Name} не лікується у відділенні" +
+                    $", де працює лікар {doctorFullName}!"
+                );
+            }
+
+            var medicinesNames = diagnosis
+                .Treatments
+                .Select(t => t.MedicineName ?? "")
+                .ToArray();
+            
+            var medicines = await UnitOfWork
+                .MedicineRepository
+                .GetByNamesAsync(medicinesNames);
+
+            for (int i = 0; i < medicines.Count; i++)
+            {
+                var quantity = diagnosis
+                    .Treatments[i]
+                    .MedicineQuantity;
+                
+                if (medicines[i].QuantityInStock - quantity <= 0)
+                {
+                    throw new AppException(
+                        $"На складі немає потрібної кількості " +
+                        $"{medicines[i].Name}: " +
+                        $"Залишилось: {medicines[i].QuantityInStock}; " +
+                        $"Потрібно: {quantity}");
+                }
+                
+                medicines[i].QuantityInStock -= quantity;
+            }
+
 
             var patientToRegister = Mapper.Map<Patient>(patientToRegisterDto);
-
+            
+            patientToRegister.AttendingDoctor = doctor;
+            patientToRegister.Illness = diagnosis;
+            patientToRegister.HospitalWard = ward;
+            
             string fullName = patientToRegister.FullName;
 
-            var patient = await UnitOfWork.PatientRepository
+            var patient = await UnitOfWork
+                .PatientRepository
                 .GetPatientAsync(fullName);
 
             if (patient != null)
             {
-                throw new AppException(
+                throw new DuplicateNameException(
                     $"{fullName} вже зареєстрований в лікарні!"
                 );
             }
             
-            patientToRegister.Diagnosis = diagnosis;
-            patientToRegister.AttendingDoctor = doctor;
-
-            await UnitOfWork.PatientRepository
+            await UnitOfWork
+                .PatientRepository
                 .InsertAsync(patientToRegister);
             await UnitOfWork.SaveAsync();
 

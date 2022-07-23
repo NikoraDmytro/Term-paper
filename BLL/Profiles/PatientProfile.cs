@@ -9,10 +9,18 @@ public class PatientProfile: Profile
     public PatientProfile()
     {
         CreateMap<Patient, PatientDto>()
-            .ForMember(p => p.HospitalWardNumber,
+            .ForMember(p => p.AttendingDoctor,
                 option => option.MapFrom(
-                    x => x.HospitalWard != null ? x.HospitalWard.Number: 0));
+                    x => x.AttendingDoctorPatronymic != "" ? 
+                        $"{x.AttendingDoctorSurname} " +
+                        $"{x.AttendingDoctorName} " +
+                        $"{x.AttendingDoctorPatronymic}" 
+                        :
+                        $"{x.AttendingDoctorSurname} " +
+                        $"{x.AttendingDoctorName}"));
 
-        CreateMap<CreatePatientDto, Patient>();
+        CreateMap<CreatePatientDto, Patient>()
+            .ForMember(p => p.AttendingDoctor,
+                option => option.Ignore());
     }
 }

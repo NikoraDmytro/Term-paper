@@ -63,14 +63,6 @@ namespace DAL.Repositories
             return orderedQuery;
         };
 
-        public async Task<Doctor?> GetDoctorAsync(string fullName)
-        {
-            var doctor = await GetByNameAsync(
-                fullName,
-                "HospitalUnit");
-
-            return doctor;
-        }
 
         public async Task<List<Doctor>> GetDoctorsAsync(DoctorParameters parameters)
         {
@@ -82,6 +74,14 @@ namespace DAL.Repositories
                 "HospitalUnit");
             
             return doctors;
+        }
+        public async Task<Doctor?> GetDoctorAsync(string fullName)
+        {
+            var doctor = await GetByNameAsync(
+                fullName,
+                "HospitalUnit");
+
+            return doctor;
         }
 
         public async Task DeleteDoctorAsync(string fullName)

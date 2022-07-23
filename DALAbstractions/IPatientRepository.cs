@@ -1,4 +1,5 @@
 using CORE.Models;
+using Core.RequestFeatures;
 
 namespace DALAbstractions
 {
@@ -7,7 +8,6 @@ namespace DALAbstractions
         public Task DeletePatientAsync(string fullName);
         public Task<Patient?> GetPatientAsync(string fullName);
         public Task<List<Patient>> GetPatientsAsync(
-            int pageNumber, 
-            int pageSize);
+            PatientParameters parameters);
     }
 }

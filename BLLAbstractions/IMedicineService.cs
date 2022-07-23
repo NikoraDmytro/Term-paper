@@ -9,7 +9,6 @@ namespace BLLAbstractions
             MedicineParameters parameters);
         Task DeleteMedicineAsync(string name);
         Task<MedicineDto> AddNewMedicineAsync(MedicineDto medicine);
-        Task ResupplyMedicinesAsync(IEnumerable<MedicineDto> medicines);
-        Task WriteOffMedicinesAsync(IEnumerable<MedicineDto> medicines);
+        Task ResupplyMedicinesAsync(List<MedicineDto> medicines);
     }
 }

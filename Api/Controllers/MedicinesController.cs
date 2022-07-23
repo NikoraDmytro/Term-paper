@@ -47,7 +47,7 @@ namespace Api.Controllers
         [HttpPut]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> ResupplyMedicines(
-            IEnumerable<MedicineDto> medicines)
+            List<MedicineDto> medicines)
         {
             await _medicineService.ResupplyMedicinesAsync(medicines);
 

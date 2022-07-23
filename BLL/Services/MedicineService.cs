@@ -65,9 +65,8 @@ namespace BLL.Services
             await UnitOfWork.SaveAsync();
         }
 
-        private async Task UpdateStockAsync(
-            MedicineDto[] medicinesDto,
-            bool toResupply = true)
+        public async Task ResupplyMedicinesAsync(
+            List<MedicineDto> medicinesDto)
         {
             var medicinesNames = medicinesDto
                 .Select(m => m.Name ?? "")
@@ -79,46 +78,14 @@ namespace BLL.Services
 
             for (int i = 0; i < medicines.Count; i++)
             {
-                if (toResupply)
-                {
-                    medicines[i].QuantityInStock +=
-                        medicinesDto[i].Quantity ?? 0;
-                }
-                else
-                {
-                    medicines[i].QuantityInStock -=
-                        medicinesDto[i].Quantity ?? 0;
-
-                    if (medicines[i].QuantityInStock <= 0)
-                    {
-                        throw new AppException(
-                            $"На складі немає потрібної кількості" +
-                            medicines[i].Name +
-                            $"\n\tЗалишилось: {medicines[i].QuantityInStock}" +
-                            $"\n\tПотрібно: {medicinesDto[i].Quantity}");
-                    }
-                }
+                medicines[i].QuantityInStock +=
+                    medicinesDto[i].Quantity ?? 0;
             }
 
             UnitOfWork
                 .MedicineRepository
                 .UpdateStock(medicines);
-        }
-
-        public async Task ResupplyMedicinesAsync(
-            IEnumerable<MedicineDto> medicinesDto)
-        {
-            await UpdateStockAsync(medicinesDto.ToArray());
             await UnitOfWork.SaveAsync();
         }
-
-        public async Task WriteOffMedicinesAsync(
-            IEnumerable<MedicineDto> medicinesDto)
-        {
-            await UpdateStockAsync(medicinesDto.ToArray(), false);
-            await UnitOfWork.SaveAsync();
-
-        }
-
     }
 }

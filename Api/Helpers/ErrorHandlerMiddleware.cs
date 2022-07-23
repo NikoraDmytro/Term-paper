@@ -1,3 +1,4 @@
+using System.Data;
 using System.Net;
 using System.Text.Json;
 using Core.Exceptions;
@@ -32,6 +33,9 @@ namespace Api.Helpers
                         break;
                     case KeyNotFoundException e:
                         response.StatusCode = (int)HttpStatusCode.NotFound;
+                        break;
+                    case DuplicateNameException e:
+                        response.StatusCode = (int) HttpStatusCode.BadRequest;
                         break;
                     default:
                         Console.WriteLine(error);
