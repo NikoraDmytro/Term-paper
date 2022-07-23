@@ -1,3 +1,4 @@
+using System.Data;
 using AutoMapper;
 using BLLAbstractions;
 using Core.DataTransferObjects.Doctor;
@@ -55,7 +56,7 @@ namespace BLL.Services
             
             if (unit == null)
             {
-                throw new AppException(
+                throw new KeyNotFoundException(
                     $"У лікарні немає відділення з назвою {unitName}");
             }
             
@@ -70,7 +71,7 @@ namespace BLL.Services
 
             if (doctor != null)
             {
-                throw new AppException(
+                throw new DuplicateNameException(
                     $"{doctorFullName} вже працює у лікарні!"
                 );
             }

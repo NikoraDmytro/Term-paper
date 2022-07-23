@@ -86,7 +86,7 @@ public class MedicineRepository: GenericRepository<Medicine>, IMedicineRepositor
         {
             string allMismatched = string.Join(",", mismatchedNames);
             
-            throw new AppException(
+            throw new KeyNotFoundException(
                 $"{allMismatched} не знайдено у базі даних");
         }
 

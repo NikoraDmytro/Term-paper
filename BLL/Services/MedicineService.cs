@@ -1,7 +1,7 @@
+using System.Data;
 using AutoMapper;
 using BLLAbstractions;
 using Core.DataTransferObjects.Medicine;
-using Core.Exceptions;
 using CORE.Models;
 using Core.RequestFeatures;
 using DALAbstractions;
@@ -36,7 +36,8 @@ namespace BLL.Services
 
             if (exists != null)
             {
-                throw new AppException($"Ліки з назвою {medicineName} вже числяться на складі");
+                throw new DuplicateNameException(
+                    $"Ліки з назвою {medicineName} вже числяться на складі");
             }
 
             await UnitOfWork
@@ -55,7 +56,8 @@ namespace BLL.Services
 
             if (medicine == null)
             {
-                throw new AppException($"Ліки з назвою {medicineName} не числяться на складі");
+                throw new KeyNotFoundException(
+                    $"Ліки з назвою {medicineName} не числяться на складі");
             }
 
             await UnitOfWork

@@ -1,3 +1,4 @@
+using System.Data;
 using AutoMapper;
 using BLLAbstractions;
 using Core.DataTransferObjects.Illnesses;
@@ -49,7 +50,8 @@ namespace BLL.Services
             
             if (unit == null)
             {
-                throw new AppException($"У лікарні немає відділення з назвою {unitName}");
+                throw new KeyNotFoundException(
+                    $"У лікарні немає відділення з назвою {unitName}");
             }
             
             var illnessToAdd = Mapper.Map<Illness>(illnessDto);
@@ -60,7 +62,8 @@ namespace BLL.Services
 
             if (illness != null)
             {
-                throw new AppException($"{illness.Name} вже у базі даних!");
+                throw new DuplicateNameException(
+                    $"{illness.Name} вже у базі даних!");
             }
 
             var treatmentsNames = illnessToAdd

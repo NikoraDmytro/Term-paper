@@ -20,7 +20,8 @@ public class HospitalUnitService: BaseService, IHospitalUnitService
 
         if (unit == null)
         {
-            throw new AppException($"У лікарні немає відділення з назвою {name}");
+            throw new KeyNotFoundException(
+                $"У лікарні немає відділення з назвою {name}");
         }
         
         var unitDto = Mapper.Map<HospitalUnitDto>(unit);

@@ -7,13 +7,11 @@ namespace DAL.Repositories
     public abstract class GenericRepository<TEntity> 
         : IGenericRepository<TEntity> where TEntity: class 
     {
-        protected readonly HospitalContext _context;
         protected readonly DbSet<TEntity> DbSet;
 
         protected GenericRepository(HospitalContext context)
         {
-            _context = context;
-            DbSet = _context.Set<TEntity>();
+            DbSet = context.Set<TEntity>();
         }
         
         public virtual async Task<List<TEntity>> GetAsync(

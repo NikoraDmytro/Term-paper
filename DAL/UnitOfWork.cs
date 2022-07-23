@@ -7,6 +7,7 @@ namespace DAL
     public class UnitOfWork : IUnitOfWork
     {
         private readonly HospitalContext _context;
+        
         private IDoctorRepository? _doctorRepository;
         private IHospitalUnitRepository? _hospitalUnitRepository;
         private IHospitalWardRepository? _hospitalWardRepository;
