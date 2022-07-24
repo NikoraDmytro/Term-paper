@@ -1,0 +1,14 @@
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  @include flexCenter();
+  margin: auto;
+  height: 400px;
+  color: white;
+  transform: translateY(50%);
+  background-color: black;
+}
