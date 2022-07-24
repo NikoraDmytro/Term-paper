@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Core.RequestFeatures;
 
 namespace DALAbstractions
 {

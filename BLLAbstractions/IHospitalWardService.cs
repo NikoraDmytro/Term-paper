@@ -1,4 +1,5 @@
 using Core.DataTransferObjects.HospitalWard;
+using Core.DataTransferObjects.Patient;
 using Core.RequestFeatures;
 
 namespace BLLAbstractions
@@ -8,10 +9,18 @@ namespace BLLAbstractions
         Task<IEnumerable<HospitalWardDto>> GetAllWardsAsync(
             string unitName,
             HospitalWardParameters parameters);
-        Task<HospitalWardDto> GetWardAsync(int wardNumber);
+        Task<HospitalWardDto> GetWardAsync(
+            string unitName,
+            int wardNumber);
         Task<HospitalWardDto> OpenWardInHospitalUnit(
             string unitName,
             CreateHospitalWardDto hospitalWardDto);
-        Task CloseWardAsync(int wardNumber);
+        Task CloseWardAsync(
+            string unitName,
+            int wardNumber);
+        Task<List<PatientDto>> GetPatientsAsync(
+            string unitName,
+            int wardNumber,
+            PatientParameters parameters);
     }
 }

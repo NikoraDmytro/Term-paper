@@ -1,6 +1,7 @@
 using AutoMapper;
 using BLLAbstractions;
 using Core.DataTransferObjects.HospitalWard;
+using Core.DataTransferObjects.Patient;
 using CORE.Models;
 using Core.RequestFeatures;
 using DALAbstractions;
@@ -12,6 +13,19 @@ public class HospitalWardService: BaseService, IHospitalWardService
     public HospitalWardService(IMapper mapper, IUnitOfWork unitOfWork) 
         : base(mapper, unitOfWork)
     {
+    }
+
+    private async Task UnitExists(string unitName)
+    {
+        var unit = await UnitOfWork
+            .HospitalUnitRepository
+            .GetByIdAsync(unitName);
+
+        if (unit == null)
+        {
+            throw new KeyNotFoundException(
+                $"У лікарні немає відділення з назвою {unitName}");
+        }
     }
     
     public async Task<IEnumerable<HospitalWardDto>> GetAllWardsAsync(
@@ -28,31 +42,35 @@ public class HospitalWardService: BaseService, IHospitalWardService
         return hospitalWardsDto;
     }
     
-    public async Task<HospitalWardDto> GetWardAsync(int wardNumber)
+    public async Task<HospitalWardDto> GetWardAsync(
+        string unitName,
+        int wardNumber)
     {
+        await UnitExists(unitName);
+        
         var hospitalWard = await UnitOfWork
             .HospitalWardRepository
             .GetHospitalWardAsync(wardNumber);
 
+        if (hospitalWard == null)
+        {
+            throw new KeyNotFoundException(
+                $"У лікарні немає палати №{wardNumber}");
+        }
+        
         var hospitalWardDto = Mapper.Map<HospitalWardDto>(hospitalWard);
 
         return hospitalWardDto;
     }
 
-    public async Task<HospitalWardDto> OpenWardInHospitalUnit(string unitName, CreateHospitalWardDto hospitalWardDto)
+    public async Task<HospitalWardDto> OpenWardInHospitalUnit(
+        string unitName,
+        CreateHospitalWardDto hospitalWardDto)
     {
-        var unit = await UnitOfWork
-            .HospitalUnitRepository
-            .GetByIdAsync(unitName);
-
-        if (unit == null)
-        {
-            throw new KeyNotFoundException(
-                $"У лікарні немає відділення з назвою {unitName}");
-        }
+        await UnitExists(unitName);
         
         var wardToOpen = Mapper.Map<HospitalWard>(hospitalWardDto);
-        wardToOpen.HospitalUnitName = unit.Name;
+        wardToOpen.HospitalUnitName = unitName;
         
         await UnitOfWork
             .HospitalWardRepository
@@ -64,15 +82,36 @@ public class HospitalWardService: BaseService, IHospitalWardService
         return openedWard;
     }
     
-    public async Task CloseWardAsync(int wardNumber)
+    public async Task CloseWardAsync(
+        string unitName,
+        int wardNumber)
     {
-        //will throw error if ward not exist
-        await GetWardAsync(wardNumber);
+        //Throws exception if ward not exists
+        await GetWardAsync(unitName, wardNumber);
 
         await UnitOfWork
             .HospitalWardRepository
             .DeleteByIdAsync(wardNumber);
 
         await UnitOfWork.SaveAsync();
+    }
+    
+    public async Task<List<PatientDto>> GetPatientsAsync(
+        string unitName,
+        int wardNumber,
+        PatientParameters parameters)
+    {
+        //Throws exception if ward not exists
+        await GetWardAsync(unitName, wardNumber);
+        
+        parameters.HospitalWard = wardNumber;
+        
+        var patients = await UnitOfWork
+            .PatientRepository
+            .GetPatientsAsync(parameters);
+
+        var patientsDto = Mapper.Map<List<PatientDto>>(patients);
+
+        return patientsDto;
     }
 }

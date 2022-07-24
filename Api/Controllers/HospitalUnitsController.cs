@@ -1,4 +1,5 @@
 using BLLAbstractions;
+using Core.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -28,6 +29,17 @@ namespace Api.Controllers
             var unit = await _unitService.GetUnitAsync(name);
             
             return Ok(unit);
+        }
+
+        [HttpGet("{name}/doctors")]
+        public async Task<IActionResult> GetDoctorsForUnit(
+            string name,
+            [FromQuery] DoctorParameters parameters)
+        {
+            var doctors = await _unitService
+                .GetDoctorsAsync(name, parameters);
+
+            return Ok(doctors);
         }
     }
 }

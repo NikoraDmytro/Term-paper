@@ -11,7 +11,7 @@ public class MedicineRepository: GenericRepository<Medicine>, IMedicineRepositor
     {
     }
     
-    private Func<IQueryable<Medicine>, IQueryable<Medicine>>
+    private Func<IQueryable<Medicine>, IQueryable<Medicine>> 
         Filter(MedicineParameters parameters) => (query) =>
         {
             if (parameters.ValidQuantityRange)
@@ -30,32 +30,32 @@ public class MedicineRepository: GenericRepository<Medicine>, IMedicineRepositor
             return query;
         };
     
-            private Func<IQueryable<Medicine>, IOrderedQueryable<Medicine>>
-                OrderBy(string orderBy) => (query) =>
+    private Func<IQueryable<Medicine>, IOrderedQueryable<Medicine>> 
+        OrderBy(string orderBy) => (query) => 
+        { 
+            string? param = orderBy.Split(" ")[0];
+            bool isDescending = orderBy.EndsWith("desc");
+
+            IOrderedQueryable<Medicine> orderedQuery;
+            
+            switch (param)
             {
-                string? param = orderBy.Split(" ")[0];
-                bool isDescending = orderBy.EndsWith("desc");
-    
-                IOrderedQueryable<Medicine> orderedQuery;
-                
-                switch (param)
-                {
-                    case "name":
-                        orderedQuery = isDescending ? 
-                            query.OrderByDescending(m=> m.Name) : 
-                            query.OrderBy(m=> m.Name);
-                        break;
-                    case "quantity":
-                        orderedQuery = isDescending ? 
-                            query.OrderByDescending(m=> m.QuantityInStock):
-                            query.OrderBy(m=> m.QuantityInStock);
-                        break;
-                    default:
-                        goto case "name";
-                }
-    
-                return orderedQuery;
-            };
+                case "name":
+                    orderedQuery = isDescending ? 
+                        query.OrderByDescending(m=> m.Name) : 
+                        query.OrderBy(m=> m.Name);
+                    break;
+                case "quantity":
+                    orderedQuery = isDescending ? 
+                        query.OrderByDescending(m=> m.QuantityInStock):
+                        query.OrderBy(m=> m.QuantityInStock);
+                    break;
+                default:
+                    goto case "name";
+            }
+            
+            return orderedQuery;
+        };
 
     public async Task<List<Medicine>> GetMedicinesAsync(
         MedicineParameters parameters)

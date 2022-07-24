@@ -2,7 +2,6 @@ using System.Data;
 using AutoMapper;
 using BLLAbstractions;
 using Core.DataTransferObjects.Doctor;
-using Core.Exceptions;
 using CORE.Models;
 using Core.RequestFeatures;
 using DALAbstractions;
@@ -37,8 +36,7 @@ namespace BLL.Services
             if (doctor == null)
             {
                 throw new KeyNotFoundException(
-                    $"Лікаря з ФІО {fullName} не знайдено!"
-                    );
+                    $"Лікаря з ФІО {fullName} не знайдено!");
             }
             
             var doctorDto = Mapper.Map<DoctorDto>(doctor);

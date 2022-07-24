@@ -1,7 +1,5 @@
-using System.Linq.Expressions;
 using CORE.Models;
 using Core.RequestFeatures;
-using DAL.Utils;
 using DALAbstractions;
 
 namespace DAL.Repositories
@@ -75,6 +73,7 @@ namespace DAL.Repositories
             
             return doctors;
         }
+        
         public async Task<Doctor?> GetDoctorAsync(string fullName)
         {
             var doctor = await GetByNameAsync(

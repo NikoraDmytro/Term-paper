@@ -14,7 +14,7 @@ namespace BLL.Services
         public PatientService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
+        
         public async Task<IEnumerable<PatientDto>> 
             GetAllPatientsAsync(PatientParameters parameters)
         {
@@ -53,16 +53,6 @@ namespace BLL.Services
                 patientToRegisterDto.Diagnosis ?? "";
             string doctorFullName = 
                 patientToRegisterDto.AttendingDoctor ?? "";
-            
-            var ward = await UnitOfWork
-                .HospitalWardRepository
-                .GetByIdAsync(wardNumber);
-
-            if (ward == null)
-            {
-                throw new KeyNotFoundException(
-                    $"Палату {wardNumber} з номером не знайдено!");
-            }
 
             var diagnosis = await UnitOfWork
                 .IllnessRepository
@@ -73,12 +63,27 @@ namespace BLL.Services
                 throw new KeyNotFoundException(
                     $"Хворобу з назвою {diagnosis} не знайдено в базі даних!");
             }
+
+            var ward = await UnitOfWork
+                .HospitalWardRepository
+                .GetHospitalWardAsync(wardNumber);
+
+            if (ward == null)
+            {
+                throw new KeyNotFoundException(
+                    $"Палату №{wardNumber} не знайдено!");
+            }
             if (diagnosis.HospitalUnitName != ward.HospitalUnitName)
             {
                 throw new AppException(
                     $"{diagnosis.Name} не лікується у відділенні" +
                     $", де знаходиться палата №{wardNumber}!"
                 );
+            }
+            if (ward.Occupancy == ward.BedsQuantity)
+            {
+                throw new AppException(
+                    $"В палаті №{wardNumber} немає вільних ліжко-місць!");
             }
 
             var doctor = await UnitOfWork
@@ -99,39 +104,9 @@ namespace BLL.Services
                 );
             }
 
-            var medicinesNames = diagnosis
-                .Treatments
-                .Select(t => t.MedicineName ?? "")
-                .ToArray();
+            await WriteOffMedicines(diagnosis);
             
-            var medicines = await UnitOfWork
-                .MedicineRepository
-                .GetByNamesAsync(medicinesNames);
-
-            for (int i = 0; i < medicines.Count; i++)
-            {
-                var quantity = diagnosis
-                    .Treatments[i]
-                    .MedicineQuantity;
-                
-                if (medicines[i].QuantityInStock - quantity <= 0)
-                {
-                    throw new AppException(
-                        $"На складі немає потрібної кількості " +
-                        $"{medicines[i].Name}: " +
-                        $"Залишилось: {medicines[i].QuantityInStock}; " +
-                        $"Потрібно: {quantity}");
-                }
-                
-                medicines[i].QuantityInStock -= quantity;
-            }
-
-
             var patientToRegister = Mapper.Map<Patient>(patientToRegisterDto);
-            
-            patientToRegister.AttendingDoctor = doctor;
-            patientToRegister.Illness = diagnosis;
-            patientToRegister.HospitalWard = ward;
             
             string fullName = patientToRegister.FullName;
 
@@ -165,6 +140,36 @@ namespace BLL.Services
                 .DeletePatientAsync(fullName);
             
             await UnitOfWork.SaveAsync();
+        }
+
+        private async Task WriteOffMedicines(Illness diagnosis)
+        {
+            var medicinesNames = diagnosis
+                .Treatments
+                .Select(t => t.MedicineName ?? "")
+                .ToArray();
+            
+            var medicines = await UnitOfWork
+                .MedicineRepository
+                .GetByNamesAsync(medicinesNames);
+
+            for (int i = 0; i < medicines.Count; i++)
+            {
+                var quantity = diagnosis
+                    .Treatments[i]
+                    .MedicineQuantity;
+                
+                if (medicines[i].QuantityInStock - quantity <= 0)
+                {
+                    throw new AppException(
+                        $"На складі немає потрібної кількості " +
+                        $"{medicines[i].Name}: " +
+                        $"Залишилось: {medicines[i].QuantityInStock}; " +
+                        $"Потрібно: {quantity}");
+                }
+                
+                medicines[i].QuantityInStock -= quantity;
+            }
         }
     }
 }

@@ -29,10 +29,12 @@ namespace Api.Controllers
         }
         
         [HttpGet("{wardNumber}", Name = "GetHospitalWard")]
-        public async Task<IActionResult> GetHospitalWard(short wardNumber)
+        public async Task<IActionResult> GetHospitalWard(
+            string unitName,
+            short wardNumber)
         {
             var hospitalWard = await _hospitalWardService
-                .GetWardAsync(wardNumber);
+                .GetWardAsync(unitName, wardNumber);
             
             return Ok(hospitalWard);
         }
@@ -53,11 +55,29 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{wardNumber}")]
-        public async Task<IActionResult> CloseHospitalWard(int wardNumber)
+        public async Task<IActionResult> CloseHospitalWard(
+            string unitName,
+            int wardNumber)
         {
-            await _hospitalWardService.CloseWardAsync(wardNumber);
+            await _hospitalWardService
+                .CloseWardAsync(unitName, wardNumber);
 
             return Ok($"Палата №{wardNumber} була зачинена!");
+        }
+
+        [HttpGet("{wardNumber}/patients")]
+        public async Task<IActionResult> GetPatients(
+            string unitName,
+            int wardNumber,
+            PatientParameters parameters)
+        {
+            var patients = await _hospitalWardService
+                .GetPatientsAsync(
+                    unitName, 
+                    wardNumber,
+                    parameters);
+
+            return Ok(patients);
         }
     }
 }

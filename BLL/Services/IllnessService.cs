@@ -66,7 +66,7 @@ namespace BLL.Services
                     $"{illness.Name} вже у базі даних!");
             }
 
-            var treatmentsNames = illnessToAdd
+            var medicinesNames = illnessToAdd
                 .Treatments
                 .Select(t => t.MedicineName ?? "")
                 .ToArray();
@@ -74,7 +74,7 @@ namespace BLL.Services
             //Throws an error if the medicines provided are not in DB 
             await UnitOfWork
                 .MedicineRepository
-                .GetByNamesAsync(treatmentsNames);
+                .GetByNamesAsync(medicinesNames);
             
             await UnitOfWork
                 .IllnessRepository

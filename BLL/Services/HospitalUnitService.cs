@@ -1,7 +1,8 @@
 using AutoMapper;
 using BLLAbstractions;
+using Core.DataTransferObjects.Doctor;
 using Core.DataTransferObjects.HospitalUnit;
-using Core.Exceptions;
+using Core.RequestFeatures;
 using DALAbstractions;
 
 namespace BLL.Services;
@@ -11,12 +12,12 @@ public class HospitalUnitService: BaseService, IHospitalUnitService
     public HospitalUnitService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
     {
     }
-
+    
     public async Task<HospitalUnitDto> GetUnitAsync(string name)
     {
         var unit = await UnitOfWork
             .HospitalUnitRepository
-            .GetByIdAsync(name);
+            .GetUnitAsync(name);
 
         if (unit == null)
         {
@@ -33,10 +34,28 @@ public class HospitalUnitService: BaseService, IHospitalUnitService
     {
         var units = await UnitOfWork
             .HospitalUnitRepository
-            .GetAsync();
+            .GetAllUnitsAsync();
 
         var unitsDto = Mapper.Map<IEnumerable<HospitalUnitDto>>(units);
 
         return unitsDto;
+    }
+
+    public async Task<List<DoctorDto>> GetDoctorsAsync(
+        string unitName,
+        DoctorParameters parameters)
+    {
+        //Throws exception if unit not exists
+        await GetUnitAsync(unitName);
+
+        parameters.HospitalUnit = unitName;
+        
+        var doctors = await UnitOfWork
+            .DoctorRepository
+            .GetDoctorsAsync(parameters);
+
+        var doctorsDto = Mapper.Map<List<DoctorDto>>(doctors);
+        
+        return doctorsDto;
     }
 }

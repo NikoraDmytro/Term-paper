@@ -9,6 +9,13 @@ namespace CORE.Models
         [Required(ErrorMessage = "Hospital unit name is a required field!")]
         public string? Name { get; set; }
 
+        [NotMapped]
+        public int WardsQuantity { get; set; }
+        [NotMapped]
+        public int TotalOccupancy { get; set; }
+        [NotMapped]
+        public int DoctorsQuantity { get; set; }
+        
         [Required(ErrorMessage = "Profession related to hospital unit is a required field!")]
         [Column(TypeName = "varchar(50)")]
         public string? Profession { get; set; }

@@ -28,8 +28,7 @@ namespace BLL.Services
         public async Task<MedicineDto> AddNewMedicineAsync(
             MedicineDto medicineDto)
         {
-            var medicine = Mapper.Map<Medicine>(medicineDto);
-            string medicineName = medicine.Name ?? string.Empty;
+            string medicineName = medicineDto.Name;
             
             var exists = await UnitOfWork.MedicineRepository
                 .GetByIdAsync(medicineName);
@@ -39,6 +38,8 @@ namespace BLL.Services
                 throw new DuplicateNameException(
                     $"Ліки з назвою {medicineName} вже числяться на складі");
             }
+            
+            var medicine = Mapper.Map<Medicine>(medicineDto);
 
             await UnitOfWork
                 .MedicineRepository
@@ -71,7 +72,7 @@ namespace BLL.Services
             List<MedicineDto> medicinesDto)
         {
             var medicinesNames = medicinesDto
-                .Select(m => m.Name ?? "")
+                .Select(m => m.Name)
                 .ToArray();
             
             var medicines = await UnitOfWork

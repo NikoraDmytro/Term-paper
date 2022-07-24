@@ -1,6 +1,6 @@
-using System.Linq.Expressions;
 using CORE.Models;
 using DALAbstractions;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories;
@@ -19,7 +19,7 @@ public abstract class PersonRepository<TPerson>:
             .Trim()
             .ToLower()
             .Contains(fullName.Trim().ToLower());
-    
+
     public async Task<TPerson?> GetByNameAsync(
         string fullName,
         string includeProperties = "")
