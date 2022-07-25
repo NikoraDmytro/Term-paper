@@ -1,11 +1,12 @@
 import React from "react";
-import styles from "./App.module.scss";
+
+import { Header } from "./components/Header";
 
 function App() {
   return (
-    <div className={styles.container}>
-      <h1>Hello World!</h1>
-    </div>
+    <>
+      <Header />
+    </>
   );
 }
 

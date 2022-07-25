@@ -8,9 +8,6 @@
     ],
     "plugins": [{
       "name": "typescript-plugin-css-modules",
-      "options": {
-        "classnameTransform": "camelCase",
-      }
     }],
     "allowJs": true,
     "skipLibCheck": true,
