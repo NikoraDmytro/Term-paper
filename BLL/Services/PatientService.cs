@@ -170,6 +170,8 @@ namespace BLL.Services
                 
                 medicines[i].QuantityInStock -= quantity;
             }
+
+            UnitOfWork.MedicineRepository.UpdateStock(medicines);
         }
     }
 }

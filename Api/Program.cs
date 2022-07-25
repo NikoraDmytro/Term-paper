@@ -19,11 +19,12 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader());
 });
 
-string connectionString = builder.Configuration.GetConnectionString("PCConnection");
+string connectionString = builder.Configuration
+    .GetConnectionString("PCConnection");
 
 builder.Services.AddDbContext<HospitalContext>(options =>
 {
-    options.UseMySql(connectionString, 
+    options.UseMySql(connectionString,
         new MySqlServerVersion(
             new Version(8, 0, 29)));
 });

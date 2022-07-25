@@ -1,4 +1,3 @@
-using Core.Exceptions;
 using CORE.Models;
 using Core.RequestFeatures;
 using DALAbstractions;
@@ -33,7 +32,7 @@ public class MedicineRepository: GenericRepository<Medicine>, IMedicineRepositor
     private Func<IQueryable<Medicine>, IOrderedQueryable<Medicine>> 
         OrderBy(string orderBy) => (query) => 
         { 
-            string? param = orderBy.Split(" ")[0];
+            string param = orderBy.Split(" ")[0];
             bool isDescending = orderBy.EndsWith("desc");
 
             IOrderedQueryable<Medicine> orderedQuery;

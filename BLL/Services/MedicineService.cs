@@ -69,10 +69,10 @@ namespace BLL.Services
         }
 
         public async Task ResupplyMedicinesAsync(
-            List<MedicineDto> medicinesDto)
+            List<UpdateMedicineDto> medicinesDto)
         {
             var medicinesNames = medicinesDto
-                .Select(m => m.Name)
+                .Select(m => m.Name ?? "")
                 .ToArray();
             
             var medicines = await UnitOfWork

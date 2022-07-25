@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(HospitalContext))]
-    partial class HospitalContextModelSnapshot : ModelSnapshot
+    [Migration("20220725141759_MedicinesSeedUpdate")]
+    partial class MedicinesSeedUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -415,8 +417,8 @@ namespace DAL.Migrations
                         new
                         {
                             Name = "Ацекор",
-                            DosageForm = "Кардіо таблетки кишковорозчинні по 100 мг",
-                            QuantityInStock = (short)1200,
+                            DosageForm = "Кардіо таблетки кишковорозчинні по 100 мг acetylsalicylic acid",
+                            QuantityInStock = (short)2500,
                             UnitOfMeasure = "таб."
                         },
                         new
