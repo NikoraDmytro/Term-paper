@@ -1,0 +1,46 @@
+@use "../../shared/styles/base.scss";
+
+.landing {
+  width: 100%;
+  height: 80vh;
+  padding-block: 1em;
+  position: relative;
+}
+
+.caption {
+  right: 10%;
+  z-index: 5;
+  width: 45%;
+  bottom: 30%;
+  padding: 2em;
+  position: absolute;
+  background-color: white;
+  box-shadow: 6px 6px rgba(0, 0, 0, 0.244);
+
+  h1 {
+    font-size: 48px;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 18px;
+    margin-block: 1.5em;
+  }
+}
+
+.goToUnitsButton {
+  @include base.resetButton();
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0.75em 1.5em;
+  background-color: #6bb4ba;
+
+  &:hover {
+    background-color: darken(#6bb4ba, 15);
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+}

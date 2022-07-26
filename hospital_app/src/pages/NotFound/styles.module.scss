@@ -1,0 +1,52 @@
+@use "../../shared/styles/base.scss";
+
+.pageBody {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+}
+
+.backGroundImage {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.errorBlock {
+  z-index: 5;
+  margin: auto;
+  margin-top: 10%;
+  position: relative;
+  text-align: center;
+
+  h2 {
+    margin: 1em;
+    color: black;
+    font-size: 48px;
+    font-family: "Courier New", Courier, monospace;
+  }
+}
+
+.linkToHome {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+
+  &:hover {
+    span {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    color: white;
+  }
+}
+
+.errorCode {
+  color: white;
+  font-size: 200px;
+  font-weight: 500;
+  letter-spacing: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}

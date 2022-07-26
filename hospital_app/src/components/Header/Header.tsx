@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import styles from "./styles.module.scss";
 import logo from "./logo.svg";
@@ -26,15 +26,17 @@ const NavBarLink = (props: NavLinkProps) => {
 export const Header = () => {
   return (
     <header className={styles.appHeader}>
-      <img src={logo} alt="Logo" className={styles.logo} />
+      <Link to="/">
+        <img src={logo} alt="Logo" className={styles.logo} />
+      </Link>
 
       <nav className={styles.navBar}>
         <ul>
-          <NavBarLink href="/" text="Відділення" />
-          <NavBarLink href="/a" text="Лікарі" />
-          <NavBarLink href="/b" text="Пацієнти" />
-          <NavBarLink href="/c" text="Склад медикаментів" />
-          <NavBarLink href="/d" text="База хвороб" />
+          <NavBarLink href="hospitalUnits" text="Відділення" />
+          <NavBarLink href="doctors" text="Лікарі" />
+          <NavBarLink href="patients" text="Пацієнти" />
+          <NavBarLink href="medicines" text="Склад медикаментів" />
+          <NavBarLink href="illnesses" text="База хвороб" />
         </ul>
       </nav>
     </header>
