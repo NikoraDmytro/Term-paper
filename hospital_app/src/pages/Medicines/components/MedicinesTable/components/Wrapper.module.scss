@@ -1,0 +1,26 @@
+.title {
+  margin: 1em;
+  font-weight: 400;
+}
+
+.spinnerContainer {
+  margin: 2em auto;
+  width: fit-content;
+}
+
+.error {
+  color: rgb(255, 0, 85);
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+
+  h1 {
+    margin: 0.5em;
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: 20px;
+  }
+  h2 {
+    font-size: 36px;
+    font-weight: 500;
+  }
+}

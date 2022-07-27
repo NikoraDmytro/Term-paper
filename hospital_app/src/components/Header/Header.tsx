@@ -33,10 +33,16 @@ export const Header = () => {
       <nav className={styles.navBar}>
         <ul>
           <NavBarLink href="hospitalUnits" text="Відділення" />
-          <NavBarLink href="doctors" text="Лікарі" />
-          <NavBarLink href="patients" text="Пацієнти" />
-          <NavBarLink href="medicines" text="Склад медикаментів" />
-          <NavBarLink href="illnesses" text="База хвороб" />
+          <NavBarLink href="doctors?PageSize=5&PageNumber=1" text="Лікарі" />
+          <NavBarLink href="patients?PageSize=5&PageNumber=1" text="Пацієнти" />
+          <NavBarLink
+            href="medicines?PageSize=10&PageNumber=1"
+            text="Склад медикаментів"
+          />
+          <NavBarLink
+            href="illnesses?PageSize=50&PageNumber=1"
+            text="База хвороб"
+          />
         </ul>
       </nav>
     </header>

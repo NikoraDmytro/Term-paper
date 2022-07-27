@@ -1,0 +1,31 @@
+.medicinesTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  th:first-of-type {
+    width: 80%;
+  }
+
+  th {
+    font-weight: 500;
+    text-align: start;
+    padding-block: 0.5em;
+
+    &:first-of-type {
+      font-size: 20px;
+      padding-left: 4px;
+    }
+  }
+
+  td {
+    padding-block: 1em;
+
+    &:nth-child(odd) {
+      font-size: 22px;
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid rgb(123, 119, 119);
+  }
+}
