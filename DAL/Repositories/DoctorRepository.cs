@@ -62,16 +62,16 @@ namespace DAL.Repositories
         };
 
 
-        public async Task<List<Doctor>> GetDoctorsAsync(DoctorParameters parameters)
+        public async Task<(int, List<Doctor>)> GetDoctorsAsync(DoctorParameters parameters)
         {
-            var doctors = await GetPagedAsync(
+            var (total, doctors) = await GetPagedAsync(
                 parameters.PageNumber,
                 parameters.PageSize,
                 Filter(parameters.SearchTerm, parameters.HospitalUnit),
                 OrderBy(parameters.OrderBy),
                 "HospitalUnit");
             
-            return doctors;
+            return (total, doctors);
         }
         
         public async Task<Doctor?> GetDoctorAsync(string fullName)

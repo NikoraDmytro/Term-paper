@@ -11,7 +11,7 @@ namespace DAL.Repositories
         {
         }
 
-        public async Task<string[]> 
+        public async Task<(int, string[])> 
             GetIllnessesNamesAsync(IllnessParameters parameters)
         {
             IQueryable<string> query;
@@ -28,17 +28,22 @@ namespace DAL.Repositories
                 query = DbSet.Select(illness => illness.Name ?? "");
             }
 
+            
             query = (parameters.OrderBy.EndsWith("desc")
                     ? query.OrderByDescending(name => name)
                     : query.OrderBy(name => name))
                 .Where(name => name.Contains(parameters.SearchTerm));
+
+            int pageSize = parameters.PageSize;
+            int total = query.Count();
+            int pagesQuantity = total / pageSize + (total % pageSize != 0 ? 1: 0);
 
             string[] names = await query
                 .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                 .Take(parameters.PageSize)
                 .ToArrayAsync();
             
-            return names;
+            return (pagesQuantity, names);
         }
 
         public async Task<Illness?> GetIllnessAsync(string name)

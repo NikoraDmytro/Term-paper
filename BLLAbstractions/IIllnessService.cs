@@ -5,7 +5,7 @@ namespace BLLAbstractions
 {
     public interface IIllnessService
     {
-        Task<IEnumerable<string>> 
+        Task<(int, IEnumerable<string>)> 
             GetAllIllnessesAsync(IllnessParameters parameters);
         Task<IllnessDto> GetIllnessAsync(string name);
         Task<IllnessDto> AddIllnessAsync(IllnessDto doctorToHire);

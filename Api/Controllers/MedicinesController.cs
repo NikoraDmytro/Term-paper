@@ -21,10 +21,10 @@ namespace Api.Controllers
         public async Task<IActionResult> GetMedicines(
             [FromQuery] MedicineParameters parameters)
         {
-            var medicines = await _medicineService
+            var (pagesQuantity, medicines) = await _medicineService
                 .GetAllAsync(parameters);
 
-            return Ok(medicines);
+            return Ok(new { pagesQuantity, medicines });
         }
         
         [HttpPost]

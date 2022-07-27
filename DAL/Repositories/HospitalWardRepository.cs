@@ -68,17 +68,17 @@ namespace DAL.Repositories
             return orderedQuery;
         };
 
-        public async Task<List<HospitalWard>> GetHospitalWardsAsync(
+        public async Task<(int, List<HospitalWard>)> GetHospitalWardsAsync(
             string unitName, 
             HospitalWardParameters parameters)
         {
-            var hospitalWards = await GetPagedAsync(
+            var (total, hospitalWards) = await GetPagedAsync(
                 parameters.PageNumber,
                 parameters.PageSize,
                 Filter(unitName, parameters),
                 OrderBy(parameters.OrderBy));
             
-            return hospitalWards;
+            return (total, hospitalWards);
         }
 
         public async Task<HospitalWard?> GetHospitalWardAsync(int wardNumber)

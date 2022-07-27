@@ -7,7 +7,7 @@ namespace DALAbstractions
     {
         public Task DeletePatientAsync(string fullName);
         public Task<Patient?> GetPatientAsync(string fullName);
-        public Task<List<Patient>> GetPatientsAsync(
+        public Task<(int, List<Patient>)> GetPatientsAsync(
             PatientParameters parameters);
     }
 }

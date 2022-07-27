@@ -15,14 +15,14 @@ namespace BLL.Services
         {
         }
 
-        public async Task<IEnumerable<string>> 
+        public async Task<(int, IEnumerable<string>)> 
             GetAllIllnessesAsync(IllnessParameters parameters)
         {
-            string[] names = await UnitOfWork
+            var (pagesQuantity, names) = await UnitOfWork
                 .IllnessRepository
                 .GetIllnessesNamesAsync(parameters);
             
-            return names;
+            return (pagesQuantity, names);
         }
 
         public async Task<IllnessDto> GetIllnessAsync(string name)

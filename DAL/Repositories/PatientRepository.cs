@@ -92,16 +92,16 @@ namespace DAL.Repositories
             return orderedQuery;
         };
         
-        public async Task<List<Patient>> GetPatientsAsync(
+        public async Task<(int, List<Patient>)> GetPatientsAsync(
             PatientParameters parameters)
         {
-            var patients = await GetPagedAsync(
+            var (totalQuantity, patients) = await GetPagedAsync(
                 parameters.PageNumber,
                 parameters.PageSize,
                 Filter(parameters),
                 OrderBy(parameters.OrderBy));
             
-            return patients;
+            return (totalQuantity, patients) ;
         }
         
         public async Task DeletePatientAsync(string fullName)

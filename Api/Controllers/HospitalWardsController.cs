@@ -22,10 +22,14 @@ namespace Api.Controllers
             string unitName,
             [FromQuery] HospitalWardParameters parameters)
         {
-            var hospitalWards = await _hospitalWardService
+            var (pagesQuantity, hospitalWards) = await _hospitalWardService
                 .GetAllWardsAsync(unitName, parameters);
 
-            return Ok(hospitalWards);
+            return Ok(new
+            {
+                pagesQuantity,
+                hospitalWards
+            });
         }
         
         [HttpGet("{wardNumber}", Name = "GetHospitalWard")]
@@ -71,13 +75,17 @@ namespace Api.Controllers
             int wardNumber,
             PatientParameters parameters)
         {
-            var patients = await _hospitalWardService
+            var (pagesQuantity, patients) = await _hospitalWardService
                 .GetPatientsAsync(
                     unitName, 
                     wardNumber,
                     parameters);
 
-            return Ok(patients);
+            return Ok(new
+            {
+                pagesQuantity,
+                patients
+            });
         }
     }
 }

@@ -15,16 +15,16 @@ namespace BLL.Services
         {
         }
         
-        public async Task<IEnumerable<DoctorDto>> GetAllDoctorsAsync(
+        public async Task<(int, IEnumerable<DoctorDto>)> GetAllDoctorsAsync(
             DoctorParameters parameters)
         {
-            var doctors = await UnitOfWork
+            var (pagesQuantity, doctors) = await UnitOfWork
                 .DoctorRepository
                 .GetDoctorsAsync(parameters);
             
             var doctorsDto = Mapper.Map<IEnumerable<DoctorDto>>(doctors);
             
-            return doctorsDto;
+            return (pagesQuantity, doctorsDto);
         }
 
         public async Task<DoctorDto> GetDoctorAsync(string fullName)

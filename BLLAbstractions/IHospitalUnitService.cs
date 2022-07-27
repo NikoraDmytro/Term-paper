@@ -6,7 +6,7 @@ namespace BLLAbstractions
 {
     public interface IHospitalUnitService
     {
-        Task<List<DoctorDto>> GetDoctorsAsync(
+        Task<(int, List<DoctorDto>)> GetDoctorsAsync(
             string unitName,
             DoctorParameters parameters);
         Task<HospitalUnitDto> GetUnitAsync(string name);

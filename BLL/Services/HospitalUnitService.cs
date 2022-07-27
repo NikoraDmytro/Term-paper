@@ -41,7 +41,7 @@ public class HospitalUnitService: BaseService, IHospitalUnitService
         return unitsDto;
     }
 
-    public async Task<List<DoctorDto>> GetDoctorsAsync(
+    public async Task<(int, List<DoctorDto>)> GetDoctorsAsync(
         string unitName,
         DoctorParameters parameters)
     {
@@ -50,12 +50,12 @@ public class HospitalUnitService: BaseService, IHospitalUnitService
 
         parameters.HospitalUnit = unitName;
         
-        var doctors = await UnitOfWork
+        var (pagesQuantity, doctors) = await UnitOfWork
             .DoctorRepository
             .GetDoctorsAsync(parameters);
 
         var doctorsDto = Mapper.Map<List<DoctorDto>>(doctors);
         
-        return doctorsDto;
+        return (pagesQuantity, doctorsDto);
     }
 }

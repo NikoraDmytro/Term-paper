@@ -18,14 +18,17 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> 
+        public async Task<IActionResult>
             GetIllnesses([FromQuery] IllnessParameters parameters)
         {
-            var illnesses = await _illnessService
+            var (pagesQuantity, illnesses) = await _illnessService
                 .GetAllIllnessesAsync(parameters);
 
-            return Ok(illnesses);
-        }
+            return Ok(new { 
+                    pagesQuantity,
+                    illnesses
+                });
+    }
 
         [HttpGet("{name}", Name = "GetIllness")]
         public async Task<IActionResult> GetIllness(string name)

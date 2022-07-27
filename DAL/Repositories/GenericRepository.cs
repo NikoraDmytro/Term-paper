@@ -38,7 +38,7 @@ namespace DAL.Repositories
             return entities;
         }
 
-        public async Task<List<TEntity>> GetPagedAsync(
+        public async Task<(int, List<TEntity>)> GetPagedAsync(
             int pageNumber = 1,
             int pageSize = 5,
             Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null,
@@ -55,6 +55,9 @@ namespace DAL.Repositories
             {
                 query = orderBy(query);
             }
+
+            int total = query.Count();
+            int pagesQuantity = total / pageSize + (total % pageSize != 0 ? 1: 0);
             
             query = query
                 .Skip((pageNumber - 1) * pageSize)
@@ -68,7 +71,7 @@ namespace DAL.Repositories
 
             var entities = await query.ToListAsync();
             
-            return entities;
+            return (pagesQuantity, entities);
         }
 
 

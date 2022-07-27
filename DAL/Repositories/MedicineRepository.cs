@@ -57,16 +57,16 @@ public class MedicineRepository : GenericRepository<Medicine>, IMedicineReposito
             return orderedQuery;
         };
 
-    public async Task<List<Medicine>> GetMedicinesAsync(
+    public async Task<(int, List<Medicine>)> GetMedicinesAsync(
         MedicineParameters parameters)
     {
-        var medicines = await GetPagedAsync(
+        var (totalQuantity, medicines) = await GetPagedAsync(
             parameters.PageNumber,
             parameters.PageSize,
             Filter(parameters),
             OrderBy(parameters.OrderBy));
-
-        return medicines;
+        
+        return (totalQuantity, medicines);
     }
 
     public void UpdateStock(IEnumerable<Medicine> medicines)

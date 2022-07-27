@@ -21,10 +21,10 @@ namespace Api.Controllers
         public async Task<IActionResult> GetPatients(
             [FromQuery] PatientParameters parameters)
         {
-            var patients = await _patientService
+            var (pagesQuantity, patients) = await _patientService
                 .GetAllPatientsAsync(parameters);
 
-            return Ok(patients);
+            return Ok(new { pagesQuantity, patients });
         }
         
         [HttpGet("{fullName}", Name = "GetPatientByName")]

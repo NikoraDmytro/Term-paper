@@ -8,7 +8,7 @@ namespace DALAbstractions
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "");
-        Task<List<TEntity>> GetPagedAsync(
+        Task<(int, List<TEntity>)> GetPagedAsync(
             int pageNumber,
             int pageSize,
             Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null,

@@ -28,18 +28,18 @@ public class HospitalWardService: BaseService, IHospitalWardService
         }
     }
     
-    public async Task<IEnumerable<HospitalWardDto>> GetAllWardsAsync(
+    public async Task<(int, IEnumerable<HospitalWardDto>)> GetAllWardsAsync(
         string unitName,
         HospitalWardParameters parameters)
     {
-        var hospitalWards = await UnitOfWork
+        var (pagesQuantity, hospitalWards) = await UnitOfWork
             .HospitalWardRepository
             .GetHospitalWardsAsync(unitName, parameters);
         
         var hospitalWardsDto = Mapper
             .Map<IEnumerable<HospitalWardDto>>(hospitalWards);
 
-        return hospitalWardsDto;
+        return (pagesQuantity, hospitalWardsDto);
     }
     
     public async Task<HospitalWardDto> GetWardAsync(
@@ -96,7 +96,7 @@ public class HospitalWardService: BaseService, IHospitalWardService
         await UnitOfWork.SaveAsync();
     }
     
-    public async Task<List<PatientDto>> GetPatientsAsync(
+    public async Task<(int, List<PatientDto>)> GetPatientsAsync(
         string unitName,
         int wardNumber,
         PatientParameters parameters)
@@ -106,12 +106,12 @@ public class HospitalWardService: BaseService, IHospitalWardService
         
         parameters.HospitalWard = wardNumber;
         
-        var patients = await UnitOfWork
+        var (pagesQuantity, patients) = await UnitOfWork
             .PatientRepository
             .GetPatientsAsync(parameters);
 
         var patientsDto = Mapper.Map<List<PatientDto>>(patients);
 
-        return patientsDto;
+        return (pagesQuantity, patientsDto);
     }
 }

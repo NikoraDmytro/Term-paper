@@ -5,7 +5,7 @@ namespace BLLAbstractions
 {
     public interface IDoctorService
     {
-        Task<IEnumerable<DoctorDto>> GetAllDoctorsAsync(
+        Task<(int, IEnumerable<DoctorDto>)> GetAllDoctorsAsync(
             DoctorParameters parameters);
         Task<DoctorDto> GetDoctorAsync(string fullName);
         Task<DoctorDto> HireDoctorAsync(CreateDoctorDto doctorToHireDto);

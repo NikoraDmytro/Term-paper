@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import styles from "./MainLayout.module.scss";
+import styles from "./styles.module.scss";
 import { innerLink } from "shared/types/InnerLink";
 import { InnerNavigation } from "components/InnerNavigation";
 

@@ -36,10 +36,14 @@ namespace Api.Controllers
             string name,
             [FromQuery] DoctorParameters parameters)
         {
-            var doctors = await _unitService
+            var (pagesQuantity, doctors) = await _unitService
                 .GetDoctorsAsync(name, parameters);
 
-            return Ok(doctors);
+            return Ok(new
+            {
+                pagesQuantity,
+                doctors
+            });
         }
     }
 }

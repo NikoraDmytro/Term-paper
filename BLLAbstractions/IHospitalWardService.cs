@@ -6,7 +6,7 @@ namespace BLLAbstractions
 {
     public interface IHospitalWardService
     {
-        Task<IEnumerable<HospitalWardDto>> GetAllWardsAsync(
+        Task<(int, IEnumerable<HospitalWardDto>)> GetAllWardsAsync(
             string unitName,
             HospitalWardParameters parameters);
         Task<HospitalWardDto> GetWardAsync(
@@ -18,7 +18,7 @@ namespace BLLAbstractions
         Task CloseWardAsync(
             string unitName,
             int wardNumber);
-        Task<List<PatientDto>> GetPatientsAsync(
+        Task<(int, List<PatientDto>)> GetPatientsAsync(
             string unitName,
             int wardNumber,
             PatientParameters parameters);

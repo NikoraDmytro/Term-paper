@@ -5,7 +5,7 @@ namespace DALAbstractions;
 
 public interface IIllnessRepository: IGenericRepository<Illness>
 {
-    Task<string[]> GetIllnessesNamesAsync(
+    Task<(int, string[])> GetIllnessesNamesAsync(
         IllnessParameters parameters);
     Task<Illness?> GetIllnessAsync(string name);
 }
