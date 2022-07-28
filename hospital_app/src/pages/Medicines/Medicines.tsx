@@ -2,9 +2,10 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { MainLayout } from "layouts/MainLayout";
+import { innerLink } from "shared/types/InnerLink";
 import { RefillStock } from "./components/RefillStock";
 import { MedicinesTable } from "./components/MedicinesTable";
-import { innerLink } from "shared/types/InnerLink";
+import { AddMedicineForm } from "./components/AddMedicineForm";
 
 const innerLinks: innerLink[] = [
   {
@@ -28,7 +29,7 @@ export const Medicines = () => {
       <Route path="/" element={<MainLayout innerLinks={innerLinks} />}>
         <Route path="/" element={<MedicinesTable />} />
         <Route path="/refillStock" element={<RefillStock />} />
-        <Route path="/addMedicine" />
+        <Route path="/addMedicine" element={<AddMedicineForm />} />
       </Route>
     </Routes>
   );

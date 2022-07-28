@@ -6,6 +6,7 @@ public class CreateMedicineDto
 {
     [Required(ErrorMessage = "Не вказано назву ліків!")]
     public string? Name { get; set; }
+    
     public string DosageForm { get; set; } = String.Empty;
 
     [Required(ErrorMessage = "Не вказано одиницю виміру кількості ліків!")]

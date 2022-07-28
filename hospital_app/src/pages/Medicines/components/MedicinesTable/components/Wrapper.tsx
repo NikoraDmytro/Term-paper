@@ -11,6 +11,7 @@ import { searchParamsToObject } from "utils/searchParamsToObject";
 import styles from "./Wrapper.module.scss";
 import { Pagination } from "components/Pagination";
 import { OrderOption } from "shared/types/OrderOptions";
+import { ErrorComponent } from "components/ErrorComponent";
 
 interface Props {
   children: (data: IMedicine[]) => React.ReactNode;
@@ -38,7 +39,7 @@ const orderBy: OrderOption[] = [
 export const Wrapper = (props: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  let { data, isLoading, isError, error } = useGetAllMedicinesQuery(
+  let { data, isLoading, error } = useGetAllMedicinesQuery(
     searchParamsToObject(searchParams)
   );
 
@@ -75,14 +76,7 @@ export const Wrapper = (props: Props) => {
         </div>
       )}
 
-      {isError && error && (
-        <div className={styles.error}>
-          <h1>{error.status}</h1>
-          <h2>
-            {error.data ? JSON.stringify(error.data) : "Помилка сервера!"}
-          </h2>
-        </div>
-      )}
+      <ErrorComponent error={error} />
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { IMedicine } from "models/IMedicine";
+import { IUpdateMedicine } from "models/IUpdateMedicine";
 
 interface IPagedMedicinesList {
   pagesQuantity: number;
@@ -24,7 +25,38 @@ export const hospitalApi = createApi({
         providesTags: ["Medicine"],
       }
     ),
+    createMedicine: builder.mutation<void, IMedicine>({
+      query: (medicine) => ({
+        url: "/medicines",
+        method: "POST",
+        body: medicine,
+      }),
+
+      invalidatesTags: ["Medicine"],
+    }),
+    updateMedicines: builder.mutation<void, IUpdateMedicine[]>({
+      query: (medicines) => ({
+        url: "/medicines",
+        method: "PUT",
+        body: medicines,
+      }),
+
+      invalidatesTags: ["Medicine"],
+    }),
+    deleteMedicine: builder.mutation<void, string>({
+      query: (name) => ({
+        url: `medicines/${name}`,
+        method: "DELETE",
+      }),
+
+      invalidatesTags: ["Medicine"],
+    }),
   }),
 });
 
-export const { useGetAllMedicinesQuery } = hospitalApi;
+export const {
+  useGetAllMedicinesQuery,
+  useCreateMedicineMutation,
+  useDeleteMedicineMutation,
+  useUpdateMedicinesMutation,
+} = hospitalApi;

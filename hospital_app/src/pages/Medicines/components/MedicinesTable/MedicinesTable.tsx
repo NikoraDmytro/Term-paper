@@ -14,6 +14,7 @@ export const MedicinesTable = () => {
             <tr>
               <th>Назва</th>
               <th>Кількість</th>
+              <th></th>
             </tr>
           </thead>
 

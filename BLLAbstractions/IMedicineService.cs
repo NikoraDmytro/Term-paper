@@ -8,7 +8,7 @@ namespace BLLAbstractions
         Task<(int, IEnumerable<MedicineDto>)> GetAllAsync(
             MedicineParameters parameters);
         Task DeleteMedicineAsync(string name);
-        Task<MedicineDto> AddNewMedicineAsync(MedicineDto medicine);
+        Task<MedicineDto> AddNewMedicineAsync(CreateMedicineDto medicine);
         Task ResupplyMedicinesAsync(List<UpdateMedicineDto> medicines);
     }
 }

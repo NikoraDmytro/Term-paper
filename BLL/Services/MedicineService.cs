@@ -26,9 +26,9 @@ namespace BLL.Services
         }
 
         public async Task<MedicineDto> AddNewMedicineAsync(
-            MedicineDto medicineDto)
+            CreateMedicineDto medicineDto)
         {
-            string medicineName = medicineDto.Name;
+            string medicineName = medicineDto.Name ?? "";
             
             var exists = await UnitOfWork.MedicineRepository
                 .GetByIdAsync(medicineName);
@@ -46,7 +46,9 @@ namespace BLL.Services
                 .InsertAsync(medicine);
             await UnitOfWork.SaveAsync();
 
-            return medicineDto;
+            var addedMedicineDto = Mapper.Map<MedicineDto>(medicine);
+            
+            return addedMedicineDto;
         }
 
         public async Task DeleteMedicineAsync(string medicineName)

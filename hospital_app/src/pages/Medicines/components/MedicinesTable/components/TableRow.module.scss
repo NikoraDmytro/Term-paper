@@ -1,5 +1,33 @@
+@use "shared/styles/base";
+
 .dosageForm {
   margin-left: 0.5em;
   padding-left: 0.5em;
   border-left: 2px solid rgba(163, 159, 159, 0.596);
+}
+
+.deleteMedicineBtn {
+  @include base.resetButton();
+  padding: 0.75em;
+  color: white;
+  font-size: 16px;
+  margin-left: 50%;
+  border-radius: 10px;
+  transform: translateX(-50%);
+  background-color: rgb(255, 41, 41);
+
+  &:hover {
+    background-color: rgb(184, 2, 2);
+  }
+
+  &:active {
+    background-color: rgb(128, 0, 0);
+  }
+
+  > div,
+  > div::after {
+    margin: 0;
+    width: 10px;
+    height: 10px;
+  }
 }

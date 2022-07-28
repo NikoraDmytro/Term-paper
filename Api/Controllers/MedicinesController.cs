@@ -29,7 +29,7 @@ namespace Api.Controllers
         
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> AddMedicine([FromBody]MedicineDto medicineDto)
+        public async Task<IActionResult> AddMedicine([FromBody]CreateMedicineDto medicineDto)
         {
             var addedMedicine = await _medicineService.AddNewMedicineAsync(medicineDto);
             
