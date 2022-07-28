@@ -10,10 +10,30 @@ import { searchParamsToObject } from "utils/searchParamsToObject";
 
 import styles from "./Wrapper.module.scss";
 import { Pagination } from "components/Pagination";
+import { OrderOption } from "shared/types/OrderOptions";
 
 interface Props {
   children: (data: IMedicine[]) => React.ReactNode;
 }
+
+const orderBy: OrderOption[] = [
+  {
+    name: "Назва [а-я]",
+    value: "Name",
+  },
+  {
+    name: "Назва [я-а]",
+    value: "Name desc",
+  },
+  {
+    name: "Кількість (зростання)",
+    value: "Quantity",
+  },
+  {
+    name: " Кількість (спадання)",
+    value: "Quantity desc",
+  },
+];
 
 export const Wrapper = (props: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,7 +52,7 @@ export const Wrapper = (props: Props) => {
 
   return (
     <>
-      <ControlPanel searchPlaceholder="Введіть назву ліків" />
+      <ControlPanel searchPlaceholder="Введіть назву ліків" orderBy={orderBy} />
 
       <h1 className={styles.title}>
         Наявність лікарських засобів та виробів медичного призначення

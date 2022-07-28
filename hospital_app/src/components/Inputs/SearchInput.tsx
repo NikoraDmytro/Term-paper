@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import styles from "./styles.module.scss";
+import styles from "./SearchInput.module.scss";
 
 interface Props {
   placeholder?: string;
