@@ -1,4 +1,4 @@
-export type OrderOption = {
+export type SortOption = {
   name: string;
   value: string;
 };

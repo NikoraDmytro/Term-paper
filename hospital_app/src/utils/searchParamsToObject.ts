@@ -1,3 +1,5 @@
+import { URLSearchParams } from "url";
+
 export const searchParamsToObject = (searchParams: URLSearchParams) => {
   const object: Record<string, string> = {};
 

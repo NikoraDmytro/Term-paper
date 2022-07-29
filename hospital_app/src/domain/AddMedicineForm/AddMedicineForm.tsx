@@ -1,16 +1,15 @@
 import React from "react";
 import { Form, Formik, FormikHelpers } from "formik";
 
-import { InputField } from "./InputField";
 import { Loader } from "components/Loader";
 import { IMedicine } from "models/IMedicine";
 import { validationObject } from "./utils/validation";
+import { InputField } from "components/Inputs/InputField";
 import { ErrorComponent } from "components/ErrorComponent";
 
 import { useCreateMedicineMutation } from "service/HospitalService";
 
 import styles from "./styles.module.scss";
-import { Navigate } from "react-router-dom";
 
 const initialValues: IMedicine = {
   name: "",
@@ -20,30 +19,26 @@ const initialValues: IMedicine = {
 };
 
 export const AddMedicineForm = () => {
-  const [addMedicine, { isSuccess, error }] = useCreateMedicineMutation();
+  const [addMedicine, { error }] = useCreateMedicineMutation();
 
   const handleSubmit = async (
     values: IMedicine,
     { setSubmitting, resetForm }: FormikHelpers<IMedicine>
   ) => {
-    await addMedicine(values);
+    try {
+      await addMedicine(values).unwrap();
 
-    if (isSuccess) {
+      window.alert("Зареєстровано!");
+
       resetForm();
-      setSubmitting(false);
 
-      Navigate({ to: "/medicines" });
-    }
-    if (error) {
       setSubmitting(false);
-    }
+    } catch (error) {}
   };
 
   return (
     <>
-      <h1 className={styles.title}>
-        Будь ласка заповніть форму для реєстрації нових ліків
-      </h1>
+      <h1 className={styles.title}>Форма реєстрації ліків</h1>
 
       <Formik
         initialValues={initialValues}
@@ -51,7 +46,7 @@ export const AddMedicineForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form>
+          <Form className={styles.addMedicineForm}>
             <InputField label="Назва ліків" name="name" type="text" />
 
             <InputField label="Лікарська форма" name="dosageForm" type="text" />
@@ -68,11 +63,13 @@ export const AddMedicineForm = () => {
               type="number"
             />
 
-            <ErrorComponent error={error} />
-
             <button className={styles.submitBtn} type="submit">
-              {!isSubmitting ? "Зареєструвати" : <Loader />}
+              {!isSubmitting ? "Зареєструвати" : <Loader small />}
             </button>
+
+            <div className={styles.errorBlock}>
+              <ErrorComponent error={error} />
+            </div>
           </Form>
         )}
       </Formik>

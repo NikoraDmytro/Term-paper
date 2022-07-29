@@ -3,9 +3,10 @@ import { Route, Routes } from "react-router-dom";
 
 import { MainLayout } from "layouts/MainLayout";
 import { innerLink } from "shared/types/InnerLink";
-import { RefillStock } from "./components/RefillStock";
-import { MedicinesTable } from "./components/MedicinesTable";
-import { AddMedicineForm } from "./components/AddMedicineForm";
+
+import { RefillStock } from "./RefillStock";
+import { MedicinesTable } from "domain/MedicinesTable";
+import { AddMedicineForm } from "domain/AddMedicineForm";
 
 const innerLinks: innerLink[] = [
   {

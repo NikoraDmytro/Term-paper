@@ -1,4 +1,4 @@
-.paginationContainer {
+.container {
   font-size: 18px;
   margin-block: 1em;
   text-align: center;
@@ -8,9 +8,10 @@
   }
 }
 
-.paginationItem,
-.paginationPrev,
-.paginationNext {
+.page,
+.prevLabel,
+.nextLabel,
+.breakLabel {
   margin: 5px;
   display: inline-block;
 
@@ -47,10 +48,10 @@
   }
 }
 
-.paginationNext {
+.nextLabel {
   margin-left: 1em;
 }
 
-.paginationPrev {
+.prevLabel {
   margin-right: 1em;
 }

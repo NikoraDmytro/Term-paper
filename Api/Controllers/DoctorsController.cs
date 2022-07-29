@@ -11,12 +11,12 @@ namespace Api.Controllers
     public class DoctorsController : ControllerBase
     {
         private readonly IDoctorService _doctorService;
-        
+
         public DoctorsController(IDoctorService doctorService)
         {
             _doctorService = doctorService;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetDoctors(
             [FromQuery] DoctorParameters parameters)
@@ -30,12 +30,12 @@ namespace Api.Controllers
                 doctors
             });
         }
-        
+
         [HttpGet("{fullName}", Name = "GetDoctorByName")]
         public async Task<IActionResult> GetDoctorByName(string fullName)
         {
             var doctor = await _doctorService.GetDoctorAsync(fullName);
-            
+
             return Ok(doctor);
         }
 
@@ -61,12 +61,12 @@ namespace Api.Controllers
 
         [HttpPut("{fullName}")]
         public async Task<IActionResult> UpdateDoctorData(
-            string fullName, 
+            string fullName,
             [FromBody] UpdateDoctorExperienceDto experienceDto)
         {
             await _doctorService
                 .UpdateDoctorExperience(fullName, experienceDto);
-            
+
             return Ok($"Оновлено дані доктора {fullName}!");
         }
     }

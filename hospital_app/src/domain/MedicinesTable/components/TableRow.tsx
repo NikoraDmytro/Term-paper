@@ -2,7 +2,7 @@ import { IMedicine } from "models/IMedicine";
 import { useDeleteMedicineMutation } from "service/HospitalService";
 
 import styles from "./TableRow.module.scss";
-import { Loader } from "./../../../../../components/Loader/Loader";
+import { Loader } from "../../../components/Loader/Loader";
 
 interface Props {
   medicine: IMedicine;

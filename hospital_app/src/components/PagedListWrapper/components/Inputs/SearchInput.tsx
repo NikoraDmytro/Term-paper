@@ -20,6 +20,7 @@ export const SearchInput = (props: Props) => {
     } else {
       searchParams.set("SearchTerm", value);
     }
+    searchParams.set("PageNumber", "1");
 
     setSearchParams(searchParams);
   };

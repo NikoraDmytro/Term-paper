@@ -5,6 +5,19 @@
   height: 5em;
 }
 
+.loader.small,
+.loader.small::after {
+  width: 1em;
+  height: 1em;
+}
+
+.loader.small {
+  width: 2em;
+  height: 2em;
+  margin: auto;
+  border-width: 6px;
+}
+
 .loader {
   margin: 60px auto;
   font-size: 10px;

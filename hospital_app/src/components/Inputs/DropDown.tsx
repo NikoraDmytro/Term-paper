@@ -1,6 +1,7 @@
 import React, { FocusEvent, InputHTMLAttributes, useState } from "react";
 
 import classNames from "classnames";
+
 import styles from "./DropDown.module.scss";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -10,8 +11,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 export const DropDown = ({ children, ...props }: Props) => {
   const [active, setActive] = useState(false);
 
-  const onFocus = () => {
-    setActive(true);
+  const onClick = () => {
+    setActive(!active);
   };
 
   const handleBlur = (e: FocusEvent<HTMLDivElement>) => {
@@ -32,7 +33,7 @@ export const DropDown = ({ children, ...props }: Props) => {
     <div
       tabIndex={5}
       className={styles.dropDown}
-      onFocus={onFocus}
+      onClick={onClick}
       onBlur={handleBlur}
     >
       <input {...props} />

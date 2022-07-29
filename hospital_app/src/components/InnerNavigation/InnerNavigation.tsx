@@ -15,7 +15,7 @@ export const InnerNavigation = ({ innerLinks }: Props) => {
   return (
     <ul className={styles.navigationList}>
       {innerLinks.map((innerLink) => (
-        <li className={styles.listItem}>
+        <li key={innerLink.text} className={styles.listItem}>
           <Link
             className={classNames({
               [styles.activeLink]: location.pathname.endsWith(innerLink.to),

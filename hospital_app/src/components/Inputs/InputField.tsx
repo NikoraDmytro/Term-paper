@@ -1,7 +1,7 @@
-import { useField } from "formik";
 import React, { InputHTMLAttributes } from "react";
+import { useField } from "formik";
 
-import styles from "./styles.module.scss";
+import styles from "./InputField.module.scss";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;

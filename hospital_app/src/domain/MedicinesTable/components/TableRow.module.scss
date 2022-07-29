@@ -8,26 +8,19 @@
 
 .deleteMedicineBtn {
   @include base.resetButton();
-  padding: 0.75em;
+  width: 200px;
   color: white;
   font-size: 16px;
   margin-left: 50%;
-  border-radius: 10px;
+  padding-block: 1em;
   transform: translateX(-50%);
-  background-color: rgb(255, 41, 41);
+  background-color: #f44336;
 
   &:hover {
-    background-color: rgb(184, 2, 2);
+    background-color: #c8372d;
   }
 
   &:active {
-    background-color: rgb(128, 0, 0);
-  }
-
-  > div,
-  > div::after {
-    margin: 0;
-    width: 10px;
-    height: 10px;
+    background-color: #79231d;
   }
 }

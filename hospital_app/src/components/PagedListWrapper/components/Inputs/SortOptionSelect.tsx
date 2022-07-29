@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { DropDown } from "components/Inputs/DropDown";
-import { OrderOption } from "shared/types/OrderOptions";
+import { SortOption } from "shared/types/SortOption";
+
+import styles from "./SortOptionSelect.module.scss";
 
 interface Props {
-  className: string;
-  orderByOption: OrderOption[];
+  sortOptions: SortOption[];
 }
 
-export const OrderBySelect = ({ orderByOption, className }: Props) => {
+export const SortOptionSelect = ({ sortOptions }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedOption, setSelectedOption] = useState(orderByOption[0].name);
+  const [selectedOption, setSelectedOption] = useState(sortOptions[0].name);
 
-  const onSelect = (option: OrderOption) => {
+  const onSelect = (option: SortOption) => {
+    searchParams.set("PageNumber", "1");
     searchParams.set("OrderBy", option.value);
 
     setSelectedOption(option.name);
@@ -21,11 +23,11 @@ export const OrderBySelect = ({ orderByOption, className }: Props) => {
   };
 
   return (
-    <div className={className}>
-      <label htmlFor="orderBy">Впорядкувати за</label>
+    <div className={styles.sortOptionSelect}>
+      <label htmlFor="orderBy">Впорядкувати за:</label>
 
       <DropDown value={selectedOption} type="button" name="orderBy">
-        {orderByOption.map((option) => (
+        {sortOptions.map((option) => (
           <li key={option.name} onClick={() => onSelect(option)}>
             {option.name}
           </li>

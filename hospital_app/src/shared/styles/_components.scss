@@ -1,9 +1,31 @@
+@use "./base";
+
 .mainContainer {
   width: 80%;
   padding: 2.5em;
+  padding-bottom: 5em;
   height: fit-content;
   flex-direction: column;
   margin: 2.5em auto 0 auto;
   background-color: white;
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.2), -1px -1px 12px rgba(0, 0, 0, 0.2);
+}
+
+.submitBtn {
+  @include base.resetButton();
+  width: 200px;
+  height: 60px;
+  color: white;
+  font-size: 18px;
+  margin-top: 1em;
+  border-radius: 10px;
+  background-color: rgb(64, 156, 64);
+
+  &:hover {
+    background-color: rgb(55, 131, 55);
+  }
+
+  &:active {
+    background-color: rgb(37, 87, 37);
+  }
 }

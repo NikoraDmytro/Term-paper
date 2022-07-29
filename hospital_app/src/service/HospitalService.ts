@@ -1,33 +1,40 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { IMedicine } from "models/IMedicine";
+import { IPagedList } from "models/IPagedList";
 import { IUpdateMedicine } from "models/IUpdateMedicine";
+import { BASE_URL, MEDICINES_ENDPOINT } from "constants/routes";
 
-interface IPagedMedicinesList {
+type Response = {
   pagesQuantity: number;
   medicines: IMedicine[];
-}
-
-const BASE_URL = "https://localhost:5001/api";
+};
 
 export const hospitalApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   tagTypes: ["Medicine"],
   endpoints: (builder) => ({
-    getAllMedicines: builder.query<IPagedMedicinesList, Record<string, string>>(
-      {
-        query: (params) => ({
-          url: "/medicines",
-          params: params,
-        }),
+    getAllMedicines: builder.query<
+      IPagedList<IMedicine>,
+      Record<string, string>
+    >({
+      query: (params) => ({
+        url: MEDICINES_ENDPOINT,
+        params: params,
+      }),
+      transformResponse: (response: Response) => {
+        return {
+          pagesQuantity: response.pagesQuantity,
+          items: response.medicines,
+        };
+      },
 
-        providesTags: ["Medicine"],
-      }
-    ),
+      providesTags: ["Medicine"],
+    }),
     createMedicine: builder.mutation<void, IMedicine>({
       query: (medicine) => ({
-        url: "/medicines",
+        url: MEDICINES_ENDPOINT,
         method: "POST",
         body: medicine,
       }),
@@ -36,7 +43,7 @@ export const hospitalApi = createApi({
     }),
     updateMedicines: builder.mutation<void, IUpdateMedicine[]>({
       query: (medicines) => ({
-        url: "/medicines",
+        url: MEDICINES_ENDPOINT,
         method: "PUT",
         body: medicines,
       }),
@@ -45,7 +52,7 @@ export const hospitalApi = createApi({
     }),
     deleteMedicine: builder.mutation<void, string>({
       query: (name) => ({
-        url: `medicines/${name}`,
+        url: MEDICINES_ENDPOINT + name,
         method: "DELETE",
       }),
 
