@@ -51,7 +51,7 @@ namespace Api.Controllers
         {
             await _medicineService.ResupplyMedicinesAsync(medicines);
 
-            return Ok($"Запас медикаментів поповнено!");
+            return NoContent();
         }
     }
 }

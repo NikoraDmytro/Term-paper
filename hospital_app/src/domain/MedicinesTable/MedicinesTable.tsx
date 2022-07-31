@@ -2,7 +2,6 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { TableRow } from "./components/TableRow";
-import { Loader } from "components/Loader/Loader";
 import { PagedListWrapper } from "components/PagedListWrapper";
 
 import { medicinesSortOptions } from "./medicinesSortOptions";

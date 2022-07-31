@@ -1,28 +1,38 @@
 import React from "react";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { SerializedError } from "@reduxjs/toolkit";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+
+import classNames from "classnames";
 
 import styles from "./styles.module.scss";
 
 interface Props {
+  inline?: boolean;
   error: FetchBaseQueryError | SerializedError | undefined;
 }
 
-export const ErrorComponent = ({ error }: Props) => {
+export const ErrorComponent = ({ error, inline }: Props) => {
   if (!error) return null;
+
+  const errorClass = classNames([styles.error], {
+    [styles.errorInline]: inline,
+  });
 
   if ("status" in error) {
     let errorName;
 
     switch (error.status) {
       case 400:
-        errorName = "Поганий запит";
+        errorName = "Поганий запит!";
         break;
       case 404:
-        errorName = "Не знайдено";
+        errorName = "Не знайдено!";
+        break;
+      case 422:
+        errorName = "Не підлягає обробці";
         break;
       default:
-        errorName = "Внутрішня помилка сервера";
+        errorName = "Внутрішня помилка сервера!";
     }
 
     let errMsg;
@@ -38,7 +48,7 @@ export const ErrorComponent = ({ error }: Props) => {
     }
 
     return (
-      <div className={styles.error}>
+      <div className={errorClass}>
         <h1>
           {error.status ?? "500"} {errorName}
         </h1>
@@ -48,7 +58,7 @@ export const ErrorComponent = ({ error }: Props) => {
   }
 
   return (
-    <div className={styles.error}>
+    <div className={errorClass}>
       <h1>
         {error.code ?? "500"} {error.name ?? "Внутрішня помилка сервера"}
       </h1>

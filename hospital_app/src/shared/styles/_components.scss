@@ -13,8 +13,9 @@
 
 .submitBtn {
   @include base.resetButton();
-  width: 200px;
+  width: 248px;
   height: 60px;
+  grid-column: 2;
   color: white;
   font-size: 18px;
   margin-top: 1em;
@@ -28,4 +29,20 @@
   &:active {
     background-color: rgb(37, 87, 37);
   }
+}
+
+.formTitle {
+  margin: 1em;
+  font-size: 42px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.form {
+  gap: 2em;
+  margin: auto;
+  display: grid;
+  width: fit-content;
+  overflow-x: hidden;
+  grid-template-columns: 300px 300px;
 }

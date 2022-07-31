@@ -31,14 +31,13 @@ export const AddMedicineForm = () => {
       window.alert("Зареєстровано!");
 
       resetForm();
-
       setSubmitting(false);
     } catch (error) {}
   };
 
   return (
     <>
-      <h1 className={styles.title}>Форма реєстрації ліків</h1>
+      <h1 className={styles.formTitle}>Форма реєстрації ліків</h1>
 
       <Formik
         initialValues={initialValues}
@@ -46,7 +45,7 @@ export const AddMedicineForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className={styles.addMedicineForm}>
+          <Form className={styles.form}>
             <InputField label="Назва ліків" name="name" type="text" />
 
             <InputField label="Лікарська форма" name="dosageForm" type="text" />
@@ -63,13 +62,11 @@ export const AddMedicineForm = () => {
               type="number"
             />
 
+            <ErrorComponent inline error={error} />
+
             <button className={styles.submitBtn} type="submit">
               {!isSubmitting ? "Зареєструвати" : <Loader small />}
             </button>
-
-            <div className={styles.errorBlock}>
-              <ErrorComponent error={error} />
-            </div>
           </Form>
         )}
       </Formik>
