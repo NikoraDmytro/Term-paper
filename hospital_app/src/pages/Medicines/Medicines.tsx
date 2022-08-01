@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { NotFound } from "pages/NotFound";
 import { MainLayout } from "layouts/MainLayout";
 import { innerLink } from "shared/types/InnerLink";
 
@@ -28,10 +29,12 @@ export const Medicines = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout innerLinks={innerLinks} />}>
-        <Route path="/" element={<MedicinesTable />} />
+        <Route index element={<MedicinesTable />} />
         <Route path="/refillStock" element={<RefillMedicinesStock />} />
         <Route path="/addMedicine" element={<AddMedicineForm />} />
       </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

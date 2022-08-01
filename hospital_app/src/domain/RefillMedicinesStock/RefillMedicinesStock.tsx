@@ -2,16 +2,16 @@ import React from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
 import { Loader } from "components/Loader";
+import { MedicinesInputsArray } from "./MedicinesInputsArray";
 import { ErrorComponent } from "components/ErrorComponent/ErrorComponent";
 
 import { FormValues } from "./types/formValues";
 
-import { MedicinesInputsArray } from "./MedicinesInputsArray";
+import { getNewValue } from "./utils/getNewValue";
 import { validationObject } from "./utils/validation";
-import { useUpdateMedicinesMutation } from "service/HospitalService";
+import { useUpdateMedicinesMutation } from "service/endpoints/MedicinesEndpoint";
 
 import styles from "./styles.module.scss";
-import { getNewValue } from "./utils/getNewValue";
 
 const initialValues: FormValues = {
   medicines: [getNewValue()],

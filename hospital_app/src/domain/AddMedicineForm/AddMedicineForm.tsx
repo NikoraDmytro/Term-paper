@@ -1,13 +1,14 @@
 import React from "react";
 import { Form, Formik, FormikHelpers } from "formik";
 
-import { Loader } from "components/Loader";
 import { IMedicine } from "models/IMedicine";
-import { validationObject } from "./utils/validation";
+
+import { Loader } from "components/Loader";
 import { InputField } from "components/Inputs/InputField";
 import { ErrorComponent } from "components/ErrorComponent";
 
-import { useCreateMedicineMutation } from "service/HospitalService";
+import { validationObject } from "./utils/validation";
+import { useCreateMedicineMutation } from "service/endpoints/MedicinesEndpoint";
 
 import styles from "./styles.module.scss";
 

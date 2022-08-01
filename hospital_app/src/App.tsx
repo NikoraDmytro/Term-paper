@@ -7,7 +7,7 @@ import { Patients } from "pages/Patients";
 import { Illnesses } from "pages/Illnesses";
 import { Medicines } from "pages/Medicines";
 import { LandingPage } from "pages/Landing";
-import { HospitalUnits } from "pages/HospitalUnits";
+import { HospitalUnits } from "pages/HospitalUnits/HospitalUnits";
 
 import { AppLayout } from "layouts/AppLayout";
 
@@ -17,11 +17,11 @@ function App() {
       <Route path="/" element={<AppLayout />}>
         <Route index element={<LandingPage />} />
 
-        <Route path="doctors" element={<Doctors />} />
-        <Route path="patients" element={<Patients />} />
+        <Route path="doctors/*" element={<Doctors />} />
+        <Route path="patients/*" element={<Patients />} />
         <Route path="medicines/*" element={<Medicines />} />
-        <Route path="illnesses" element={<Illnesses />} />
-        <Route path="hospitalUnits" element={<HospitalUnits />} />
+        <Route path="illnesses/*" element={<Illnesses />} />
+        <Route path="hospitalUnits/*" element={<HospitalUnits />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

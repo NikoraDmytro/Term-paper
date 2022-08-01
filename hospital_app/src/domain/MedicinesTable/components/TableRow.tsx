@@ -1,5 +1,5 @@
 import { IMedicine } from "models/IMedicine";
-import { useDeleteMedicineMutation } from "service/HospitalService";
+import { useDeleteMedicineMutation } from "service/endpoints/MedicinesEndpoint";
 
 import styles from "./TableRow.module.scss";
 

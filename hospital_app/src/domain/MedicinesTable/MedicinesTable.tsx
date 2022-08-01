@@ -5,8 +5,8 @@ import { TableRow } from "./components/TableRow";
 import { PagedListWrapper } from "components/PagedListWrapper";
 
 import { medicinesSortOptions } from "./medicinesSortOptions";
-import { useGetAllMedicinesQuery } from "service/HospitalService";
 import { searchParamsToObject } from "utils/searchParamsToObject";
+import { useGetAllMedicinesQuery } from "service/endpoints/MedicinesEndpoint";
 
 import styles from "./styles.module.scss";
 
