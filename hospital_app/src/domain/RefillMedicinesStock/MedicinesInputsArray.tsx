@@ -4,6 +4,9 @@ import classNames from "classnames";
 
 import { getNewValue } from "./utils/getNewValue";
 import { InputField } from "components/Inputs/InputField";
+import { AsyncDropDownField } from "components/Inputs/AsyncDropDownField";
+
+import { getMedicinesNames } from "api/api";
 import { IUpdateMedicineWithId } from "./types/formValues";
 
 import styles from "./styles.module.scss";
@@ -40,43 +43,53 @@ export const MedicinesInputsArray = ({ medicineToUpdate }: Props) => {
           };
         };
 
-        return medicineToUpdate.map(({ id }, index) => (
-          <div
-            key={id}
-            className={classNames(styles.inputsBlock, {
-              [styles.grow]: index === newElementIndex,
-            })}
-            onAnimationEnd={
-              index === newElementIndex
-                ? () => setNewElementIndex(-1)
-                : undefined
-            }
-          >
-            <InputField
-              label="Назва ліків"
-              name={`medicines.${index}.name`}
-              type="text"
-            />
+        return medicineToUpdate.map(({ id }, index) => {
+          const className = classNames({
+            [styles.inputsBlock]: true,
+            [styles.grow]: index === newElementIndex,
+          });
 
-            <InputField
-              label="Кількість"
-              name={`medicines.${index}.quantity`}
-              type="number"
-            />
+          let onAnimationEnd;
 
-            <button
-              type="button"
-              className={styles.addBlockBtn}
-              onClick={addElement(index)}
-            />
+          if (index === newElementIndex) {
+            onAnimationEnd = () => setNewElementIndex(-1);
+          }
 
-            <button
-              type="button"
-              className={styles.removeBlockBtn}
-              onClick={removeElement(index)}
-            />
-          </div>
-        ));
+          return (
+            <div key={id} className={className} onAnimationEnd={onAnimationEnd}>
+              <AsyncDropDownField
+                type="text"
+                label="Назва ліків"
+                loadOptions={getMedicinesNames}
+                name={`medicines.${index}.name`}
+                select={(option) =>
+                  arrayHelpers.form.setFieldValue(
+                    `medicines.${index}.name`,
+                    option
+                  )
+                }
+              />
+
+              <InputField
+                label="Кількість"
+                name={`medicines.${index}.quantity`}
+                type="number"
+              />
+
+              <button
+                type="button"
+                className={styles.addBlockBtn}
+                onClick={addElement(index)}
+              />
+
+              <button
+                type="button"
+                className={styles.removeBlockBtn}
+                onClick={removeElement(index)}
+              />
+            </div>
+          );
+        });
       }}
     </FieldArray>
   );

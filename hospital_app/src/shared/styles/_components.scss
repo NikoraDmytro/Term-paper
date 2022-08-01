@@ -42,7 +42,7 @@
   gap: 2em;
   margin: auto;
   display: grid;
+  overflow: visible;
   width: fit-content;
-  overflow-x: hidden;
   grid-template-columns: 300px 300px;
 }

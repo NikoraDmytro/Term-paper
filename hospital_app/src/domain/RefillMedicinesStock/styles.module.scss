@@ -14,31 +14,31 @@
 }
 
 .inputsBlock.grow {
+  transform-origin: left;
   animation: 0.25s linear 0s slideRight;
 }
 
 .inputsBlock.shrink {
-  transform: translateY(-100%);
+  transform: scaleY(0);
+  transform-origin: top;
   animation: 0.25s linear 0s slideUp;
 }
 
 @keyframes slideUp {
   from {
-    opacity: 1;
-    transform: translateY(0);
+    transform: scaleY(1);
   }
   to {
-    opacity: 0;
-    transform: translateY(-100%);
+    transform: scaleY(0);
   }
 }
 
 @keyframes slideRight {
   from {
-    transform: translateX(-100%);
+    transform: scaleX(0);
   }
   to {
-    transform: translateX(0);
+    transform: scaleX(1);
   }
 }
 

@@ -26,16 +26,17 @@
 }
 
 .dropDownMenu {
-  left: 0;
   width: 100%;
   margin-top: 1px;
   overflow-y: auto;
   max-height: 276px;
   position: absolute;
   transform: scaleY(0);
+  transform-origin: top;
   list-style-type: none;
   background-color: #fff;
   border: 1px solid #cccccc;
+  transition: all 0.2s ease-in;
 
   > li {
     padding: 0.5em;
@@ -50,6 +51,11 @@
     &:active {
       background-color: #e2e2e2;
     }
+  }
+
+  > p {
+    padding: 0.5em;
+    text-align: center;
   }
 }
 

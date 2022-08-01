@@ -35,9 +35,11 @@ export const DropDown = ({ children, ...props }: Props) => {
       onClick={onClick}
       onBlur={handleBlur}
     >
-      <input {...props} />
+      <input autoComplete="off" {...props} />
 
-      <ul className={className}>{children}</ul>
+      <ul onFocus={() => setActive(false)} className={className}>
+        {children}
+      </ul>
     </div>
   );
 };

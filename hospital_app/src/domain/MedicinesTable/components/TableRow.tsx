@@ -2,14 +2,13 @@ import { IMedicine } from "models/IMedicine";
 import { useDeleteMedicineMutation } from "service/HospitalService";
 
 import styles from "./TableRow.module.scss";
-import { Loader } from "../../../components/Loader/Loader";
 
 interface Props {
   medicine: IMedicine;
 }
 
 export const TableRow = ({ medicine }: Props) => {
-  const [deleteMedicine, { isError, isLoading }] = useDeleteMedicineMutation();
+  const [deleteMedicine, { isError }] = useDeleteMedicineMutation();
 
   const handleClick = async (medicineName: string) => {
     const confirmation = window.confirm(
