@@ -1,0 +1,31 @@
+.alphabeticalList {
+  gap: 5%;
+  display: flex;
+  margin-top: 2em;
+  max-height: 400px;
+  list-style-type: none;
+  flex-flow: column wrap;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 400;
+    margin-left: 0.5em;
+  }
+
+  li {
+    width: 30%;
+    min-width: 300px;
+    margin-bottom: 1em;
+  }
+
+  a {
+    font-size: 18px;
+    font-weight: 500;
+    color: #0000ee;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

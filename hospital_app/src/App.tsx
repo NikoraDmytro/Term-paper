@@ -7,7 +7,7 @@ import { Patients } from "pages/Patients";
 import { Illnesses } from "pages/Illnesses";
 import { Medicines } from "pages/Medicines";
 import { LandingPage } from "pages/Landing";
-import { HospitalUnits } from "pages/HospitalUnits/HospitalUnits";
+import { HospitalUnits } from "pages/HospitalUnits";
 
 import { AppLayout } from "layouts/AppLayout";
 

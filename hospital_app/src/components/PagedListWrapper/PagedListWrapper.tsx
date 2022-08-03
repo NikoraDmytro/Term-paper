@@ -20,7 +20,7 @@ type FetchResult = {
 };
 
 interface Props {
-  title: string;
+  title?: string;
   fetchResult: FetchResult;
   children: React.ReactNode;
   controlPanelProps: DataControlPanelProps;
@@ -33,7 +33,7 @@ export const PagedListWrapper = (props: Props) => {
     <>
       <ControlPanel {...props.controlPanelProps} />
 
-      <h1 className={styles.title}>{props.title}</h1>
+      <h1 className={styles.title}>{props.title ?? null}</h1>
 
       {data?.pagesQuantity != null && (
         <Pagination totalPagesCount={data.pagesQuantity} />

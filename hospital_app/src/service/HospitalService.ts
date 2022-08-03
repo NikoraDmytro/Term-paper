@@ -5,6 +5,6 @@ import { BASE_URL } from "constants/routes";
 export const hospitalApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-  tagTypes: ["Medicine"],
+  tagTypes: ["Medicine", "Illnesses"],
   endpoints: () => ({}),
 });
