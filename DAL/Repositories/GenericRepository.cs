@@ -8,9 +8,11 @@ namespace DAL.Repositories
         : IGenericRepository<TEntity> where TEntity: class 
     {
         protected readonly DbSet<TEntity> DbSet;
+        protected readonly HospitalContext Context;
 
         protected GenericRepository(HospitalContext context)
         {
+            Context = context;
             DbSet = context.Set<TEntity>();
         }
         

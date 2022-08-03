@@ -40,7 +40,7 @@ namespace Api.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> AddIllness([FromBody] IllnessDto illnessDto)
+        public async Task<IActionResult> AddIllness([FromBody] CreateIllnessDto illnessDto)
         {
             var addedIllness = await _illnessService
                 .AddIllnessAsync(illnessDto);

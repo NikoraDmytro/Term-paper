@@ -41,9 +41,9 @@ namespace BLL.Services
             return illnessDto;
         }
 
-        public async Task<IllnessDto> AddIllnessAsync(IllnessDto illnessDto)
+        public async Task<IllnessDto> AddIllnessAsync(CreateIllnessDto illnessDto)
         {
-            string unitName = illnessDto.HospitalUnitName;
+            string unitName = illnessDto.HospitalUnitName ?? "";
             var unit = await UnitOfWork
                 .HospitalUnitRepository
                 .GetByIdAsync(unitName);
@@ -53,19 +53,19 @@ namespace BLL.Services
                 throw new KeyNotFoundException(
                     $"У лікарні немає відділення з назвою {unitName}");
             }
-            
-            var illnessToAdd = Mapper.Map<Illness>(illnessDto);
-            
+
             var illness = await UnitOfWork
                 .IllnessRepository
-                .GetIllnessAsync(illnessDto.Name);
+                .GetIllnessAsync(illnessDto.Name ?? "");
 
             if (illness != null)
             {
                 throw new DuplicateNameException(
                     $"{illness.Name} вже у базі даних!");
             }
-
+            
+            var illnessToAdd = Mapper.Map<Illness>(illnessDto);
+            
             var medicinesNames = illnessToAdd
                 .Treatments
                 .Select(t => t.MedicineName ?? "")
@@ -75,13 +75,15 @@ namespace BLL.Services
             await UnitOfWork
                 .MedicineRepository
                 .GetByNamesAsync(medicinesNames);
-            
+
             await UnitOfWork
                 .IllnessRepository
                 .InsertAsync(illnessToAdd);
             await UnitOfWork.SaveAsync();
+
+            var addedIllness = Mapper.Map<IllnessDto>(illnessToAdd);
             
-            return illnessDto;
+            return addedIllness;
         }
 
         public async Task RemoveIllnessAsync(string name)

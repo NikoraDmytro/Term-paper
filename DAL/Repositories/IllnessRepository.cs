@@ -45,13 +45,22 @@ namespace DAL.Repositories
             
             return (pagesQuantity, names);
         }
+        
 
         public async Task<Illness?> GetIllnessAsync(string name)
         {
             var illness = await DbSet
-                .Include(illness => illness.Treatments)
                 .SingleOrDefaultAsync(illness => illness.Name == name);
 
+            if (illness == null)
+                return illness;
+                    
+            illness.Treatments = await Context
+                .Set<Treatment>()
+                .Where(treatment => treatment.IllnessName == illness.Name)
+                .Include(treatment => treatment.Medicine)
+                .ToListAsync();
+            
             return illness;
         }
     }
