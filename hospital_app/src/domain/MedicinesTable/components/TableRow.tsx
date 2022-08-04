@@ -1,3 +1,4 @@
+import { Loader } from "components/Loader";
 import { IMedicine } from "models/IMedicine";
 import { useDeleteMedicineMutation } from "service/endpoints/MedicinesEndpoint";
 
@@ -8,7 +9,7 @@ interface Props {
 }
 
 export const TableRow = ({ medicine }: Props) => {
-  const [deleteMedicine, { isError }] = useDeleteMedicineMutation();
+  const [deleteMedicine, { isLoading, isError }] = useDeleteMedicineMutation();
 
   const handleClick = async (medicineName: string) => {
     const confirmation = window.confirm(
@@ -40,7 +41,7 @@ export const TableRow = ({ medicine }: Props) => {
           className={styles.deleteMedicineBtn}
           onClick={() => handleClick(medicine.name)}
         >
-          "Вилучити зі складу"
+          {!isLoading ? "Вилучити зі складу" : <Loader small />}
         </button>
       </td>
     </tr>

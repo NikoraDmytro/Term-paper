@@ -46,3 +46,25 @@
   width: fit-content;
   grid-template-columns: 300px 300px;
 }
+
+.deleteItemBtn {
+  @include base.resetButton();
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 60px;
+  margin: 1.5em;
+  color: white;
+  font-size: 18px;
+  position: absolute;
+  border-radius: 10px;
+  background-color: rgb(200, 34, 34);
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+}

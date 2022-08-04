@@ -11,11 +11,11 @@ namespace CORE.Models
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Illness symptoms is a required field!")]
-        [Column(TypeName = "varchar(1000)")]
+        [Column(TypeName = "varchar(5000)")]
         public string? Symptoms { get; set; }
 
         [Required(ErrorMessage = "Recommended procedures is a required field!")]
-        [Column(TypeName = "varchar(1000)")]
+        [Column(TypeName = "varchar(5000)")]
         public string? Procedures { get; set; }
 
 

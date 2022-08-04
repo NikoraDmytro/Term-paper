@@ -1,0 +1,79 @@
+@use "shared/styles/components";
+
+.illnessInfoBlock {
+  padding: 2em;
+  position: relative;
+}
+
+.illnessName {
+  font-size: 40px;
+  margin-left: 1em;
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+
+.infoSection {
+  margin-bottom: 2em;
+
+  h3 {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 1em;
+    padding-left: 0.5em;
+    border-bottom: 1px solid black;
+  }
+
+  p {
+    font-size: 18px;
+    text-indent: 2em;
+    line-height: 1.5;
+  }
+}
+
+.tableSection {
+  h2 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-block: 1em;
+    padding-left: 0.5em;
+    border-bottom: 1px solid black;
+  }
+
+  table {
+    width: 900px;
+    margin: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+
+    th {
+      font-weight: 500;
+      text-align: start;
+      padding-left: 12px;
+      padding-block: 0.5em;
+
+      &:last-of-type {
+        padding-left: 0;
+      }
+    }
+
+    td {
+      padding-left: 1em;
+      padding-block: 1em;
+
+      &:nth-child(even) {
+        padding-left: 8px;
+      }
+    }
+
+    tr {
+      font-size: 18px;
+      border-bottom: 1px solid rgb(123, 119, 119);
+    }
+
+    span {
+      margin-left: 0.5em;
+      padding-left: 0.5em;
+      border-left: 1px solid rgba(163, 159, 159, 0.596);
+    }
+  }
+}
