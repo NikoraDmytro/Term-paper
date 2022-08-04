@@ -1,8 +1,8 @@
 namespace Core.RequestFeatures
 {
-    public class PagingParameters: RequestParameters
+    public class PagingParameters : RequestParameters
     {
-        private const int MaxPageSize = 20;
+        private const int MaxPageSize = 40;
         public int PageNumber { get; set; } = 1;
 
         private int _pageSize = 5;
