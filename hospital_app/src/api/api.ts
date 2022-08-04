@@ -1,11 +1,24 @@
 import axios from "axios";
 import { IMedicine } from "models/IMedicine";
-import { BASE_URL, MEDICINES_ENDPOINT } from "constants/routes";
+import {
+  BASE_URL,
+  HOSPITAL_UNITS_ENDPOINT,
+  MEDICINES_ENDPOINT,
+} from "constants/routes";
+import { IHospitalUnit } from "models/IHospitalUnit";
 
 const instance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
 });
+
+export const getHospitalUnitsNames = async (): Promise<string[]> => {
+  const response = await instance.get<IHospitalUnit[]>(HOSPITAL_UNITS_ENDPOINT);
+
+  const names = response.data.map((unit) => unit.name);
+
+  return names;
+};
 
 export const getMedicinesNames = async (search: string): Promise<string[]> => {
   const response = await instance.get<{ medicines: IMedicine[] }>(

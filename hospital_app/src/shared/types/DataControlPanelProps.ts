@@ -1,8 +1,8 @@
-import { DataFilteringSelectorProps } from "./DataFilteringSelectorProps";
 import { SortOption } from "./SortOption";
+import { AsyncFilterSelectorProps } from "./AsyncFilterSelectorProps";
 
 export type DataControlPanelProps = {
   searchPlaceholder?: string;
   dataSortingOptions?: SortOption[];
-  DataFilteringSelectors?: DataFilteringSelectorProps[];
+  dataFilteringSelectors?: AsyncFilterSelectorProps[];
 };

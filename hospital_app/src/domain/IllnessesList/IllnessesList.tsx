@@ -1,6 +1,7 @@
 import React from "react";
 import { useSearchParams, Link } from "react-router-dom";
 
+import { getHospitalUnitsNames } from "api/api";
 import { searchParamsToObject } from "utils/searchParamsToObject";
 
 import { sortingOptions } from "./sortingOptions";
@@ -25,6 +26,13 @@ export const IllnessesList = () => {
       fetchResult={{ data, isFetching, isLoading, error }}
       controlPanelProps={{
         searchPlaceholder: "Введіть назву хвороби",
+        dataFilteringSelectors: [
+          {
+            name: "HospitalUnit",
+            label: "Відділення:",
+            request: getHospitalUnitsNames,
+          },
+        ],
         dataSortingOptions: sortingOptions,
       }}
     >

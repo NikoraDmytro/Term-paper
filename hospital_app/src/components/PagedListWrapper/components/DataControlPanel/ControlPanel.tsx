@@ -2,23 +2,25 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 import { SearchInput } from "../Inputs/SearchInput";
-import { SortOption } from "shared/types/SortOption";
 import { SortOptionSelect } from "../Inputs/SortOptionSelect";
-
-interface Props {
-  dataSortingOptions?: SortOption[];
-  searchPlaceholder?: string;
-}
+import { DataControlPanelProps } from "shared/types/DataControlPanelProps";
+import { AsyncDataFilterSelector } from "../Inputs/AsyncDataFilterSelector";
 
 export const ControlPanel = ({
   dataSortingOptions,
   searchPlaceholder,
-}: Props) => {
+  dataFilteringSelectors = [],
+}: DataControlPanelProps) => {
   return (
     <div className={styles.controlPanel}>
       {dataSortingOptions && (
         <SortOptionSelect sortOptions={dataSortingOptions} />
       )}
+
+      {dataFilteringSelectors.length !== 0 &&
+        dataFilteringSelectors.map((filterSelectorProps) => (
+          <AsyncDataFilterSelector key={filterSelectorProps.name} {...filterSelectorProps} />
+        ))}
 
       <SearchInput placeholder={searchPlaceholder} />
     </div>
