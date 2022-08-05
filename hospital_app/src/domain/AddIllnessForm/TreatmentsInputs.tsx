@@ -26,9 +26,6 @@ export const TreatmentsInputs = (props: Props) => {
             label="Назва ліків"
             loadOptions={getMedicinesNames}
             name={`treatments.${index}.medicineName`}
-            select={(option) =>
-              props.setFieldValue(`treatments.${index}.medicineName`, option)
-            }
           />
 
           <InputField

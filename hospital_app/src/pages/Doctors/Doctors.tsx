@@ -5,13 +5,14 @@ import { MainLayout } from "layouts/MainLayout";
 import { innerLink } from "shared/types/InnerLink";
 
 import { NotFound } from "pages/NotFound";
+import { HireDoctorForm } from "domain/HireDoctorForm";
 import { DoctorsList } from "domain/DoctorsList/DoctorsList";
 
 const innerLinks: innerLink[] = [
   {
     text: "Лікарі",
     to: "/doctors",
-    searchParams: "?PageSize=5&PageNumber=1",
+    searchParams: "?PageSize=6&PageNumber=1",
   },
   {
     to: "hireDoctor",
@@ -24,7 +25,7 @@ export const Doctors = () => {
     <Routes>
       <Route path="/" element={<MainLayout innerLinks={innerLinks} />}>
         <Route index element={<DoctorsList />} />
-        <Route path="hireDoctor" element={<DoctorsList />} />
+        <Route path="hireDoctor" element={<HireDoctorForm />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

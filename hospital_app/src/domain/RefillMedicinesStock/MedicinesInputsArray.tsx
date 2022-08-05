@@ -26,9 +26,6 @@ export const MedicinesInputsArray = (props: Props) => {
             label="Назва ліків"
             loadOptions={getMedicinesNames}
             name={`medicines.${index}.name`}
-            select={(option) =>
-              props.setFieldValue(`medicines.${index}.name`, option)
-            }
           />
 
           <InputField

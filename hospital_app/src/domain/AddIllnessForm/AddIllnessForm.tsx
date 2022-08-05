@@ -67,9 +67,6 @@ export const AddIllnessForm = () => {
                 label="Відділення"
                 name="hospitalUnitName"
                 loadOptions={getHospitalUnitsNames}
-                select={(option: string) => {
-                  setFieldValue("hospitalUnitName", option);
-                }}
               />
 
               <h2

@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from "react";
-import { useField } from "formik";
+import { useField, useFormikContext } from "formik";
 
 import { DropDown } from "./DropDown";
 import { useAxios } from "hooks/useAxios";
@@ -10,17 +10,16 @@ import styles from "./InputField.module.scss";
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;
-  select: (option: string) => void;
   loadOptions: (input: string) => Promise<string[]>;
 }
 
 export const AsyncDropDownField = ({
   name,
   label,
-  select,
   loadOptions,
   ...props
 }: Props) => {
+  const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
 
   const { data, loading, error } = useAxios<string[]>(
@@ -29,7 +28,7 @@ export const AsyncDropDownField = ({
   );
 
   const renderOption = (option: string) => (
-    <li key={option} onClick={() => select(option)}>
+    <li key={option} onClick={() => setFieldValue(name, option)}>
       {option}
     </li>
   );

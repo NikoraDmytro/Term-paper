@@ -1,6 +1,6 @@
 import { ICreatePerson } from "../Person/ICreatePerson";
 
 export interface ICreateDoctor extends ICreatePerson {
-  hospitalUnit: string;
+  hospitalUnitName: string;
   experience: number;
 }
