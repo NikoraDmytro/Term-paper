@@ -1,11 +1,11 @@
 import axios from "axios";
-import { IMedicine } from "models/IMedicine";
+import { IMedicine } from "models/Medicine/IMedicine";
 import {
   BASE_URL,
   HOSPITAL_UNITS_ENDPOINT,
   MEDICINES_ENDPOINT,
 } from "constants/routes";
-import { IHospitalUnit } from "models/IHospitalUnit";
+import { IHospitalUnit } from "models/HospitalUnit/IHospitalUnit";
 
 const instance = axios.create({
   baseURL: BASE_URL,

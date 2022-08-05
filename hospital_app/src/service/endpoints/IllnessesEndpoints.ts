@@ -1,8 +1,8 @@
 import { ILLNESSES_ENDPOINT } from "constants/routes";
-import { IIllness } from "models/IIllness";
+import { IIllness } from "models/Illness/IIllness";
 import { IPagedList } from "models/IPagedList";
 import { hospitalApi } from "service/HospitalService";
-import { ICreateIllness } from "./../../models/ICreateIllness";
+import { ICreateIllness } from "../../models/Illness/ICreateIllness";
 
 type GetIllnessesResponse = {
   pagesQuantity: number;

@@ -7,7 +7,7 @@ import { InputField } from "components/Inputs/InputField";
 import { ErrorComponent } from "components/ErrorComponent";
 import { AsyncDropDownField } from "components/Inputs/AsyncDropDownField";
 
-import { ICreateIllness } from "models/ICreateIllness";
+import { ICreateIllness } from "models/Illness/ICreateIllness";
 
 import { getHospitalUnitsNames } from "api/api";
 import { validationObject } from "./utils/validation";

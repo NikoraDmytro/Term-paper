@@ -1,4 +1,4 @@
-import { IUpdateMedicine } from "models/IUpdateMedicine";
+import { IUpdateMedicine } from "models/Medicine/IUpdateMedicine";
 
 export type FormValues = {
   medicines: IUpdateMedicine[];

@@ -1,7 +1,7 @@
 import { MEDICINES_ENDPOINT } from "constants/routes";
-import { IMedicine } from "models/IMedicine";
+import { IMedicine } from "models/Medicine/IMedicine";
 import { IPagedList } from "models/IPagedList";
-import { IUpdateMedicine } from "models/IUpdateMedicine";
+import { IUpdateMedicine } from "models/Medicine/IUpdateMedicine";
 import { hospitalApi } from "service/HospitalService";
 
 type GetMedicinesResponse = {

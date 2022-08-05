@@ -4,7 +4,7 @@ import { DynamicInputsArray } from "components/Inputs/DynamicInputsArray";
 
 import { getMedicinesNames } from "api/api";
 
-import { ICreateTreatment } from "models/ICreateTreatment";
+import { ICreateTreatment } from "models/Illness/ICreateTreatment";
 
 interface Props {
   count: number;

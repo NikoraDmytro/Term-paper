@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories;
 
-public abstract class PersonRepository<TPerson>: 
+public abstract class PersonRepository<TPerson> :
     GenericRepository<TPerson>,
-    IPersonRepository<TPerson> where TPerson: Person 
+    IPersonRepository<TPerson> where TPerson : Person
 {
     protected PersonRepository(HospitalContext context) : base(context)
     {
     }
-    
+
     public Expression<Func<TPerson, bool>> NameFilter(string fullName) =>
-        person => 
+        person =>
             (person.Surname + " " + person.Name + " " + person.Patronymic)
             .Trim()
             .ToLower()
@@ -25,12 +25,13 @@ public abstract class PersonRepository<TPerson>:
         string includeProperties = "")
     {
         IQueryable<TPerson> query = DbSet;
-        
-        if (includeProperties != "")
+
+        foreach (var property in includeProperties.Split
+                         (',', StringSplitOptions.RemoveEmptyEntries))
         {
-            query.Include(includeProperties);
+            query = query.Include(property);
         }
-        
+
         var person = await query
             .SingleOrDefaultAsync(NameFilter(fullName));
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { ITreatment } from "models/ITreatment";
+import { ITreatment } from "models/Illness/ITreatment";
 
 interface Props {
   medicines: ITreatment[];

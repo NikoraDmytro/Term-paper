@@ -1,5 +1,5 @@
 import { HOSPITAL_UNITS_ENDPOINT } from "constants/routes";
-import { IHospitalUnit } from "models/IHospitalUnit";
+import { IHospitalUnit } from "models/HospitalUnit/IHospitalUnit";
 import { hospitalApi } from "service/HospitalService";
 
 export const hospitalUnitsApi = hospitalApi.injectEndpoints({

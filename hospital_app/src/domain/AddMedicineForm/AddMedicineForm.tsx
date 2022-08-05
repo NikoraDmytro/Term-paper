@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Formik, FormikHelpers } from "formik";
 
-import { IMedicine } from "models/IMedicine";
+import { IMedicine } from "models/Medicine/IMedicine";
 
 import { Loader } from "components/Loader";
 import { InputField } from "components/Inputs/InputField";
