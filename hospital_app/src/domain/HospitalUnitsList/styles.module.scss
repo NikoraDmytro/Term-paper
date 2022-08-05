@@ -1,0 +1,63 @@
+@use "shared/styles/components";
+
+.container {
+  margin: auto;
+  max-width: 900px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+.hospitalUnitsList {
+  gap: 3em;
+  width: 100%;
+  display: inline-flex;
+  list-style-type: none;
+
+  .errorMessage {
+    color: red;
+    margin: auto;
+    font-size: 45px;
+    line-height: 1.5;
+    font-weight: 600;
+    letter-spacing: 5px;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  li {
+    flex: 1 1 50%;
+    position: relative;
+    background-color: white;
+  }
+
+  li > a {
+    color: black;
+    display: block;
+    font-size: 20px;
+    padding-left: 80px;
+    padding-block: 1.25em;
+    text-decoration: none;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1),
+      -1px -1px 4px 1px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.3),
+        -1px -1px 8px 3px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  li > a::before {
+    top: 50%;
+    left: 30px;
+    height: 2em;
+    content: "";
+    position: absolute;
+    transform: translateY(-50%);
+    border-left: 2px solid #009688;
+  }
+}

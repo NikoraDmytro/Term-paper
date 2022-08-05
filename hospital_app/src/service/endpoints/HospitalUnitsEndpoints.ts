@@ -4,12 +4,12 @@ import { hospitalApi } from "service/HospitalService";
 
 export const hospitalUnitsApi = hospitalApi.injectEndpoints({
   endpoints: (builder) => ({
-    getHospitalUnits: builder.query<IHospitalUnit[], void>({
-      query: () => ({
-        url: HOSPITAL_UNITS_ENDPOINT,
+    getHospitalUnit: builder.query<IHospitalUnit, string>({
+      query: (unitName) => ({
+        url: HOSPITAL_UNITS_ENDPOINT + unitName,
       }),
     }),
   }),
 });
 
-export const { useGetHospitalUnitsQuery } = hospitalUnitsApi;
+export const { useGetHospitalUnitQuery } = hospitalUnitsApi;

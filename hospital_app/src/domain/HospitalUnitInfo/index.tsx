@@ -1,0 +1,1 @@
+export { HospitalUnitInfo } from "./HospitalUnitInfo";

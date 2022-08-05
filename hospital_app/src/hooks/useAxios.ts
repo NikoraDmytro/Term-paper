@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const useAxios = <TReturn>(
   loadData: (values: any) => Promise<TReturn>,
-  values: any[]
+  values?: any[]
 ) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<TReturn | null>(null);
