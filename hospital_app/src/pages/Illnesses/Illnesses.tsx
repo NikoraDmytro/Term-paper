@@ -7,6 +7,7 @@ import { innerLink } from "shared/types/InnerLink";
 import { NotFound } from "pages/NotFound";
 import { IllnessInfo } from "domain/IllnessInfo";
 import { IllnessesList } from "domain/IllnessesList";
+import { AddIllnessForm } from "domain/AddIllnessForm";
 
 const innerLinks: innerLink[] = [
   {
@@ -26,7 +27,7 @@ export const Illnesses = () => {
       <Route path="/" element={<MainLayout innerLinks={innerLinks} />}>
         <Route index element={<IllnessesList />} />
         <Route path=":illnessName" element={<IllnessInfo />} />
-        <Route path="/addIllness" element={<IllnessesList />} />
+        <Route path="/addIllness" element={<AddIllnessForm />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

@@ -2,6 +2,7 @@ import { ILLNESSES_ENDPOINT } from "constants/routes";
 import { IIllness } from "models/IIllness";
 import { IPagedList } from "models/IPagedList";
 import { hospitalApi } from "service/HospitalService";
+import { ICreateIllness } from "./../../models/ICreateIllness";
 
 type GetIllnessesResponse = {
   pagesQuantity: number;
@@ -30,7 +31,7 @@ export const illnessesApi = hospitalApi.injectEndpoints({
     getIllness: builder.query<IIllness, string>({
       query: (name) => ILLNESSES_ENDPOINT + name,
     }),
-    createIllness: builder.mutation<void, IIllness>({
+    createIllness: builder.mutation<void, ICreateIllness>({
       query: (illness) => ({
         url: ILLNESSES_ENDPOINT,
         method: "POST",

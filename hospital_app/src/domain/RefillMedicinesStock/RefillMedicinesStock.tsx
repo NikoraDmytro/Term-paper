@@ -7,14 +7,18 @@ import { ErrorComponent } from "components/ErrorComponent/ErrorComponent";
 
 import { FormValues } from "./types/formValues";
 
-import { getNewValue } from "./utils/getNewValue";
 import { validationObject } from "./utils/validation";
 import { useUpdateMedicinesMutation } from "service/endpoints/MedicinesEndpoint";
 
 import styles from "./styles.module.scss";
 
 const initialValues: FormValues = {
-  medicines: [getNewValue()],
+  medicines: [
+    {
+      name: "",
+      quantity: 0,
+    },
+  ],
 };
 
 export const RefillMedicinesStock = () => {
@@ -43,10 +47,14 @@ export const RefillMedicinesStock = () => {
         validationSchema={validationObject}
         onSubmit={handleSubmit}
       >
-        {({ values }) => {
+        {({ setFieldValue, values }) => {
           return (
             <Form className={styles.form}>
-              <MedicinesInputsArray medicineToUpdate={values.medicines} />
+              <MedicinesInputsArray
+                setFieldValue={setFieldValue}
+                count={values.medicines.length}
+                initialValue={initialValues.medicines[0]}
+              />
 
               <ErrorComponent error={error} inline />
 

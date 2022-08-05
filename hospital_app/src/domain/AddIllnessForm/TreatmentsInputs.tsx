@@ -4,18 +4,18 @@ import { DynamicInputsArray } from "components/Inputs/DynamicInputsArray";
 
 import { getMedicinesNames } from "api/api";
 
-import { IUpdateMedicine } from "models/IUpdateMedicine";
+import { ICreateTreatment } from "models/ICreateTreatment";
 
 interface Props {
   count: number;
-  initialValue: IUpdateMedicine;
+  initialValue: ICreateTreatment;
   setFieldValue: (fieldName: string, value: any) => void;
 }
 
-export const MedicinesInputsArray = (props: Props) => {
+export const TreatmentsInputs = (props: Props) => {
   return (
     <DynamicInputsArray
-      name="medicines"
+      name="treatments"
       count={props.count}
       initialValue={props.initialValue}
     >
@@ -25,15 +25,15 @@ export const MedicinesInputsArray = (props: Props) => {
             type="text"
             label="Назва ліків"
             loadOptions={getMedicinesNames}
-            name={`medicines.${index}.name`}
+            name={`treatments.${index}.medicineName`}
             select={(option) =>
-              props.setFieldValue(`medicines.${index}.name`, option)
+              props.setFieldValue(`treatments.${index}.medicineName`, option)
             }
           />
 
           <InputField
             label="Кількість"
-            name={`medicines.${index}.quantity`}
+            name={`treatments.${index}.medicineQuantity`}
             type="number"
           />
         </>

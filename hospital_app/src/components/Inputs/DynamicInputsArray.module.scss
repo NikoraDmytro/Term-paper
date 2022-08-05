@@ -1,0 +1,105 @@
+@use "shared/styles/base";
+@use "shared/styles/components";
+
+.inputsBlock {
+  grid-column-end: 3;
+  display: inline-flex;
+  grid-column-start: 1;
+  align-items: flex-end;
+
+  > div {
+    margin-bottom: 0;
+    margin-right: 1em;
+  }
+}
+
+.inputsBlock.grow {
+  transform-origin: left;
+  animation: 0.25s linear 0s slideRight;
+}
+
+.inputsBlock.shrink {
+  transform: scaleY(0);
+  transform-origin: top;
+  animation: 0.25s linear 0s slideUp;
+}
+
+@keyframes slideUp {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.removeBlockBtn,
+.addBlockBtn {
+  @include base.resetButton();
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  border-radius: 8px;
+
+  &::after,
+  &::before {
+    top: 10px;
+    left: 19px;
+    width: 2px;
+    content: "";
+    height: 20px;
+    position: absolute;
+    background-color: white;
+  }
+}
+
+.removeBlockBtn {
+  background-color: rgb(255, 0, 0);
+
+  &:hover {
+    background-color: rgb(210, 0, 0);
+  }
+
+  &:active {
+    background-color: rgb(190, 0, 0);
+  }
+
+  &::after {
+    transform: rotate(45deg);
+  }
+
+  &::before {
+    transform: rotate(-45deg);
+  }
+}
+
+.addBlockBtn {
+  background-color: rgb(213, 235, 205);
+
+  &:hover {
+    background-color: rgb(199, 221, 191);
+  }
+
+  &:active {
+    background-color: rgb(181, 199, 174);
+  }
+
+  &::after,
+  &::before {
+    background-color: rgb(44, 60, 45);
+  }
+
+  &::after {
+    transform: rotate(90deg);
+  }
+}
