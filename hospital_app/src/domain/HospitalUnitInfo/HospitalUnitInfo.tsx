@@ -1,15 +1,14 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
 import { useGetHospitalUnitQuery } from "service/endpoints/HospitalUnitsEndpoints";
 
 import { Loader } from "components/Loader/Loader";
 import { Statistics } from "./components/Statistics";
+import { InnerNavigation } from "components/InnerNavigation";
 import { ErrorComponent } from "components/ErrorComponent/ErrorComponent";
 
 import styles from "./styles.module.scss";
-import { UnitDoctors } from "./components/UnitDoctors";
-import { UnitWards } from "./components/UnitWards";
 
 export const HospitalUnitInfo = () => {
   const { unitName } = useParams();
@@ -29,13 +28,22 @@ export const HospitalUnitInfo = () => {
 
           <Statistics unit={unit} />
 
-          <h2 className={styles.subTitle}>Лікарі</h2>
+          <InnerNavigation
+            innerLinks={[
+              {
+                to: "wards",
+                text: "Палати",
+                searchParams: "?PageSize=5&PageNumber=1",
+              },
+              {
+                to: "doctors",
+                text: "Лікарі",
+                searchParams: "?PageSize=3&PageNumber=1",
+              },
+            ]}
+          />
 
-          <UnitDoctors unitName={unit.name} />
-
-          <h2 className={styles.subTitle}>Палати</h2>
-
-          <UnitWards unitName={unit.name} />
+          <Outlet />
         </>
       )}
     </>

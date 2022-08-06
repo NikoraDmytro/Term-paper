@@ -1,5 +1,5 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 
 import { WardInfoBlock } from "./WardInfoBlock";
 import { PagedListWrapper } from "components/PagedListWrapper";
@@ -10,14 +10,11 @@ import { useGetHospitalUnitWardsQuery } from "service/endpoints/HospitalUnitsEnd
 
 import styles from "./UnitWards.module.scss";
 
-interface Props {
-  unitName: string;
-}
-
-export const UnitWards = ({ unitName }: Props) => {
+export const UnitWards = () => {
+  const { unitName } = useParams();
   const [searchParams] = useSearchParams();
   const { data, isLoading, isFetching, error } = useGetHospitalUnitWardsQuery({
-    unitName: unitName,
+    unitName: unitName ?? "",
     searchParams: searchParamsToObject(searchParams),
   });
 
