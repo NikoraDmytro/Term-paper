@@ -3,9 +3,9 @@ import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 import { Loader } from "components/Loader";
-import { Pagination } from "./components/Pagination";
 import { ErrorComponent } from "components/ErrorComponent";
 import { ControlPanel } from "./components/DataControlPanel";
+import { PagedListPagination } from "./components/PagedListPagination";
 
 import { DataControlPanelProps } from "shared/types/DataControlPanelProps";
 import { IPagedList } from "models/IPagedList";
@@ -36,7 +36,7 @@ export const PagedListWrapper = (props: Props) => {
       <h1 className={styles.title}>{props.title ?? null}</h1>
 
       {data?.pagesQuantity != null && (
-        <Pagination totalPagesCount={data.pagesQuantity} />
+        <PagedListPagination totalPagesCount={data.pagesQuantity} />
       )}
       {!isLoading && isFetching && <Loader small />}
 

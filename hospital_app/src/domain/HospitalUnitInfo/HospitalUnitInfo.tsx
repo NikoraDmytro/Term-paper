@@ -4,7 +4,10 @@ import { useParams } from "react-router-dom";
 import { useGetHospitalUnitQuery } from "service/endpoints/HospitalUnitsEndpoints";
 
 import { Loader } from "components/Loader/Loader";
-import { ErrorComponent } from "./../../components/ErrorComponent/ErrorComponent";
+import { Statistics } from "./components/Statistics";
+import { ErrorComponent } from "components/ErrorComponent/ErrorComponent";
+
+import styles from "./styles.module.scss";
 
 export const HospitalUnitInfo = () => {
   const { unitName } = useParams();
@@ -19,15 +22,15 @@ export const HospitalUnitInfo = () => {
       {isLoading && <Loader />}
       {error && <ErrorComponent error={error} />}
       {unit && (
-        <div>
-          <h1>{unit.name}</h1>
+        <>
+          <h1 className={styles.unitName}>{unit.name}</h1>
 
-          <ul>
-            <li>{unit.wardsQuantity} Палати</li>
-            <li>{unit.doctorsQuantity} Лікарів</li>
-            <li>{unit.totalOccupancy} Хворих</li>
-          </ul>
-        </div>
+          <Statistics unit={unit} />
+
+          <h2>Лікарі</h2>
+
+          <h2>Палати</h2>
+        </>
       )}
     </>
   );
