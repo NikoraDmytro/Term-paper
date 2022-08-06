@@ -9,21 +9,22 @@ interface Props {
   handlePageChange: ({ selected }: { selected: number }) => void;
 }
 
-export const Pagination = (props: Props) => (
-  <ReactPaginate
-    breakLabel="..."
-    nextLabel=">"
-    previousLabel="<"
-    forcePage={props.currentPage - 1}
-    activeClassName={styles.active}
-    disabledClassName={styles.disabled}
-    pageClassName={styles.page}
-    nextClassName={styles.nextLabel}
-    previousClassName={styles.prevLabel}
-    breakClassName={styles.breakLabel}
-    containerClassName={styles.container}
-    onPageChange={props.handlePageChange}
-    pageRangeDisplayed={5}
-    pageCount={props.totalPagesCount}
-  />
-);
+export const Pagination = (props: Props) =>
+  props.totalPagesCount > 1 ? (
+    <ReactPaginate
+      breakLabel="..."
+      nextLabel=">"
+      previousLabel="<"
+      forcePage={props.currentPage - 1}
+      activeClassName={styles.active}
+      disabledClassName={styles.disabled}
+      pageClassName={styles.page}
+      nextClassName={styles.nextLabel}
+      previousClassName={styles.prevLabel}
+      breakClassName={styles.breakLabel}
+      containerClassName={styles.container}
+      onPageChange={props.handlePageChange}
+      pageRangeDisplayed={5}
+      pageCount={props.totalPagesCount}
+    />
+  ) : null;

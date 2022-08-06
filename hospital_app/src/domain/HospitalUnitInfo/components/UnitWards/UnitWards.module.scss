@@ -1,0 +1,39 @@
+.wardsList {
+  list-style-type: none;
+}
+
+.wardContainer {
+  margin: auto;
+  display: flex;
+  max-width: 900px;
+  padding: 1em 2em;
+  margin-bottom: 3em;
+  align-items: center;
+  background-color: white;
+  justify-content: space-between;
+  box-shadow: 1px 1px 5px 2px rgba(82, 82, 82, 0.49),
+    -1px -1px 5px 2px rgba(82, 82, 82, 0.49);
+}
+
+.wardNumber {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.caption {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.count {
+  display: flex;
+  font-size: 32px;
+  font-weight: 500;
+  align-items: center;
+
+  img {
+    width: 45px;
+    margin-left: 10px;
+    border-radius: 50%;
+  }
+}

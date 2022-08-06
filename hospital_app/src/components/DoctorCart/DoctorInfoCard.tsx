@@ -13,24 +13,22 @@ interface Props {
 export const DoctorInfoCard = ({ doctor }: Props) => {
   return (
     <div className={styles.doctorCard} key={doctor.fullName}>
-      <li>
-        <img className={styles.doctorImage} src={defaultImg} alt="Ooops" />
+      <img className={styles.doctorImage} src={defaultImg} alt="Ooops" />
 
-        <div className={styles.doctorInfoBlock}>
-          <h2>{doctor.fullName}</h2>
-          <p>{doctor.profession}</p>
+      <div className={styles.cardInfoBlock}>
+        <h2>{doctor.fullName}</h2>
+        <p>{doctor.profession}</p>
 
-          <div>
-            <span>
-              <strong>Вік:</strong> {doctor.age} років
-            </span>
+        <div>
+          <span>
+            <strong>Вік:</strong> {doctor.age} років
+          </span>
 
-            <span>
-              <strong>Досвід:</strong> {doctor.experience} років
-            </span>
-          </div>
+          <span>
+            <strong>Досвід:</strong> {doctor.experience} років
+          </span>
         </div>
-      </li>
+      </div>
     </div>
   );
 };

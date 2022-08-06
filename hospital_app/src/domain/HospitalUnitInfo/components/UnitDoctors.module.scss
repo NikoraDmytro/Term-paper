@@ -1,0 +1,9 @@
+.doctorsList {
+  width: 100%;
+  padding: 2em;
+  gap: 2em 3em;
+  flex-wrap: wrap;
+  display: inline-flex;
+  list-style-type: none;
+  justify-content: center;
+}

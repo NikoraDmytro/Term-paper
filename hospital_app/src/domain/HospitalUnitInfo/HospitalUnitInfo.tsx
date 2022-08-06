@@ -8,6 +8,8 @@ import { Statistics } from "./components/Statistics";
 import { ErrorComponent } from "components/ErrorComponent/ErrorComponent";
 
 import styles from "./styles.module.scss";
+import { UnitDoctors } from "./components/UnitDoctors";
+import { UnitWards } from "./components/UnitWards";
 
 export const HospitalUnitInfo = () => {
   const { unitName } = useParams();
@@ -27,9 +29,13 @@ export const HospitalUnitInfo = () => {
 
           <Statistics unit={unit} />
 
-          <h2>Лікарі</h2>
+          <h2 className={styles.subTitle}>Лікарі</h2>
 
-          <h2>Палати</h2>
+          <UnitDoctors unitName={unit.name} />
+
+          <h2 className={styles.subTitle}>Палати</h2>
+
+          <UnitWards unitName={unit.name} />
         </>
       )}
     </>
