@@ -27,14 +27,23 @@ public class HospitalWardService: BaseService, IHospitalWardService
                 $"У лікарні немає відділення з назвою {unitName}");
         }
     }
-    
+
+    public async Task<(int, IEnumerable<int>)> GetAllWardsNumbersAsync(
+        HospitalWardParameters parameters)
+    {
+        var (pagesQuantity, wardsNumbers) = await UnitOfWork
+            .HospitalWardRepository
+            .GetAllWardsNumbersAsync(parameters);
+        
+        return (pagesQuantity, wardsNumbers);
+    }
+
     public async Task<(int, IEnumerable<HospitalWardDto>)> GetAllWardsAsync(
-        string unitName,
         HospitalWardParameters parameters)
     {
         var (pagesQuantity, hospitalWards) = await UnitOfWork
             .HospitalWardRepository
-            .GetHospitalWardsAsync(unitName, parameters);
+            .GetHospitalWardsAsync(parameters);
         
         var hospitalWardsDto = Mapper
             .Map<IEnumerable<HospitalWardDto>>(hospitalWards);

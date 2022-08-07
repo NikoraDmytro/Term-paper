@@ -5,20 +5,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public class HospitalWardRepository: GenericRepository<HospitalWard>, IHospitalWardRepository
+    public class HospitalWardRepository : GenericRepository<HospitalWard>, IHospitalWardRepository
     {
         public HospitalWardRepository(HospitalContext context)
             : base(context)
         {
         }
 
-        private Func<IQueryable<HospitalWard>, IQueryable<HospitalWard>> 
-            Filter(string unitName, HospitalWardParameters parameters) =>
+        private Func<IQueryable<HospitalWard>, IQueryable<HospitalWard>>
+            Filter(HospitalWardParameters parameters) =>
             (query) =>
             {
-                query = query.Where(ward => 
-                    ward.HospitalUnitName == unitName);
-                
+                if (!string.IsNullOrEmpty(parameters.HospitalUnit))
+                {
+                    query = query.Where(ward =>
+                        ward.HospitalUnitName == parameters.HospitalUnit);
+                }
+
                 if (parameters.ValidQuantityRange)
                 {
                     query = query.Where(ward =>
@@ -26,12 +29,19 @@ namespace DAL.Repositories
                         ward.BedsQuantity <= parameters.MaxBedsQuantity);
                 }
 
-                query = query.Select(ward => new HospitalWard()
+                if (!string.IsNullOrEmpty(parameters.SearchTerm))
                 {
-                    Number = ward.Number,
-                    BedsQuantity = ward.BedsQuantity,
-                    Occupancy = ward.Patients.Count(),
-                });
+                    query = query.Where(ward =>
+                        ward.Number.ToString().Contains(parameters.SearchTerm));
+                }
+
+                query = query.Select(
+                    ward => new HospitalWard()
+                    {
+                        Number = ward.Number,
+                        BedsQuantity = ward.BedsQuantity,
+                        Occupancy = ward.Patients.Count(),
+                    });
 
                 return query;
             };
@@ -39,26 +49,26 @@ namespace DAL.Repositories
         private Func<IQueryable<HospitalWard>, IOrderedQueryable<HospitalWard>>
             OrderBy(string orderBy) => (query) =>
         {
-            string? param = orderBy.Split(" ")[0];
+            string param = orderBy.Split(" ")[0];
             bool isDescending = orderBy.EndsWith("desc");
 
             IOrderedQueryable<HospitalWard> orderedQuery;
-            
+
             switch (param)
             {
                 case "number":
-                    orderedQuery = isDescending ? 
-                        query.OrderByDescending(ward => ward.Number) : 
+                    orderedQuery = isDescending ?
+                        query.OrderByDescending(ward => ward.Number) :
                         query.OrderBy(ward => ward.Number);
                     break;
                 case "bedsQuantity":
-                    orderedQuery = isDescending ? 
-                        query.OrderByDescending(ward => ward.BedsQuantity):
+                    orderedQuery = isDescending ?
+                        query.OrderByDescending(ward => ward.BedsQuantity) :
                         query.OrderBy(ward => ward.BedsQuantity);
                     break;
-                case "occupancy": 
-                    orderedQuery = isDescending ? 
-                        query.OrderByDescending(ward => ward.Occupancy):
+                case "occupancy":
+                    orderedQuery = isDescending ?
+                        query.OrderByDescending(ward => ward.Occupancy) :
                         query.OrderBy(ward => ward.Occupancy);
                     break;
                 default:
@@ -68,16 +78,31 @@ namespace DAL.Repositories
             return orderedQuery;
         };
 
-        public async Task<(int, List<HospitalWard>)> GetHospitalWardsAsync(
-            string unitName, 
+        public async Task<(int, List<int>)> GetAllWardsNumbersAsync(
             HospitalWardParameters parameters)
         {
             var (total, hospitalWards) = await GetPagedAsync(
                 parameters.PageNumber,
                 parameters.PageSize,
-                Filter(unitName, parameters),
+                Filter(parameters),
                 OrderBy(parameters.OrderBy));
-            
+
+            var wardsNumbers = hospitalWards
+                .Select(ward => ward.Number)
+                .ToList();
+
+            return (total, wardsNumbers);
+        }
+
+        public async Task<(int, List<HospitalWard>)> GetHospitalWardsAsync(
+            HospitalWardParameters parameters)
+        {
+            var (total, hospitalWards) = await GetPagedAsync(
+                parameters.PageNumber,
+                parameters.PageSize,
+                Filter(parameters),
+                OrderBy(parameters.OrderBy));
+
             return (total, hospitalWards);
         }
 
@@ -92,7 +117,7 @@ namespace DAL.Repositories
                     Occupancy = ward.Patients.Count(),
                 })
                 .SingleOrDefaultAsync();
-               
+
             return hospitalWard;
         }
 
@@ -103,12 +128,12 @@ namespace DAL.Repositories
                 .Where(ward => ward.HospitalUnitName == unitName);
 
             int unitIndex = unitWards.First().Number / 100;
-            
+
             int wardsNumber = await DbSet
                 .Where(ward => ward.HospitalUnitName == unitName)
                 .CountAsync();
 
-            hospitalWard.Number = unitIndex  * 100 + (wardsNumber + 1);
+            hospitalWard.Number = unitIndex * 100 + (wardsNumber + 1);
 
             await DbSet.AddAsync(hospitalWard);
         }
