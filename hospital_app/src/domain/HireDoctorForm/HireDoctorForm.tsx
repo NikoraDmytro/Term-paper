@@ -12,7 +12,7 @@ import { validationObject } from "./utils/validation";
 import { ICreateDoctor } from "models/Doctor/ICreateDoctor";
 
 import styles from "./styles.module.scss";
-import { useCreateDoctorMutation } from "service/endpoints/DoctorsEndpoint";
+import { useCreateDoctorMutation } from "service/endpoints/DoctorsEndpoints";
 
 const initialValues: ICreateDoctor = {
   name: "",

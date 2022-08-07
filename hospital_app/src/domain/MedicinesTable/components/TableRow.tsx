@@ -1,6 +1,6 @@
 import { Loader } from "components/Loader";
 import { IMedicine } from "models/Medicine/IMedicine";
-import { useDeleteMedicineMutation } from "service/endpoints/MedicinesEndpoint";
+import { useDeleteMedicineMutation } from "service/endpoints/MedicinesEndpoints";
 
 import styles from "./TableRow.module.scss";
 

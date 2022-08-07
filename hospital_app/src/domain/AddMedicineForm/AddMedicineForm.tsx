@@ -8,7 +8,7 @@ import { InputField } from "components/Inputs/InputField";
 import { ErrorComponent } from "components/ErrorComponent";
 
 import { validationObject } from "./utils/validation";
-import { useCreateMedicineMutation } from "service/endpoints/MedicinesEndpoint";
+import { useCreateMedicineMutation } from "service/endpoints/MedicinesEndpoints";
 
 import styles from "./styles.module.scss";
 

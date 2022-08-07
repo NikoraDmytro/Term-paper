@@ -8,7 +8,7 @@ import { ErrorComponent } from "components/ErrorComponent/ErrorComponent";
 import { FormValues } from "./types/formValues";
 
 import { validationObject } from "./utils/validation";
-import { useUpdateMedicinesMutation } from "service/endpoints/MedicinesEndpoint";
+import { useUpdateMedicinesMutation } from "service/endpoints/MedicinesEndpoints";
 
 import styles from "./styles.module.scss";
 

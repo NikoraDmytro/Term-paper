@@ -7,7 +7,7 @@ import { PagedListWrapper } from "components/PagedListWrapper";
 import { getHospitalUnitsNames } from "api/api";
 import { sortingOptions } from "./sortingOptions";
 import { searchParamsToObject } from "utils/searchParamsToObject";
-import { useGetAllDoctorsQuery } from "service/endpoints/DoctorsEndpoint";
+import { useGetAllDoctorsQuery } from "service/endpoints/DoctorsEndpoints";
 
 import styles from "./styles.module.scss";
 

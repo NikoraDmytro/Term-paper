@@ -6,7 +6,7 @@ import { PagedListWrapper } from "components/PagedListWrapper";
 
 import { medicinesSortOptions } from "./medicinesSortOptions";
 import { searchParamsToObject } from "utils/searchParamsToObject";
-import { useGetAllMedicinesQuery } from "service/endpoints/MedicinesEndpoint";
+import { useGetAllMedicinesQuery } from "service/endpoints/MedicinesEndpoints";
 
 import styles from "./styles.module.scss";
 
