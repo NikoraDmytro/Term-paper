@@ -1,0 +1,1 @@
+export { RegisterPatientForm } from "./RegisterPatientForm";

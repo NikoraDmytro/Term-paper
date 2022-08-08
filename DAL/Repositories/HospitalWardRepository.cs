@@ -115,6 +115,7 @@ namespace DAL.Repositories
                     Number = ward.Number,
                     BedsQuantity = ward.BedsQuantity,
                     Occupancy = ward.Patients.Count(),
+                    HospitalUnitName = ward.HospitalUnitName,
                 })
                 .SingleOrDefaultAsync();
 

@@ -6,7 +6,7 @@ import { innerLink } from "shared/types/InnerLink";
 
 import { NotFound } from "pages/NotFound";
 import { HireDoctorForm } from "domain/HireDoctorForm";
-import { DoctorsList } from "domain/DoctorsList/DoctorsList";
+import { DoctorsList } from "domain/DoctorsList";
 
 const innerLinks: innerLink[] = [
   {

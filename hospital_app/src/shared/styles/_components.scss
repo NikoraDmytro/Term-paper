@@ -15,7 +15,8 @@
   @include base.resetButton();
   width: 248px;
   height: 60px;
-  grid-column: 2;
+  justify-self: end;
+  grid-column: 1 / -1;
   color: white;
   font-size: 18px;
   margin-top: 1em;

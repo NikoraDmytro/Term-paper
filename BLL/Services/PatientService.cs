@@ -14,8 +14,8 @@ namespace BLL.Services
         public PatientService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-        
-        public async Task<(int, IEnumerable<PatientDto>)> 
+
+        public async Task<(int, IEnumerable<PatientDto>)>
             GetAllPatientsAsync(PatientParameters parameters)
         {
             var (pagesQuantity, patients) = await UnitOfWork
@@ -38,20 +38,20 @@ namespace BLL.Services
                 throw new KeyNotFoundException(
                     $"Пацієнта з ФІО {fullName} не знайдено!");
             }
-            
+
             var patientDto = Mapper.Map<PatientDto>(patient);
 
             return patientDto;
         }
 
-        public async Task<PatientDto> 
+        public async Task<PatientDto>
             RegisterPatientAsync(CreatePatientDto patientToRegisterDto)
         {
-            int wardNumber = 
+            int wardNumber =
                 patientToRegisterDto.HospitalWardNumber ?? 0;
-            string illnessName = 
+            string illnessName =
                 patientToRegisterDto.Diagnosis ?? "";
-            string doctorFullName = 
+            string doctorFullName =
                 patientToRegisterDto.AttendingDoctor ?? "";
 
             var diagnosis = await UnitOfWork
@@ -104,10 +104,11 @@ namespace BLL.Services
                 );
             }
 
-            await WriteOffMedicines(diagnosis);
-            
             var patientToRegister = Mapper.Map<Patient>(patientToRegisterDto);
-            
+
+            patientToRegister.AttendingDoctor = doctor;
+            patientToRegister.Illness = diagnosis;
+
             string fullName = patientToRegister.FullName;
 
             var patient = await UnitOfWork
@@ -120,7 +121,9 @@ namespace BLL.Services
                     $"{fullName} вже зареєстрований в лікарні!"
                 );
             }
-            
+
+            await WriteOffMedicines(diagnosis);
+
             await UnitOfWork
                 .PatientRepository
                 .InsertAsync(patientToRegister);
@@ -135,10 +138,10 @@ namespace BLL.Services
         {
             //will throw error if doctor not exist
             await GetPatientAsync(fullName);
-            
+
             await UnitOfWork.PatientRepository
                 .DeletePatientAsync(fullName);
-            
+
             await UnitOfWork.SaveAsync();
         }
 
@@ -148,7 +151,7 @@ namespace BLL.Services
                 .Treatments
                 .Select(t => t.MedicineName ?? "")
                 .ToArray();
-            
+
             var medicines = await UnitOfWork
                 .MedicineRepository
                 .GetByNamesAsync(medicinesNames);
@@ -158,7 +161,7 @@ namespace BLL.Services
                 var quantity = diagnosis
                     .Treatments[i]
                     .MedicineQuantity;
-                
+
                 if (medicines[i].QuantityInStock - quantity <= 0)
                 {
                     throw new AppException(
@@ -167,7 +170,7 @@ namespace BLL.Services
                         $"Залишилось: {medicines[i].QuantityInStock}; " +
                         $"Потрібно: {quantity}");
                 }
-                
+
                 medicines[i].QuantityInStock -= quantity;
             }
 

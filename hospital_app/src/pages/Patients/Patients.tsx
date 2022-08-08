@@ -6,6 +6,7 @@ import { innerLink } from "shared/types/InnerLink";
 
 import { NotFound } from "pages/NotFound";
 import { PatientsList } from "domain/PatientsList";
+import { RegisterPatientForm } from "domain/RegisterPatientForm";
 
 const innerLinks: innerLink[] = [
   {
@@ -15,7 +16,7 @@ const innerLinks: innerLink[] = [
   },
   {
     to: "addPatient",
-    text: "Зареєструвати хворого",
+    text: "Зареєструвати пацієнта",
   },
 ];
 
@@ -24,7 +25,7 @@ export const Patients = () => {
     <Routes>
       <Route path="/" element={<MainLayout innerLinks={innerLinks} />}>
         <Route index element={<PatientsList />} />
-        <Route path="addPatient" element={<PatientsList />} />
+        <Route path="addPatient" element={<RegisterPatientForm />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

@@ -8,12 +8,12 @@ import { AsyncFilterSelectorProps } from "shared/types/AsyncFilterSelectorProps"
 
 export const filterOptions: AsyncFilterSelectorProps[] = [
   {
-    name: "HospitalWardNumber",
+    name: "HospitalWard",
     label: "Номер палати",
     request: getWardsNumbers,
   },
   {
-    name: "DoctorFullName",
+    name: "AttendingDoctor",
     label: "ФІО персонального лікаря",
     request: getDoctorsFullNames,
   },
