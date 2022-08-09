@@ -28,6 +28,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "server": "dotnet run --project ../Api/HospitalApi",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
