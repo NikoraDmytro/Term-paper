@@ -19,7 +19,7 @@ const initialValues: IMedicine = {
   quantityInStock: 0,
 };
 
-export const AddMedicineForm = () => {
+export const MedicineForm = () => {
   const [addMedicine, { error }] = useCreateMedicineMutation();
 
   const handleSubmit = async (

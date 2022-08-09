@@ -28,7 +28,7 @@ const initialValues: ICreateIllness = {
   ],
 };
 
-export const AddIllnessForm = () => {
+export const IllnessForm = () => {
   const [addIllness, { error }] = useCreateIllnessMutation();
 
   const handleSubmit = async (

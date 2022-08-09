@@ -4,8 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "layouts/MainLayout";
 
 import { NotFound } from "pages/NotFound";
-import { UnitDoctors } from "domain/UnitDoctors";
-import { UnitWards } from "domain/UnitWards/UnitWards";
+import { UnitWards } from "domain/PagedLists/UnitWards";
+import { UnitDoctors } from "domain/PagedLists/UnitDoctors";
 import { HospitalUnitsList } from "domain/HospitalUnitsList";
 import { HospitalUnitInfo } from "domain/HospitalUnitInfo/HospitalUnitInfo";
 

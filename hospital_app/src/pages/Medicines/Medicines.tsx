@@ -6,8 +6,8 @@ import { MainLayout } from "layouts/MainLayout";
 import { innerLink } from "shared/types/InnerLink";
 
 import { MedicinesTable } from "domain/MedicinesTable";
-import { AddMedicineForm } from "domain/AddMedicineForm";
-import { RefillMedicinesStock } from "domain/RefillMedicinesStock";
+import { MedicineForm } from "domain/Forms/MedicineForm";
+import { RefillMedicinesStock } from "domain/Forms/RefillMedicinesStock";
 
 const innerLinks: innerLink[] = [
   {
@@ -31,7 +31,7 @@ export const Medicines = () => {
       <Route path="/" element={<MainLayout innerLinks={innerLinks} />}>
         <Route index element={<MedicinesTable />} />
         <Route path="/refillStock" element={<RefillMedicinesStock />} />
-        <Route path="/addMedicine" element={<AddMedicineForm />} />
+        <Route path="/addMedicine" element={<MedicineForm />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

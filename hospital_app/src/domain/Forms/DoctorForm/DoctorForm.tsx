@@ -23,7 +23,7 @@ const initialValues: ICreateDoctor = {
   birthDate: new Date(),
 };
 
-export const HireDoctorForm = () => {
+export const DoctorForm = () => {
   const [addDoctor, { error }] = useCreateDoctorMutation();
 
   const handleSubmit = async (

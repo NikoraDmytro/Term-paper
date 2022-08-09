@@ -28,7 +28,7 @@ const initialValues: ICreatePatient = {
   hospitalWardNumber: 0,
 };
 
-export const RegisterPatientForm = () => {
+export const PatientForm = () => {
   const [addPatient, { error }] = useCreatePatientMutation();
 
   const handleSubmit = async (
