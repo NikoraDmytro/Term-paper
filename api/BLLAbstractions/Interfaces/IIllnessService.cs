@@ -9,6 +9,8 @@ namespace BLLAbstractions.Interfaces
             GetAllIllnessesAsync(IllnessParameters parameters);
         Task<IllnessDto> GetIllnessAsync(string name);
         Task<IllnessDto> AddIllnessAsync(CreateIllnessDto illnessDto);
-        Task RemoveIllnessAsync(string fullName);
+        Task<IllnessDto> EditIllnessAsync(
+            string name, CreateIllnessDto newIllnessDto);
+        Task RemoveIllnessAsync(string name);
     }
 }

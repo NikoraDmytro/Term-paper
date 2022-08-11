@@ -86,6 +86,15 @@ namespace BLL.Services
             return addedIllness;
         }
 
+        public async Task<IllnessDto> EditIllnessAsync(
+            string name, CreateIllnessDto newIllnessDto)
+        {
+            await RemoveIllnessAsync(name);
+            var editedIllness = await AddIllnessAsync(newIllnessDto);
+
+            return editedIllness;
+        }
+
         public async Task RemoveIllnessAsync(string name)
         {
             //will throw error if doctor not exist

@@ -9,5 +9,7 @@ public interface IPatientService
         PatientParameters parameters);
     Task<PatientDto> GetPatientAsync(string fullName);
     Task<PatientDto> RegisterPatientAsync(CreatePatientDto patientToRegister);
+    Task<PatientDto> UpdatePatient(
+        string fullName, CreatePatientDto patientDto);
     Task DischargePatientAsync(string fullName);
 }

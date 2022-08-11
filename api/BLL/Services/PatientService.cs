@@ -134,6 +134,14 @@ namespace BLL.Services
             return registeredPatient;
         }
 
+        public async Task<PatientDto> UpdatePatient(string fullName, CreatePatientDto patientDto)
+        {
+            await DischargePatientAsync(fullName);
+            var updatedPatient = await RegisterPatientAsync(patientDto);
+
+            return updatedPatient;
+        }
+
         public async Task DischargePatientAsync(string fullName)
         {
             //will throw error if doctor not exist

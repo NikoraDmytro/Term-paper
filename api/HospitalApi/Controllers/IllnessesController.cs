@@ -58,5 +58,15 @@ namespace Api.Controllers
 
             return Ok($"{name} видалено з бази даних!");
         }
+
+        [HttpPut("{name}")]
+        public async Task<IActionResult> EditIllness(
+            string name, CreateIllnessDto newIllnessDto)
+        {
+            var editedIllness = await _illnessService
+                .EditIllnessAsync(name, newIllnessDto);
+
+            return Ok(editedIllness);
+        }
     }
 }

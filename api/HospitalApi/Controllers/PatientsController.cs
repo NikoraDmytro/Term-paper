@@ -48,6 +48,17 @@ namespace Api.Controllers
                 new { fullName = registeredPatient.FullName },
                 registeredPatient);
         }
+        
+        [HttpPut("{fullName}")]
+        public async Task<IActionResult> EditPatientData(
+            string fullName,
+            [FromBody] CreatePatientDto patientDto)
+        {
+            var editedPatient = await _patientService
+                .UpdatePatient(fullName, patientDto);
+
+            return Ok(editedPatient);
+        }
 
         [HttpDelete("{fullName}")]
         public async Task<IActionResult> DischargePatient(string fullName)

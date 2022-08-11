@@ -60,7 +60,7 @@ namespace Api.Controllers
         }
 
         [HttpPut("{fullName}")]
-        public async Task<IActionResult> UpdateDoctorData(
+        public async Task<IActionResult> EditDoctorData(
             string fullName,
             [FromBody] UpdateDoctorDto doctorDto)
         {
