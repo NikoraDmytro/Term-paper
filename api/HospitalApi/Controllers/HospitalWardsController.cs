@@ -1,5 +1,6 @@
 using Api.ActionFilters;
 using BLLAbstractions;
+using BLLAbstractions.Interfaces;
 using Core.DataTransferObjects.HospitalWard;
 using Core.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;

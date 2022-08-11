@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using CORE.Models;
 using DALAbstractions;
+using DALAbstractions.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories

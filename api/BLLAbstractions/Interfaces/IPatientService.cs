@@ -1,7 +1,7 @@
 using Core.DataTransferObjects.Patient;
 using Core.RequestFeatures;
 
-namespace BLLAbstractions;
+namespace BLLAbstractions.Interfaces;
 
 public interface IPatientService
 {

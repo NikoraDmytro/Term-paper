@@ -2,7 +2,7 @@ using Core.DataTransferObjects.Doctor;
 using Core.DataTransferObjects.HospitalUnit;
 using Core.RequestFeatures;
 
-namespace BLLAbstractions
+namespace BLLAbstractions.Interfaces
 {
     public interface IHospitalUnitService
     {

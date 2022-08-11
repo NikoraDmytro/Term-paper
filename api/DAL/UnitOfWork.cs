@@ -1,6 +1,6 @@
-using CORE.Models;
 using DALAbstractions;
 using DAL.Repositories;
+using DALAbstractions.Interfaces;
 
 namespace DAL
 {

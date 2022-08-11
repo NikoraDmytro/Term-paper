@@ -1,6 +1,7 @@
 using CORE.Models;
 using Core.RequestFeatures;
 using DALAbstractions;
+using DALAbstractions.Interfaces;
 
 namespace DAL.Repositories;
 

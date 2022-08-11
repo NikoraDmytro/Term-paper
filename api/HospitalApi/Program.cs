@@ -5,7 +5,8 @@ using Api.Helpers;
 using BLL.Profiles;
 using BLL.Services;
 using BLLAbstractions;
-using DALAbstractions;
+using BLLAbstractions.Interfaces;
+using DALAbstractions.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

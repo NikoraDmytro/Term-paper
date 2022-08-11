@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
-using Core.RequestFeatures;
 
-namespace DALAbstractions
+namespace DALAbstractions.Interfaces
 {
     public interface IPersonRepository<TPerson> : IGenericRepository<TPerson> where TPerson : class
     {

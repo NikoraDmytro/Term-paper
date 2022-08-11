@@ -1,6 +1,6 @@
 using CORE.Models;
 
-namespace DALAbstractions
+namespace DALAbstractions.Interfaces
 {
     public interface IHospitalUnitRepository : IGenericRepository<HospitalUnit>
     {

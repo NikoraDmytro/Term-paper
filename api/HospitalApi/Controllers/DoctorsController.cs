@@ -1,5 +1,5 @@
 using Api.ActionFilters;
-using BLLAbstractions;
+using BLLAbstractions.Interfaces;
 using Core.DataTransferObjects.Doctor;
 using Core.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
@@ -62,10 +62,9 @@ namespace Api.Controllers
         [HttpPut("{fullName}")]
         public async Task<IActionResult> UpdateDoctorData(
             string fullName,
-            [FromBody] UpdateDoctorExperienceDto experienceDto)
+            [FromBody] UpdateDoctorDto doctorDto)
         {
-            await _doctorService
-                .UpdateDoctorExperience(fullName, experienceDto);
+            await _doctorService.UpdateDoctor(fullName, doctorDto);
 
             return Ok($"Оновлено дані доктора {fullName}!");
         }

@@ -1,7 +1,7 @@
 using Core.DataTransferObjects.Doctor;
 using Core.RequestFeatures;
 
-namespace BLLAbstractions
+namespace BLLAbstractions.Interfaces
 {
     public interface IDoctorService
     {
@@ -10,8 +10,8 @@ namespace BLLAbstractions
         Task<DoctorDto> GetDoctorAsync(string fullName);
         Task<DoctorDto> HireDoctorAsync(CreateDoctorDto doctorToHireDto);
         Task FireDoctorAsync(string fullName);
-        Task UpdateDoctorExperience(
+        Task UpdateDoctor(
             string doctorFullName,
-            UpdateDoctorExperienceDto experienceDto);
+            UpdateDoctorDto experienceDto);
     }
 }

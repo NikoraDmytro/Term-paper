@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace DALAbstractions
+namespace DALAbstractions.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity: class
     {

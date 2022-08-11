@@ -1,7 +1,7 @@
 using CORE.Models;
 using Core.RequestFeatures;
 
-namespace DALAbstractions
+namespace DALAbstractions.Interfaces
 {
     public interface IPatientRepository : IPersonRepository<Patient>
     {

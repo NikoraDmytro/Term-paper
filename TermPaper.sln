@@ -1,16 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalApi", "HospitalApi\HospitalApi.csproj", "{C1126316-7A8E-46BF-86A2-B6655B567E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalApi", "Api\HospitalApi\HospitalApi.csproj", "{C1126316-7A8E-46BF-86A2-B6655B567E58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{8FE349B8-451F-4EB9-8464-B4FFB5F4E9A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Api\Core\Core.csproj", "{8FE349B8-451F-4EB9-8464-B4FFB5F4E9A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{1D7B0731-7721-4BBA-A77A-8DF3C7E29C64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "Api\DAL\DAL.csproj", "{1D7B0731-7721-4BBA-A77A-8DF3C7E29C64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALAbstractions", "DALAbstractions\DALAbstractions.csproj", "{A209517F-4FA9-4C45-811D-B4C520A56EBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALAbstractions", "Api\DALAbstractions\DALAbstractions.csproj", "{A209517F-4FA9-4C45-811D-B4C520A56EBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{F2C0120B-9265-44E4-B37D-872D61034674}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "Api\BLL\BLL.csproj", "{F2C0120B-9265-44E4-B37D-872D61034674}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLLAbstractions", "BLLAbstractions\BLLAbstractions.csproj", "{B941D8B1-095D-4034-A831-9CC20D6A5692}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLLAbstractions", "Api\BLLAbstractions\BLLAbstractions.csproj", "{B941D8B1-095D-4034-A831-9CC20D6A5692}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

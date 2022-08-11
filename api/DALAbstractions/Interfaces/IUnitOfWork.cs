@@ -1,4 +1,4 @@
-namespace DALAbstractions
+namespace DALAbstractions.Interfaces
 {
     public interface IUnitOfWork
     {

@@ -1,11 +1,11 @@
 using System.Data;
 using AutoMapper;
-using BLLAbstractions;
+using BLLAbstractions.Interfaces;
 using Core.DataTransferObjects.Illnesses;
 using Core.Exceptions;
 using CORE.Models;
 using Core.RequestFeatures;
-using DALAbstractions;
+using DALAbstractions.Interfaces;
 
 namespace BLL.Services
 {

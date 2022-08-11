@@ -1,10 +1,10 @@
 using System.Data;
 using AutoMapper;
-using BLLAbstractions;
+using BLLAbstractions.Interfaces;
 using Core.DataTransferObjects.Doctor;
 using CORE.Models;
 using Core.RequestFeatures;
-using DALAbstractions;
+using DALAbstractions.Interfaces;
 
 namespace BLL.Services
 {
@@ -96,9 +96,9 @@ namespace BLL.Services
             await UnitOfWork.SaveAsync();
         }
 
-        public async Task UpdateDoctorExperience(
+        public async Task UpdateDoctor(
             string doctorFullName,
-            UpdateDoctorExperienceDto experienceDto)
+            UpdateDoctorDto newDoctorDto)
         {
             var doctor = await UnitOfWork
                 .DoctorRepository
@@ -110,10 +110,23 @@ namespace BLL.Services
                     $"Лікаря з ФІО {doctorFullName} не знайдено!"
                 );
             }
-            
-            doctor.Experience = experienceDto.Experience ?? 0;
 
-            UnitOfWork.DoctorRepository.Update(doctor);
+            var newDoctor = Mapper.Map<Doctor>(newDoctorDto);
+            newDoctor.HospitalUnit = doctor.HospitalUnit;
+
+            var exists = await UnitOfWork
+                .DoctorRepository
+                .GetDoctorAsync(newDoctor.FullName);
+            
+            if (exists != null)
+            {
+                throw new DuplicateNameException(
+                    $"{newDoctor.FullName} вже працює у лікарні!"
+                );
+            }
+
+            UnitOfWork.DoctorRepository.Delete(doctor);
+            await UnitOfWork.DoctorRepository.InsertAsync(newDoctor);
             await UnitOfWork.SaveAsync();
         }
     }

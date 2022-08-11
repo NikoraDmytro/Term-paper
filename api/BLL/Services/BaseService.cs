@@ -1,5 +1,5 @@
 using AutoMapper;
-using DALAbstractions;
+using DALAbstractions.Interfaces;
 
 namespace BLL.Services
 {

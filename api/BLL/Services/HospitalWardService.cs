@@ -1,10 +1,11 @@
 using AutoMapper;
 using BLLAbstractions;
+using BLLAbstractions.Interfaces;
 using Core.DataTransferObjects.HospitalWard;
 using Core.DataTransferObjects.Patient;
 using CORE.Models;
 using Core.RequestFeatures;
-using DALAbstractions;
+using DALAbstractions.Interfaces;
 
 namespace BLL.Services;
 

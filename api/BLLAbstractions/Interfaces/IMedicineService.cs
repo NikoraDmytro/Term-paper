@@ -1,7 +1,7 @@
 using Core.DataTransferObjects.Medicine;
 using Core.RequestFeatures;
 
-namespace BLLAbstractions
+namespace BLLAbstractions.Interfaces
 {
     public interface IMedicineService
     {

@@ -1,5 +1,5 @@
 using Api.ActionFilters;
-using BLLAbstractions;
+using BLLAbstractions.Interfaces;
 using Core.DataTransferObjects.Patient;
 using Core.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
