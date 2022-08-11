@@ -3,7 +3,7 @@ import {
   BASE_URL,
   DOCTORS_ENDPOINT,
   HOSPITAL_UNITS_ENDPOINT,
-  HOSPITAL_WARDS_NUMBERS_ENDPOINT,
+  HOSPITAL_WARDS_ENDPOINT,
   ILLNESSES_ENDPOINT,
   MEDICINES_ENDPOINT,
 } from "constants/routes";
@@ -11,6 +11,7 @@ import {
 import { IDoctor } from "models/Doctor/IDoctor";
 import { IMedicine } from "models/Medicine/IMedicine";
 import { IHospitalUnit } from "models/HospitalUnit/IHospitalUnit";
+import { IHospitalWard } from "models/HospitalWard/IHospitalWard";
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -56,13 +57,14 @@ export const getDoctorsFullNames = async (
 };
 
 export const getWardsNumbers = async (search: string): Promise<string[]> => {
-  const response = await instance.get<{ hospitalWardsNumbers: number[] }>(
-    HOSPITAL_WARDS_NUMBERS_ENDPOINT + `?SearchTerm=${search}`
-  );
+  const response = await instance.get<{
+    hospitalWards: IHospitalWard[];
+  }>(HOSPITAL_WARDS_ENDPOINT + `?SearchTerm=${search}`);
 
-  const wardsNumbers = response.data.hospitalWardsNumbers.map((wardNumber) =>
-    wardNumber.toString()
+  const wardsNumbers = response.data.hospitalWards.map((ward) =>
+    ward.number.toString()
   );
+  console.log(wardsNumbers);
 
   return wardsNumbers;
 };

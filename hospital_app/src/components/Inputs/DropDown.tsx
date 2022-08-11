@@ -1,4 +1,4 @@
-import React, { FocusEvent, InputHTMLAttributes, useState } from "react";
+import React, { InputHTMLAttributes, useState } from "react";
 import classNames from "classnames";
 
 import styles from "./DropDown.module.scss";
@@ -11,16 +11,11 @@ export const DropDown = ({ children, ...props }: Props) => {
   const [active, setActive] = useState(false);
 
   const handleFocus = () => {
-    setActive(!active);
+    setActive(true);
   };
 
-  const handleBlur = (e: FocusEvent<HTMLDivElement>) => {
-    const target = e.relatedTarget;
-    const container = e.currentTarget;
-
-    if (!container.contains(target)) {
-      setActive(false);
-    }
+  const handleBlur = () => {
+    setActive(false);
   };
 
   const className = classNames({
@@ -31,13 +26,13 @@ export const DropDown = ({ children, ...props }: Props) => {
   return (
     <div
       tabIndex={5}
-      className={styles.dropDown}
-      onFocus={handleFocus}
       onBlur={handleBlur}
+      onFocus={handleFocus}
+      className={styles.dropDown}
     >
       <input autoComplete="off" {...props} />
 
-      <ul onFocus={() => setActive(false)} className={className}>
+      <ul onClick={handleBlur} className={className}>
         {children}
       </ul>
     </div>

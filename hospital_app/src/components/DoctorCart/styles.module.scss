@@ -1,3 +1,5 @@
+@use "shared/styles/base";
+
 .doctorCard {
   width: 370px;
   padding: 1em;
@@ -31,5 +33,39 @@
   strong {
     font-weight: 500;
     margin-right: 6px;
+  }
+}
+
+.buttonsContainer {
+  margin-top: 2em;
+}
+
+.cardBtn {
+  @include base.resetButton();
+  width: 50%;
+  padding: 1em;
+  font-size: 18px;
+  border-radius: 4px;
+
+  &:active {
+    opacity: 0.6;
+  }
+}
+
+.editBtn {
+  background-color: white;
+  border: 1px solid rgb(122, 122, 122);
+
+  &:hover {
+    background-color: rgb(227, 227, 227);
+  }
+}
+
+.deleteBtn {
+  color: white;
+  background-color: rgb(220, 25, 25);
+
+  &:hover {
+    background-color: rgb(180, 20, 20);
   }
 }

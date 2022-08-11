@@ -41,11 +41,11 @@ export const AsyncDropDownField = ({
         {!loading && data && data.length ? (
           data.map(renderOption)
         ) : (
-          <li>
+          <>
             {loading && <Loader small />}
             {error && <p style={{ color: "red" }}>{error}</p>}
             {!data?.length && <p>Нічого не знайдено!</p>}
-          </li>
+          </>
         )}
       </DropDown>
 

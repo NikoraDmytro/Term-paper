@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const TableRow = ({ medicine }: Props) => {
-  const [deleteMedicine, { isLoading, isError }] = useDeleteMedicineMutation();
+  const [deleteMedicine, { isLoading }] = useDeleteMedicineMutation();
 
   const handleClick = async (medicineName: string) => {
     const confirmation = window.confirm(
@@ -17,9 +17,9 @@ export const TableRow = ({ medicine }: Props) => {
     );
 
     if (confirmation) {
-      await deleteMedicine(medicineName);
+      const response = await deleteMedicine(medicineName);
 
-      if (isError) {
+      if ("error" in response) {
         window.alert(`Через помилку не вдалося вилучити ліки зі складу`);
       } else {
         window.alert(`${medicineName} більше не числитися на складі!`);
