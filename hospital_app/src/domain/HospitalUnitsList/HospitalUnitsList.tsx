@@ -17,11 +17,15 @@ export const HospitalUnitsList = () => {
 
       <ul className={styles.hospitalUnitsList}>
         {loading && <Loader />}
+
         {error && <h2 className={styles.errorMessage}>{error}</h2>}
+
         {data &&
           data.map((unitName) => (
             <li key={unitName}>
-              <Link to={unitName}>{unitName}</Link>
+              <Link to={unitName + "/wards?PageSize=5&PageNumber=1"}>
+                {unitName}
+              </Link>
             </li>
           ))}
       </ul>

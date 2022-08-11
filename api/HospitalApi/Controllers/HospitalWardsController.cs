@@ -18,17 +18,17 @@ namespace Api.Controllers
             _hospitalWardService = hospitalWardService;
         }
 
-        [HttpGet("/api/wardsNumbers")]
-        public async Task<IActionResult> GetAllHospitalWardsNumbers(
+        [HttpGet("/api/wards")]
+        public async Task<IActionResult> GetAllHospitalWards(
             [FromQuery] HospitalWardParameters parameters)
         {
-            var (pagesQuantity, hospitalWardsNumbers) = await _hospitalWardService
-                .GetAllWardsNumbersAsync(parameters);
+            var (pagesQuantity, hospitalWards) = await _hospitalWardService
+                .GetAllWardsAsync(parameters);
 
             return Ok(new
             {
                 pagesQuantity,
-                hospitalWardsNumbers
+                hospitalWards
             });
         }
 

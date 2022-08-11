@@ -29,16 +29,6 @@ public class HospitalWardService: BaseService, IHospitalWardService
         }
     }
 
-    public async Task<(int, IEnumerable<int>)> GetAllWardsNumbersAsync(
-        HospitalWardParameters parameters)
-    {
-        var (pagesQuantity, wardsNumbers) = await UnitOfWork
-            .HospitalWardRepository
-            .GetAllWardsNumbersAsync(parameters);
-        
-        return (pagesQuantity, wardsNumbers);
-    }
-
     public async Task<(int, IEnumerable<HospitalWardDto>)> GetAllWardsAsync(
         HospitalWardParameters parameters)
     {

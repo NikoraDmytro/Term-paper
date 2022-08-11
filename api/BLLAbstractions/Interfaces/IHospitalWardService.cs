@@ -6,8 +6,6 @@ namespace BLLAbstractions.Interfaces
 {
     public interface IHospitalWardService
     {
-        Task<(int, IEnumerable<int>)> GetAllWardsNumbersAsync(
-            HospitalWardParameters parameters);
         Task<(int, IEnumerable<HospitalWardDto>)> GetAllWardsAsync(
             HospitalWardParameters parameters);
         Task<HospitalWardDto> GetWardAsync(

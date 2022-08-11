@@ -1,12 +1,9 @@
 .doctorCard {
   width: 370px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 1px 1px 5px #0000007a, -1px -1px 5px #0000007a;
-}
-
-.cardInfoBlock {
   padding: 1em;
   line-height: 1.5;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 1px 5px #0000007a, -1px -1px 5px #0000007a;
 
   h2 {
     font-size: 21px;
@@ -35,12 +32,4 @@
     font-weight: 500;
     margin-right: 6px;
   }
-}
-
-.doctorImage {
-  width: 370px;
-  height: 370px;
-  object-fit: cover;
-  object-position: center;
-  background-color: beige;
 }

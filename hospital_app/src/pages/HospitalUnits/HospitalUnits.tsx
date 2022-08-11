@@ -5,7 +5,6 @@ import { MainLayout } from "layouts/MainLayout";
 
 import { NotFound } from "pages/NotFound";
 import { UnitWards } from "domain/PagedLists/UnitWards";
-import { UnitDoctors } from "domain/PagedLists/UnitDoctors";
 import { HospitalUnitsList } from "domain/HospitalUnitsList";
 import { HospitalUnitInfo } from "domain/HospitalUnitInfo/HospitalUnitInfo";
 
@@ -16,7 +15,6 @@ export const HospitalUnits = () => {
         <Route index element={<HospitalUnitsList />} />
 
         <Route path=":unitName" element={<HospitalUnitInfo />}>
-          <Route path="doctors" element={<UnitDoctors />} />
           <Route path="wards" element={<UnitWards />} />
         </Route>
       </Route>

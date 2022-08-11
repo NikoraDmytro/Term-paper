@@ -10,7 +10,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 export const DropDown = ({ children, ...props }: Props) => {
   const [active, setActive] = useState(false);
 
-  const onClick = () => {
+  const handleFocus = () => {
     setActive(!active);
   };
 
@@ -32,7 +32,7 @@ export const DropDown = ({ children, ...props }: Props) => {
     <div
       tabIndex={5}
       className={styles.dropDown}
-      onClick={onClick}
+      onFocus={handleFocus}
       onBlur={handleBlur}
     >
       <input autoComplete="off" {...props} />
