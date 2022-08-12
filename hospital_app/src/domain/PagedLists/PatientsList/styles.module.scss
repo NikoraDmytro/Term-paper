@@ -6,32 +6,3 @@
   list-style-type: none;
   justify-content: center;
 }
-
-.patientCard {
-  width: 500px;
-  padding: 1.5em;
-  background-color: white;
-  box-shadow: 1px 1px 5px #0000007a, -1px -1px 5px #0000007a;
-}
-
-.patientName {
-  font-weight: 500;
-}
-
-.block {
-  display: flex;
-  font-size: 20px;
-  text-align: end;
-  line-height: 1.5;
-  margin-left: 0.5em;
-  margin-block: 1.5em;
-  justify-content: space-between;
-
-  > span:first-child {
-    white-space: nowrap;
-  }
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-}

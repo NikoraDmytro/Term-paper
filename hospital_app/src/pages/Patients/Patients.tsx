@@ -10,9 +10,9 @@ import { PatientForm } from "domain/Forms/PatientForm";
 
 const innerLinks: innerLink[] = [
   {
-    text: "Хворі",
+    text: "Пацієнти",
     to: "/patients",
-    searchParams: "?PageSize=5&PageNumber=1",
+    searchParams: "?PageSize=6&PageNumber=1",
   },
   {
     to: "addPatient",
@@ -26,6 +26,7 @@ export const Patients = () => {
       <Route path="/" element={<MainLayout innerLinks={innerLinks} />}>
         <Route index element={<PatientsList />} />
         <Route path="addPatient" element={<PatientForm />} />
+        <Route path="addPatient/:patientFullName" element={<PatientForm />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

@@ -29,10 +29,25 @@ export const patientsApi = hospitalApi.injectEndpoints({
         providesTags: ["Patients"],
       }
     ),
+    getPatient: builder.query<IPatient, string>({
+      query: (fullName) => ENDPOINT + fullName,
+    }),
     createPatient: builder.mutation<void, ICreatePatient>({
       query: (patient) => ({
         url: ENDPOINT,
         method: "POST",
+        body: patient,
+      }),
+
+      invalidatesTags: ["Patients"],
+    }),
+    updatePatient: builder.mutation<
+      void,
+      { fullName: string; patient: ICreatePatient }
+    >({
+      query: ({ fullName, patient }) => ({
+        url: ENDPOINT + fullName,
+        method: "PUT",
         body: patient,
       }),
 
@@ -50,7 +65,9 @@ export const patientsApi = hospitalApi.injectEndpoints({
 });
 
 export const {
+  useGetPatientQuery,
   useGetAllPatientsQuery,
   useCreatePatientMutation,
+  useUpdatePatientMutation,
   useDeletePatientMutation,
 } = patientsApi;

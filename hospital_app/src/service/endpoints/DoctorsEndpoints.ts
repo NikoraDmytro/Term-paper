@@ -3,6 +3,7 @@ import { IDoctor } from "models/Doctor/IDoctor";
 import { IPagedList } from "models/IPagedList";
 import { hospitalApi } from "service/HospitalService";
 import { ICreateDoctor } from "models/Doctor/ICreateDoctor";
+import { ISingleDoctor } from "models/Doctor/ISingleDoctor";
 
 type GetDoctorsResponse = {
   pagesQuantity: number;
@@ -27,6 +28,9 @@ export const doctorsApi = hospitalApi.injectEndpoints({
 
       providesTags: ["Doctors"],
     }),
+    getDoctor: builder.query<ISingleDoctor, string>({
+      query: (fullName) => ENDPOINT + fullName,
+    }),
     createDoctor: builder.mutation<void, ICreateDoctor>({
       query: (doctor) => ({
         url: ENDPOINT,
@@ -42,12 +46,13 @@ export const doctorsApi = hospitalApi.injectEndpoints({
         method: "DELETE",
       }),
 
-      invalidatesTags: ["Medicine"],
+      invalidatesTags: ["Doctors"],
     }),
   }),
 });
 
 export const {
+  useGetDoctorQuery,
   useGetAllDoctorsQuery,
   useCreateDoctorMutation,
   useDeleteDoctorMutation,

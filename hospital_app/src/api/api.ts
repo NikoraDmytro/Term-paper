@@ -64,7 +64,6 @@ export const getWardsNumbers = async (search: string): Promise<string[]> => {
   const wardsNumbers = response.data.hospitalWards.map((ward) =>
     ward.number.toString()
   );
-  console.log(wardsNumbers);
 
   return wardsNumbers;
 };

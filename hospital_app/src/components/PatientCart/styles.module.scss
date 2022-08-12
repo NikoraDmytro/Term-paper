@@ -1,0 +1,60 @@
+@use "shared/styles/components";
+
+.patientCard {
+  width: 400px;
+  padding: 1.5em;
+  background-color: white;
+  box-shadow: 1px 1px 5px #0000007a, -1px -1px 5px #0000007a;
+}
+
+.illnessLink {
+  padding: 0.5em;
+  font-size: 18px;
+  color: #0000ee;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.block {
+  width: 50%;
+  line-height: 1.5;
+  margin-block: 0.5em;
+  display: inline-block;
+
+  p {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 0.25em;
+  }
+
+  span {
+    font-size: 18px;
+    margin-left: 0.25em;
+  }
+}
+
+.lastBlock {
+  @extend .block;
+  width: fit-content;
+
+  span {
+    font-size: 20px;
+    margin-left: 0.25em;
+  }
+}
+
+.buttonsRow {
+  gap: 0.5em;
+  width: 100%;
+  display: flex;
+  margin-top: 1.5em;
+  justify-content: flex-end;
+}
+
+.patientName {
+  font-size: 28px;
+  font-weight: 500;
+}

@@ -65,7 +65,7 @@ namespace Api.Controllers
         {
             await _patientService.DischargePatientAsync(fullName);
 
-            return Ok($"Пацієнта {fullName} виписано з лікарні!");
+            return NoContent();
         }
     }
 }

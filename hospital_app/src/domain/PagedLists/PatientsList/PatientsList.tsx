@@ -9,6 +9,7 @@ import { useGetAllPatientsQuery } from "service/endpoints/PatientsEndpoints";
 import { PagedListWrapper } from "components/PagedListWrapper";
 
 import styles from "./styles.module.scss";
+import { PatientCart } from "./../../../components/PatientCart/PatientCart";
 
 export const PatientsList = () => {
   const [searchParams] = useSearchParams();
@@ -30,30 +31,7 @@ export const PatientsList = () => {
         <ul className={styles.patientsList}>
           {data.items.map((patient) => (
             <li key={patient.fullName}>
-              <div className={styles.patientCard}>
-                <h1 className={styles.patientName}>{patient.fullName}</h1>
-
-                <div className={styles.block}>
-                  <span>Вік: {patient.age}</span>
-
-                  <span>
-                    Дата реєстрації:{" "}
-                    {new Date(patient.dateOfAdmission).toLocaleDateString()}
-                  </span>
-                </div>
-
-                <div className={styles.block}>
-                  <span>Діагноз: {patient.diagnosis}</span>
-
-                  <span>Палата: №{patient.hospitalWardNumber}</span>
-                </div>
-
-                <div className={styles.block}>
-                  <span>Персональний лікар:</span>
-
-                  <span>{patient.attendingDoctor}</span>
-                </div>
-              </div>
+              <PatientCart patient={patient} />
             </li>
           ))}
         </ul>

@@ -79,7 +79,7 @@ namespace DAL.Repositories
         {
             var doctor = await GetByNameAsync(
                 fullName,
-                "HospitalUnit");
+                "HospitalUnit,Patients");
 
             return doctor;
         }

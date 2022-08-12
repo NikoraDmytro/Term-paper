@@ -1,7 +1,9 @@
 using System.Data;
 using AutoMapper;
+using AutoMapper.Internal;
 using BLLAbstractions.Interfaces;
 using Core.DataTransferObjects.Doctor;
+using Core.Exceptions;
 using CORE.Models;
 using Core.RequestFeatures;
 using DALAbstractions.Interfaces;
@@ -27,7 +29,7 @@ namespace BLL.Services
             return (pagesQuantity, doctorsDto);
         }
 
-        public async Task<DoctorDto> GetDoctorAsync(string fullName)
+        public async Task<SingleDoctorDto> GetDoctorAsync(string fullName)
         {
             var doctor = await UnitOfWork
                 .DoctorRepository
@@ -39,7 +41,7 @@ namespace BLL.Services
                     $"Лікаря з ФІО {fullName} не знайдено!");
             }
             
-            var doctorDto = Mapper.Map<DoctorDto>(doctor);
+            var doctorDto = Mapper.Map<SingleDoctorDto>(doctor);
             
             return doctorDto;
         }
@@ -87,46 +89,17 @@ namespace BLL.Services
         public async Task FireDoctorAsync(string fullName)
         {
             //will throw error if doctor not exist
-            await GetDoctorAsync(fullName);
+            var doctor = await GetDoctorAsync(fullName);
+
+            if (doctor.Patients.Count != 0)
+            {
+                throw new AppException($"Не можна звільнити лікаря! Він лікує {doctor.Patients.Count} пацієнтів!");
+            }
             
             await UnitOfWork
                 .DoctorRepository
                 .DeleteDoctorAsync(fullName);
             
-            await UnitOfWork.SaveAsync();
-        }
-
-        public async Task UpdateDoctor(
-            string doctorFullName,
-            UpdateDoctorDto newDoctorDto)
-        {
-            var doctor = await UnitOfWork
-                .DoctorRepository
-                .GetDoctorAsync(doctorFullName);
-
-            if (doctor == null)
-            {
-                throw new KeyNotFoundException(
-                    $"Лікаря з ФІО {doctorFullName} не знайдено!"
-                );
-            }
-
-            var newDoctor = Mapper.Map<Doctor>(newDoctorDto);
-            newDoctor.HospitalUnit = doctor.HospitalUnit;
-
-            var exists = await UnitOfWork
-                .DoctorRepository
-                .GetDoctorAsync(newDoctor.FullName);
-            
-            if (exists != null)
-            {
-                throw new DuplicateNameException(
-                    $"{newDoctor.FullName} вже працює у лікарні!"
-                );
-            }
-
-            UnitOfWork.DoctorRepository.Delete(doctor);
-            await UnitOfWork.DoctorRepository.InsertAsync(newDoctor);
             await UnitOfWork.SaveAsync();
         }
     }

@@ -56,17 +56,7 @@ namespace Api.Controllers
         {
             await _doctorService.FireDoctorAsync(fullName);
 
-            return Ok($"Звільнено лікаря {fullName}");
-        }
-
-        [HttpPut("{fullName}")]
-        public async Task<IActionResult> EditDoctorData(
-            string fullName,
-            [FromBody] UpdateDoctorDto doctorDto)
-        {
-            await _doctorService.UpdateDoctor(fullName, doctorDto);
-
-            return Ok($"Оновлено дані доктора {fullName}!");
+            return NoContent();
         }
     }
 }

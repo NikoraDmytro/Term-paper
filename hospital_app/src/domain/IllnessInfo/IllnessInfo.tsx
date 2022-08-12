@@ -61,7 +61,7 @@ export const IllnessInfo = () => {
             <TreatmentTable medicines={data.treatments} />
           </section>
 
-          <button onClick={handleDelete} className={styles.deleteItemBtn}>
+          <button onClick={handleDelete} className={styles.deleteIllnessBtn}>
             {!isDeleting ? "Видалити" : <Loader small />}
           </button>
         </>

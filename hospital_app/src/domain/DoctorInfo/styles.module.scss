@@ -1,0 +1,30 @@
+@use "shared/styles/components";
+
+.doctorName {
+  margin-top: 1em;
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-left: 0.5em;
+}
+
+.doctorProfession {
+  font-size: 22px;
+  font-weight: 300;
+  margin-left: 1.5em;
+  margin-top: 0.25em;
+}
+
+.patientsList {
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  list-style-type: none;
+}
+
+.noContent {
+  font-size: 48px;
+  font-weight: 500;
+  text-align: center;
+}

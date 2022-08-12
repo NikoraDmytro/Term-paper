@@ -6,6 +6,7 @@ import { innerLink } from "shared/types/InnerLink";
 
 import { NotFound } from "pages/NotFound";
 import { DoctorForm } from "domain/Forms/DoctorForm";
+import { DoctorInfo } from "domain/DoctorInfo/DoctorInfo";
 import { DoctorsList } from "domain/PagedLists/DoctorsList";
 
 const innerLinks: innerLink[] = [
@@ -25,6 +26,7 @@ export const Doctors = () => {
     <Routes>
       <Route path="/" element={<MainLayout innerLinks={innerLinks} />}>
         <Route index element={<DoctorsList />} />
+        <Route path=":doctorFullName" element={<DoctorInfo />} />
         <Route path="hireDoctor" element={<DoctorForm />} />
       </Route>
 

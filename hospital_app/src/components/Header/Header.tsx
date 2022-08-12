@@ -34,7 +34,7 @@ export const Header = () => {
         <ul>
           <NavBarLink href="hospitalUnits" text="Відділення" />
           <NavBarLink href="doctors?PageSize=6&PageNumber=1" text="Лікарі" />
-          <NavBarLink href="patients?PageSize=5&PageNumber=1" text="Пацієнти" />
+          <NavBarLink href="patients?PageSize=6&PageNumber=1" text="Пацієнти" />
           <NavBarLink
             href="medicines?PageSize=10&PageNumber=1"
             text="Склад медикаментів"

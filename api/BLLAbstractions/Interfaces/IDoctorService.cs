@@ -7,11 +7,8 @@ namespace BLLAbstractions.Interfaces
     {
         Task<(int, IEnumerable<DoctorDto>)> GetAllDoctorsAsync(
             DoctorParameters parameters);
-        Task<DoctorDto> GetDoctorAsync(string fullName);
+        Task<SingleDoctorDto> GetDoctorAsync(string fullName);
         Task<DoctorDto> HireDoctorAsync(CreateDoctorDto doctorToHireDto);
         Task FireDoctorAsync(string fullName);
-        Task UpdateDoctor(
-            string doctorFullName,
-            UpdateDoctorDto experienceDto);
     }
 }

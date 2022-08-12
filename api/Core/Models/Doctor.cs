@@ -15,7 +15,9 @@ namespace CORE.Models
         public string? HospitalUnitName { get; set; }
 
         public HospitalUnit? HospitalUnit { get; set; }
-        
+
+        public List<Patient> Patients { get; set; } = new List<Patient>();
+
         [NotMapped]
         public string? Profession { get; set; }
     }
