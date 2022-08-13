@@ -2,7 +2,7 @@ using CORE.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DAL.ModelsConfiguration
+namespace Core.ModelsConfiguration
 {
     public class TreatmentsConfiguration : IEntityTypeConfiguration<Treatment>
     {
@@ -56,15 +56,15 @@ namespace DAL.ModelsConfiguration
                 new
                 {
                     Id = 7,
-                    IllnessName = "Димедрол",
-                    MedicineName = "Ліки №1",
+                    IllnessName = "Хвороба №5",
+                    MedicineName = "Димедрол",
                     MedicineQuantity = (byte)1,
                 },
                 new
                 {
                     Id = 8,
                     IllnessName = "Хвороба №5",
-                    MedicineName = "Глюкоза (по 200мл",
+                    MedicineName = "Глюкоза (по 200мл)",
                     MedicineQuantity = (byte)3,
                 },
                 new

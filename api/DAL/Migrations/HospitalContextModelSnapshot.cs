@@ -675,6 +675,20 @@ namespace DAL.Migrations
                             DosageForm = "150 мг",
                             QuantityInStock = (short)497,
                             UnitOfMeasure = "таб."
+                        },
+                        new
+                        {
+                            Name = "ХНУРЕ",
+                            DosageForm = "1,5 годинні заняття",
+                            QuantityInStock = (short)200,
+                            UnitOfMeasure = "пари"
+                        },
+                        new
+                        {
+                            Name = "ХНУРЕ v2",
+                            DosageForm = "1,5 годинні заняття",
+                            QuantityInStock = (short)100,
+                            UnitOfMeasure = "пари"
                         });
                 });
 
@@ -797,15 +811,15 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 7,
-                            IllnessName = "Димедрол",
-                            MedicineName = "Ліки №1",
+                            IllnessName = "Хвороба №5",
+                            MedicineName = "Димедрол",
                             MedicineQuantity = (byte)1
                         },
                         new
                         {
                             Id = 8,
                             IllnessName = "Хвороба №5",
-                            MedicineName = "Глюкоза (по 200мл",
+                            MedicineName = "Глюкоза (по 200мл)",
                             MedicineQuantity = (byte)3
                         },
                         new
@@ -914,7 +928,7 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("CORE.Models.Doctor", "AttendingDoctor")
-                        .WithMany()
+                        .WithMany("Patients")
                         .HasForeignKey("AttendingDoctorSurname", "AttendingDoctorName", "AttendingDoctorPatronymic");
 
                     b.Navigation("AttendingDoctor");
@@ -941,6 +955,11 @@ namespace DAL.Migrations
                     b.Navigation("Illness");
 
                     b.Navigation("Medicine");
+                });
+
+            modelBuilder.Entity("CORE.Models.Doctor", b =>
+                {
+                    b.Navigation("Patients");
                 });
 
             modelBuilder.Entity("CORE.Models.HospitalUnit", b =>

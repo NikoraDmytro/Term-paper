@@ -2,7 +2,7 @@ using CORE.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DAL.ModelsConfiguration
+namespace Core.ModelsConfiguration
 {
     public class HospitalUnitsConfiguration : IEntityTypeConfiguration<HospitalUnit>
     {
